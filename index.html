@@ -235,8 +235,6 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 </section>
 
 <script src="questions.js"></script>
-<script src="season4.js"></script>
-<script src="unlock.js"></script>
 <script>
 /* ───────── state (in memory only, nothing is saved) ───────── */
 const results = {};
@@ -270,13 +268,7 @@ function openRounds(){ show('home'); setColor('#ff3d8b'); renderHome(); window.s
 function renderHome(){
   const tabs = SEASONS.map((s,k) =>
     `<button class="tab ${k===curSeason?'on':''}" onclick="curSeason=${k};renderHome();window.scrollTo(0,0)">${ROMAN[k+1]}</button>`);
-  if (!s4Open) tabs.push(`<button class="tab ${curSeason===-1?'on':''}" onclick="curSeason=-1;renderHome();window.scrollTo(0,0)">IV 🔒</button>`);
   $('tabs').innerHTML = tabs.join('');
-  if (curSeason === -1){
-    $('seasons').innerHTML = `<div class="s4lock"><div class="lk">🔒</div><h2 class="display">Season IV</h2>
-      <p>Still a secret. It unlocks here after the show.</p></div>`;
-    return;
-  }
   const s = SEASONS[curSeason];
   $('seasons').innerHTML = `
     <div class="sea-h"><h2 class="display">${esc(s.label)}</h2>
@@ -456,26 +448,7 @@ function stopAll(){ for (const k in players){ try { players[k].destroy(); } catc
 window.onYouTubeIframeAPIReady = () => { ytApiReady = true; ytQueue.splice(0).forEach(f => f()); };
 (function(){ const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s); })();
 
-/* ───────── Season IV unlock ───────── */
-async function unlockSeason4(pw){
-  if (!pw || typeof SEASON_IV_LOCKED === 'undefined' || !window.crypto?.subtle) return false;
-  try {
-    const b = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-    const L = SEASON_IV_LOCKED, enc = new TextEncoder();
-    const base = await crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveKey']);
-    const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt:b(L.salt), iterations:L.iter, hash:'SHA-256'},
-      base, {name:'AES-GCM', length:256}, false, ['decrypt']);
-    const plain = await crypto.subtle.decrypt({name:'AES-GCM', iv:b(L.iv)}, key, b(L.data));
-    const s4 = JSON.parse(new TextDecoder().decode(plain));
-    paint(s4); SEASONS.push(s4); s4Open = true; return true;
-  } catch(e){ return false; }
-}
 updateWelcome();
-(async () => {
-  const fromHash = (location.hash.match(/unlock=([^&]+)/) || [])[1];
-  const pw = (typeof SEASON_IV_PASSWORD !== 'undefined' && SEASON_IV_PASSWORD) || (fromHash && decodeURIComponent(fromHash));
-  if (await unlockSeason4(pw)) { updateWelcome(); if ($('home').classList.contains('on')) renderHome(); }
-})();
 </script>
 </body>
 </html>
