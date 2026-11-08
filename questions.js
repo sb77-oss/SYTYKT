@@ -10,7 +10,7 @@ const SEASONS = [
    {
     "id": "s1-warmup",
     "name": "WARM UP",
-    "subname": "Baby animals",
+    "subname": "Name the bebes",
     "format": "Name the baby.",
     "bonus": false,
     "color": "#ff6eb4",
@@ -156,7 +156,7 @@ const SEASONS = [
    {
     "id": "s1-chronicallyonline",
     "name": "CHRONICALLY ONLINE",
-    "subname": "",
+    "subname": "The internet and online culture",
     "format": "Memes, viral moments, and the corners of the internet you wish you could forget.",
     "bonus": false,
     "color": "#22c55e",
@@ -236,7 +236,7 @@ const SEASONS = [
    {
     "id": "s1-currentevents",
     "name": "THIS MONTH'S HEADLINES",
-    "subname": "May 2026",
+    "subname": "News in 2026",
     "format": "What was in the news around the Season 1 show.",
     "bonus": false,
     "color": "#f97316",
@@ -348,7 +348,7 @@ const SEASONS = [
    {
     "id": "s2-warmup",
     "name": "NAME THAT TUNE",
-    "subname": "REDEMPTION ARC",
+    "subname": "Play each song for 5 seconds",
     "format": "Five songs, five comebacks. Play the clip and name it.",
     "bonus": false,
     "color": "#ff6eb4",
@@ -488,7 +488,7 @@ const SEASONS = [
    {
     "id": "s2-around",
     "name": "THE A ROUND",
-    "subname": "Every question. Every answer. Starts with A.",
+    "subname": "Every answer starts with A",
     "format": "",
     "bonus": false,
     "color": "#f59e0b",
@@ -609,7 +609,7 @@ const SEASONS = [
    {
     "id": "s2-telaviv",
     "name": "LOCAL EXPERT",
-    "subname": "TEL AVIV",
+    "subname": "How well do you know Tel Aviv?",
     "format": "Five questions about the city we all ended up in.",
     "bonus": false,
     "color": "#22c55e",
@@ -812,7 +812,7 @@ const SEASONS = [
    {
     "id": "s2-whathappenednext",
     "name": "WHAT HAPPENED NEXT?",
-    "subname": "",
+    "subname": "It's scandal time",
     "format": "Each slide shows a moment right before everything went wrong. Write what happened next.",
     "bonus": false,
     "color": "#dc2626",
@@ -934,7 +934,7 @@ const SEASONS = [
    {
     "id": "s2-oops",
     "name": "OOPS, THEIR BAD",
-    "subname": "",
+    "subname": "More scandals please",
     "format": "The most spectacular self-inflicted disasters in recent memory. All multiple choice.",
     "bonus": false,
     "color": "#ef4444",
@@ -1044,7 +1044,7 @@ const SEASONS = [
    {
     "id": "s2-beforefamous",
     "name": "BEFORE THEY WERE FAMOUS",
-    "subname": "",
+    "subname": "Time to shed light on past lives",
     "format": "A photo or a clip. Write the name of who it was before the world knew who they were.",
     "bonus": false,
     "color": "#a855f7",
@@ -1249,7 +1249,7 @@ const SEASONS = [
    {
     "id": "s2-pride",
     "name": "THE PRIDE ROUND",
-    "subname": "",
+    "subname": "We still expect straight answers",
     "format": "Five questions. No straight answers accepted.",
     "bonus": false,
     "color": "#ec4899",
@@ -1359,7 +1359,7 @@ const SEASONS = [
    {
     "id": "s2-geography",
     "name": "GEOGRAPHY",
-    "subname": "BUT MAKE IT FUN",
+    "subname": "How well do you know your planet?",
     "format": "Geography questions that will make you feel things. One of them is about where you're sitting right now.",
     "bonus": false,
     "color": "#10b981",
@@ -1474,7 +1474,7 @@ const SEASONS = [
    {
     "id": "s2-currentevents",
     "name": "CURRENT EVENTS",
-    "subname": "June 2026",
+    "subname": "News in 2026",
     "format": "What was in the news around the Season 2 show.",
     "bonus": false,
     "color": "#8b5cf6",
@@ -1638,7 +1638,7 @@ const SEASONS = [
    {
     "id": "s3-warmup",
     "name": "NAME THAT TUNE",
-    "subname": "TV opening credits",
+    "subname": "Play each song for 5 seconds",
     "format": "Play the clip. Name the show.",
     "bonus": false,
     "color": "#ff6eb4",
@@ -1998,7 +1998,7 @@ const SEASONS = [
    {
     "id": "s3-justsayknow",
     "name": "JUST SAY KNOW",
-    "subname": "Recreational drugs",
+    "subname": "Safety first, friends",
     "format": "History and science of drugs. Five questions. This crowd will enjoy this round.",
     "bonus": false,
     "color": "#f97316",
@@ -2681,7 +2681,7 @@ const SEASONS = [
    {
     "id": "s3-currentevents",
     "name": "CURRENT EVENTS",
-    "subname": "July 2026",
+    "subname": "News in 2026",
     "format": "What was in the news around the Season 3 show.",
     "bonus": false,
     "color": "#10b981",
