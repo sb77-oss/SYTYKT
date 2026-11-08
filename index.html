@@ -3,186 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0b0f">
+<meta name="theme-color" content="#08080b">
 <title>SO YOU THINK YOU KNOW THINGS · The Archive</title>
-<meta name="description" content="Play Seasons I to III of So You Think You Know Things on your phone.">
+<meta name="description" content="Play past seasons of So You Think You Know Things on your phone.">
 <style>
-@font-face{font-family:'Syne';font-weight:700;font-display:swap;src:url(fonts/syne-latin-700-normal.woff2) format('woff2')}
-@font-face{font-family:'Syne';font-weight:800;font-display:swap;src:url(fonts/syne-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-weight:700;font-display:swap;src:url(fonts/inter-tight-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-weight:800;font-display:swap;src:url(fonts/inter-tight-latin-800-normal.woff2) format('woff2')}
 @font-face{font-family:'DM Sans';font-weight:400;font-display:swap;src:url(fonts/dm-sans-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'DM Sans';font-weight:500;font-display:swap;src:url(fonts/dm-sans-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'DM Sans';font-weight:700;font-display:swap;src:url(fonts/dm-sans-latin-700-normal.woff2) format('woff2')}
+
+/* ═══ Same system as the live quiz: Sleek Stage + Glass layer ═══ */
 :root{
-  --bg:#0b0b0f;--surface:#14141c;--surface2:#1c1c27;--border:#262634;
-  --green:#22c55e;--red:#ef4444;--amber:#f59e0b;
-  --text:#f2f2f7;--muted:#9090b0;--dim:#5a5a72;
-  --brand:'Syne',system-ui,sans-serif;--ui:'DM Sans',system-ui,-apple-system,sans-serif;
-  --c:#a855f7;
+  --bg:#08080b; --pink:#ff3d8b; --cyan:#5de6ff; --red:#ff5a6e;
+  --text:#fff; --muted:#b4b4c8; --dim:#6d6d80;
+  --glass:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+  --glass-b:rgba(255,255,255,.16);
+  --d:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --b:'DM Sans','Helvetica Neue',Arial,sans-serif;
+  --c:#ff3d8b;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--bg);color:var(--text);font-family:var(--ui);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
-body{min-height:100dvh}
+html,body{background:var(--bg);color:var(--text);font-family:var(--b);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+body{min-height:100dvh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:-12vw;pointer-events:none;z-index:0;animation:drift 22s ease-in-out infinite;background:
+  radial-gradient(70vw 70vw at 8% 10%,rgba(255,61,139,.40),transparent 70%),
+  radial-gradient(65vw 65vw at 96% 20%,rgba(110,80,255,.36),transparent 70%),
+  radial-gradient(80vw 55vw at 60% 104%,rgba(120,60,255,.28),transparent 70%),
+  radial-gradient(55vw 55vw at 0% 96%,rgba(255,70,140,.20),transparent 70%)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+@keyframes drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3vw,-2vh,0)}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-align:inherit}
-.wrap{max-width:520px;margin:0 auto;padding:16px 20px 120px}
-.screen{display:none}.screen.on{display:block;animation:fade .25s ease}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.screen{display:none;position:relative;z-index:1}.screen.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.wrap{max-width:520px;margin:0 auto;padding:16px 20px 130px}
+.glass{background:var(--glass);border:1px solid var(--glass-b);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 18px 40px -20px rgba(0,0,0,.7);
+  -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5)}
+.track{font-family:var(--b);font-weight:500;font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+.display{font-family:var(--d);font-weight:800;text-transform:uppercase;letter-spacing:-.035em;line-height:.92}
+.pill{display:block;width:100%;padding:16px 20px;border-radius:999px;font-family:var(--d);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.pill:active{transform:scale(.98)}
+.pill.white{background:#fff;color:var(--bg)}
+.pill.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
+.pill.cyan{background:var(--cyan);color:var(--bg)}
+.credit{text-align:center;color:rgba(255,255,255,.4);font-size:11px;letter-spacing:.3em}
 
-/* top bar */
-.bar{position:sticky;top:0;z-index:5;background:rgba(11,11,15,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding-top:env(safe-area-inset-top)}
+/* ── welcome: the quiz's title screen, for a phone ── */
+.welcome{min-height:100dvh;max-width:520px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:calc(30px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom))}
+.w-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.w-mast{color:rgba(255,255,255,.5);letter-spacing:.45em}
+.welcome h1{font-size:clamp(46px,15vw,72px);margin-top:18px;animation:rise .9s cubic-bezier(.2,.7,.2,1) .1s both}
+@keyframes rise{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.w-season{color:var(--pink);letter-spacing:.55em;margin-top:18px;font-size:12px;padding-left:.55em}
+.w-rule{width:140px;height:3px;border-radius:2px;margin:22px 0 0;background:linear-gradient(90deg,#ff468c,#c04fd8 55%,#8f6dff)}
+.w-count{margin-top:20px;color:var(--muted);font-size:15px}
+.w-actions{width:100%;display:grid;gap:10px}
+.w-actions .credit{margin-top:16px}
+
+/* ── top bar ── */
+.bar{position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top);background:rgba(8,8,11,.55);-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.08)}
 .bar .in{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 20px}
-.bar .t{flex:1;min-width:0;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar .score{font-weight:700;font-size:14px;color:var(--c);font-variant-numeric:tabular-nums}
-.icon{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);font-size:16px}
+.bar .t{flex:1;min-width:0;font-family:var(--d);font-weight:800;font-size:15px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .score{font-family:var(--d);font-weight:800;font-size:15px;color:var(--c);font-variant-numeric:tabular-nums}
+.icon{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);font-size:15px}
 
-/* home */
-.hero{padding:calc(36px + env(safe-area-inset-top)) 0 26px}
-.hero h1{font-family:var(--brand);font-weight:800;font-size:clamp(24px,7.4vw,36px);line-height:1.02;letter-spacing:-.01em;margin:12px 0 14px}
-.hero h1 span{background:linear-gradient(90deg,#ff6eb4,#a855f7 55%,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);font-size:15px;max-width:34ch}
-.big{display:block;width:100%;padding:16px;border-radius:14px;font-weight:700;font-size:16px;text-align:center}
-.big:active{transform:scale(.98)}
-.big.primary{background:var(--text);color:var(--bg)}
-.sea{margin-top:34px}
-.sea-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;padding:0 2px}
-.sea-h h2{font-size:20px;font-weight:700}
-.sea-h small{font-size:13px;color:var(--muted)}
-.list{border-radius:16px;background:var(--surface);border:1px solid var(--border);overflow:hidden}
-.row{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border-top:1px solid var(--border)}
-.row:first-child{border-top:0}
-.row:active{background:var(--surface2)}
-.row .dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--rc)}
-.row .txt{flex:1;min-width:0}
-.row .n{font-weight:700;font-size:15px;line-height:1.25}
-.row .s{font-size:13px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row .st{flex:none;font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums}
-.row.done .st{color:var(--rc);font-weight:700}
-.row .chev{flex:none;color:var(--dim);font-size:18px;margin-left:-4px}
-.credit{text-align:center;color:var(--dim);font-size:12px;margin-top:40px;letter-spacing:.14em;text-transform:uppercase}
-
-
-/* welcome */
-.welcome{min-height:100dvh;max-width:520px;margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;padding:calc(48px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom))}
-.w-top{margin-top:2vh}
-.welcome h1{font-family:var(--brand);font-weight:800;font-size:clamp(24px,7.4vw,40px);line-height:1.02;letter-spacing:-.01em;margin:14px 0 16px}
-.welcome h1 span{background:linear-gradient(90deg,#ff6eb4,#a855f7 55%,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
-.welcome p{color:var(--muted);font-size:16px;max-width:32ch}
-.w-actions{display:grid;gap:10px;margin-top:22px}
-.big.ghost{background:var(--surface);border:1px solid var(--border)}
-.w-actions .credit{margin-top:18px}
-/* teaser */
-.teaser{margin-top:28px;padding:16px;border-radius:18px;background:var(--surface);border:1px solid var(--border);position:relative;overflow:hidden}
-.teaser::before{content:'';position:absolute;inset:0 0 auto 0;height:3px;background:var(--tc,#a855f7)}
-.teaser .th{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
-.teaser .th .eyebrow{color:var(--tc,#a855f7)}
-.teaser .th button{font-size:12px;font-weight:700;color:var(--muted);padding:4px 0}
-.teaser .tq{font-size:16px;font-weight:500;line-height:1.38}
-.teaser .to{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
-.teaser .to>div{padding:10px 11px;border-radius:11px;background:var(--surface2);border:1.5px solid var(--border);font-size:14px;line-height:1.25;text-align:left}
-.teaser .to.locked>div:not(.right){opacity:.4}
-.teaser .to .right{border-color:var(--green);background:color-mix(in srgb,var(--green) 14%,var(--surface2))}
-.teaser .to .wrong{border-color:var(--red);background:color-mix(in srgb,var(--red) 12%,var(--surface2))}
-.teaser .tr{margin-top:12px;font-size:14px;color:var(--muted);animation:fade .25s ease}
-.teaser .tr b{color:var(--text)}
-.teaser .tr a{display:inline-block;margin-top:8px;color:var(--tc,#a855f7);font-weight:700;text-decoration:none}
-@media (max-height:700px){ .welcome{padding-top:calc(28px + env(safe-area-inset-top))} .welcome h1{font-size:clamp(22px,6.6vw,30px);margin-bottom:0} .welcome p{display:none} .teaser{margin-top:18px} .teaser .tq{font-size:15px} }
-
-.teaser .tshow{display:block;width:100%;margin-top:12px;padding:11px;border-radius:11px;background:var(--tc,#a855f7);color:#0b0b0f;font-weight:700;font-size:14px;text-align:center}
-
-/* season tabs */
-.tabs{max-width:520px;margin:0 auto;display:flex;gap:6px;padding:0 20px 12px}
-.tab{flex:1;min-width:0;padding:9px 0;border-radius:10px;background:var(--surface);border:1px solid var(--border);font-weight:700;font-size:14px;text-align:center;color:var(--muted)}
-.tab.on{background:var(--text);color:var(--bg);border-color:var(--text)}
-#seasons .sea:first-child{margin-top:8px}
-.tabs .tl{align-self:center;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-right:4px}
-.s4lock{text-align:center;padding:70px 20px}
-.s4lock .lk{font-size:40px}
-.s4lock h2{font-family:var(--brand);font-weight:800;font-size:28px;margin:14px 0 8px}
+/* ── rounds ── */
+.tabs{max-width:520px;margin:0 auto;display:flex;gap:6px;padding:2px 20px 12px}
+.tab{flex:1;min-width:0;padding:9px 0;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);font-family:var(--d);font-weight:800;font-size:13px;letter-spacing:.06em;text-align:center;color:var(--muted)}
+.tab.on{background:#fff;color:var(--bg);border-color:#fff}
+.sea-h{text-align:center;padding:18px 0 18px}
+.sea-h h2{font-size:34px}
+.sea-h .track{color:var(--pink);margin-top:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rc{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:118px;padding:14px 14px 13px 17px;border-radius:18px;text-align:left}
+.rc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rc);opacity:.9}
+.rc .bd{color:var(--rc);font-size:10px;letter-spacing:.24em}
+.rc .n{font-size:18px;line-height:1.02;letter-spacing:-.02em;margin:6px 0 0;overflow-wrap:anywhere}
+.rc .m{font-size:10px;letter-spacing:.14em;color:var(--dim);margin-top:9px}
+.rc.done .m{color:var(--rc)}
+.rc:active{transform:scale(.97)}
+.rc.wide{grid-column:1/-1;min-height:96px}
+.s4lock{text-align:center;padding:80px 10px}
+.s4lock .lk{font-size:36px}
+.s4lock h2{font-size:34px;margin:16px 0 10px}
 .s4lock p{color:var(--muted)}
-.rev .stat{margin-top:16px;padding:18px;border-radius:12px;background:var(--surface2);text-align:center}
-.rev .stat b{display:block;font-family:var(--brand);font-weight:800;font-size:44px;line-height:1;color:var(--c)}
-.rev .stat span{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
-#seasons{padding-bottom:40px}
 
-/* round intro */
-.intro{padding:56px 0 10px}
-.intro .tag{display:inline-block;padding:5px 11px;border-radius:99px;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-.intro h2{font-family:var(--brand);font-weight:800;font-size:clamp(26px,8vw,36px);line-height:1.05;margin:18px 0 8px;overflow-wrap:break-word}
-.intro .sn{font-size:16px;color:var(--muted)}
-.intro .f{margin-top:22px;font-size:17px;max-width:36ch}
+/* ── round intro ── */
+.intro{position:relative;text-align:center;min-height:calc(100dvh - 230px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 0}
+.intro .num{position:absolute;left:0;right:0;top:50%;transform:translateY(-78%);font-family:var(--d);font-weight:800;font-size:200px;line-height:1;color:var(--c);opacity:.08;letter-spacing:-.04em;pointer-events:none}
+.intro .badge{position:relative;display:inline-block;padding:8px 18px;border-radius:999px;border:1px solid var(--c);color:var(--c);background:rgba(255,255,255,.06);padding-left:calc(18px + .35em);letter-spacing:.35em}
+.intro h2{position:relative;font-size:clamp(40px,12vw,56px);margin:22px 0 14px;overflow-wrap:anywhere}
+.intro .sn{position:relative;color:var(--muted);font-size:17px}
 
-/* question */
-.prog{display:flex;gap:4px;margin:6px 0 22px}
-.prog i{flex:1;height:3px;border-radius:3px;background:var(--border)}
-.prog i.d{background:var(--c)}.prog i.cur{background:color-mix(in srgb,var(--c) 45%,var(--border))}
-.qn{color:var(--c);margin-bottom:10px}
-.qt{font-size:20px;line-height:1.4;font-weight:500;white-space:pre-line}
-.media{margin:18px 0 0;border-radius:14px;overflow:hidden;background:var(--surface)}
-.media img{display:block;width:100%;max-height:46vh;object-fit:contain;background:#000}
+/* ── question ── */
+.prog{height:3px;border-radius:3px;background:rgba(255,255,255,.1);margin:8px 0 18px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--c);transition:width .4s ease}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.qpill{padding:6px 13px;border-radius:999px;border:1px solid var(--c);color:var(--c);background:rgba(255,255,255,.06);letter-spacing:.24em}
+.qcount{color:#8a8a9e;font-size:14px;font-weight:500}
+.qcard{position:relative;overflow:hidden;border-radius:24px;padding:22px 20px}
+.qcard::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--c),transparent 70%)}
+.qt{font-family:var(--d);font-weight:700;font-size:23px;line-height:1.18;letter-spacing:-.02em;white-space:pre-line}
+.media{margin-top:16px;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid var(--glass-b)}
+.media img{display:block;width:100%;max-height:46vh;object-fit:contain}
 .yt{position:relative;aspect-ratio:16/9;background:#000}
 .yt iframe,.yt>div{position:absolute;inset:0;width:100%;height:100%;border:0}
-.yt .cover{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--c) 28%,#111),#0b0b0f 72%);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
-.yt .cover .eq{display:flex;gap:5px;height:32px;align-items:flex-end}
+.yt .cover{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--c) 32%,#0c0c11),#08080b 75%)}
+.yt .cover .eq{display:flex;gap:5px;height:34px;align-items:flex-end}
 .yt .cover .eq b{width:6px;background:var(--c);border-radius:3px;height:30%}
 .yt.playing .cover .eq b{animation:eq .9s ease-in-out infinite}
 .yt.playing .cover .eq b:nth-child(2){animation-delay:.15s}.yt.playing .cover .eq b:nth-child(3){animation-delay:.3s}.yt.playing .cover .eq b:nth-child(4){animation-delay:.45s}
 @keyframes eq{0%,100%{height:25%}50%{height:100%}}
-.clipbtn{display:block;width:100%;padding:13px;border-radius:12px;background:var(--surface2);border:1px solid var(--border);font-weight:700;font-size:15px;text-align:center;margin-top:10px}
-.opts{display:grid;gap:9px;margin-top:22px}
-.opt{display:flex;gap:12px;align-items:center;padding:14px 15px;border-radius:14px;background:var(--surface);border:1.5px solid var(--border);font-size:16px;line-height:1.3}
-.opt .l{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);font-weight:700;font-size:12px;color:var(--muted)}
-.opt.right{border-color:var(--green);background:color-mix(in srgb,var(--green) 13%,var(--surface))}
-.opt.right .l{background:var(--green);color:#000}
-.opt.wrong{border-color:var(--red);background:color-mix(in srgb,var(--red) 11%,var(--surface))}
-.opt.wrong .l{background:var(--red);color:#fff}
-.opts.locked .opt:not(.right):not(.wrong){opacity:.4}
+.clipbtn{margin-top:12px}
+.opts{display:grid;gap:8px;margin-top:18px}
+.opt{display:flex;gap:12px;align-items:center;padding:13px 14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--glass-b);color:#e8e8f2;font-weight:500;font-size:16px;line-height:1.3}
+.opt .l{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);font-family:var(--d);font-weight:800;font-size:12px;color:var(--muted)}
+.opt.right{border-color:var(--cyan);color:var(--cyan);background:rgba(93,230,255,.08)}
+.opt.right .l{border-color:var(--cyan);color:var(--cyan)}
+.opts.locked .opt:not(.right){opacity:.35}
 
-/* reveal */
-.rev{scroll-margin-top:70px;margin-top:22px;padding:20px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--border);animation:fade .3s ease}
-.rev .verdict{margin-bottom:8px}
-.rev .verdict.y{color:var(--green)}.rev .verdict.n{color:var(--red)}
-.rev .ans{font-weight:700;font-size:24px;line-height:1.2;color:var(--green)}
-.rev .sub{color:var(--muted);font-size:14.5px;margin-top:6px}
-.rev .media{margin-top:16px}
-.rev ul{margin:16px 0 0;list-style:none;display:grid;gap:10px}
-.rev li{position:relative;padding-left:16px;font-size:15px}
-.rev li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--c)}
-.rev .src{margin-top:14px;font-size:12px;color:var(--dim)}
+/* ── answer ── */
+.rev{scroll-margin-top:76px;margin-top:14px;animation:fade .35s ease}
+.rev .lab{color:var(--c)}
+.rev .ans{font-size:clamp(34px,10vw,46px);margin-top:12px;overflow-wrap:anywhere}
+.rev .sub{color:#d2d2e2;font-size:15px;margin-top:10px}
+.rev .stat{margin-top:16px;text-align:center;padding:16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid var(--glass-b)}
+.rev .stat b{display:block;font-family:var(--d);font-weight:800;font-size:56px;line-height:1;letter-spacing:-.03em;color:var(--c)}
+.rev .stat span{display:block;margin-top:8px;color:#c8c8da;font-size:13px}
+.rev ul{list-style:none;margin-top:18px;padding-left:14px;border-left:2px solid var(--c);display:grid;gap:10px}
+.rev li{color:#d2d2e2;font-size:15px}
+.rev .src{margin-top:16px;font-size:12px;color:var(--dim)}
 
-/* footer actions */
-.foot{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:20px 20px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(rgba(11,11,15,0),var(--bg) 35%)}
+/* ── footer actions ── */
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:26px 20px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(rgba(8,8,11,0),rgba(8,8,11,.92) 40%)}
 .foot .in{max-width:520px;margin:0 auto;display:flex;gap:10px}
-.foot:empty,.foot .in:empty{display:none}
-.btn-y{background:var(--green);color:#04130a}
-.btn-n{background:var(--surface2);border:1px solid var(--border)}
-.btn-c{background:var(--c);color:#0b0b0f}
+.foot .in:empty{display:none}
 
-/* end */
-.end{padding:50px 0 6px}
-.end .big-score{font-family:var(--brand);font-weight:800;font-size:76px;line-height:1;color:var(--c)}
-.end .of{color:var(--muted);margin-top:4px}
-.end .msg{font-size:18px;margin:18px 0 26px}
-.recap{border-radius:16px;background:var(--surface);border:1px solid var(--border);overflow:hidden}
-.recap div{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-top:1px solid var(--border);font-size:14.5px}
+/* ── round end ── */
+.end{text-align:center;padding:56px 0 8px}
+.end .track{color:var(--c)}
+.end .big{font-family:var(--d);font-weight:800;font-size:120px;line-height:1;letter-spacing:-.04em;margin-top:14px}
+.end .big small{font-size:40px;color:var(--dim);letter-spacing:-.02em}
+.end .msg{font-family:var(--d);font-weight:800;text-transform:uppercase;font-size:22px;letter-spacing:-.02em;margin:18px 0 26px}
+.recap{border-radius:20px;overflow:hidden}
+.recap div{display:flex;gap:12px;align-items:baseline;padding:13px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:14.5px}
 .recap div:first-child{border-top:0}
-.recap b{flex:none;width:14px}
-.recap .y b{color:var(--green)}.recap .n b{color:var(--red)}
+.recap b{flex:none;width:14px;font-family:var(--d)}
+.recap .y b{color:var(--cyan)}.recap .n b{color:var(--red)}
 </style>
 </head>
 <body>
 
-<!-- HOME -->
+<!-- WELCOME -->
 <section class="screen on" id="welcome">
   <div class="welcome">
-    <div class="w-top">
-      <div class="eyebrow" id="wEyebrow">The Archive</div>
-      <h1>SO YOU THINK<br><span>YOU KNOW THINGS</span></h1>
-      <p id="wBlurb">Every question from past seasons of the quiz. Play a round, or let it pick for you.</p>
+    <div class="w-main">
+      <div class="track w-mast">The Archive</div>
+      <h1 class="display">So you<br>think you<br>know<br>things</h1>
+      <div class="track w-season" id="wSeason">Seasons I – III</div>
+      <div class="w-rule"></div>
+      <div class="w-count" id="wCount"></div>
     </div>
-    <div class="teaser" id="teaser"></div>
     <div class="w-actions">
-      <button class="big primary" onclick="openRounds()">Choose a round</button>
-      <button class="big ghost" onclick="startMix()">Quick game · 10 random questions</button>
+      <button class="pill white" onclick="openRounds()">Choose a round →</button>
+      <button class="pill ghost" onclick="startMix()">Quick game · 10 questions</button>
       <div class="credit">sara behar</div>
     </div>
   </div>
@@ -214,81 +202,83 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 <script src="unlock.js"></script>
 <script>
 /* ───────── state (in memory only, nothing is saved) ───────── */
-const results = {};          // roundId -> {score, total}
-let run = null;              // {title, color, items:[{round, q}], i, score, log:[], roundId|null, answered}
+const results = {};
+let run = null, curSeason = 0, s4Open = false;
 let ytApiReady = false, ytQueue = [], players = {};
-
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const soft = s => (s && s === s.toUpperCase() && /[A-Z]{3}/.test(s)) ? s.charAt(0)+s.slice(1).toLowerCase() : s;
-const allRounds = () => SEASONS.flatMap(s => s.rounds.map(r => ({...r, season: s})));
+const ROMAN = ['','I','II','III','IV','V','VI','VII'];
 
-/* ───────── home ───────── */
-let curSeason = 0;
+/* Same round colours as the live quiz: pink to violet across the night, white for the bonus */
+const ROUND_COLORS = ['#ff468c','#f34a99','#e84fa6','#dc53b2','#d058bf','#c55ccc','#b961d9','#ad65e5','#a26af2','#966eff'];
+function paint(season){
+  let k = 0;
+  season.rounds.forEach(r => { r.color = r.bonus ? '#ffffff' : ROUND_COLORS[Math.min(k++, 9)]; r.no = r.bonus ? 0 : k; });
+}
+SEASONS.forEach(paint);
+const allRounds = () => SEASONS.flatMap(s => s.rounds.map(r => ({...r, season: s})));
+const soft = s => (s && s === s.toUpperCase() && /[A-Z]{3}/.test(s)) ? s.charAt(0)+s.slice(1).toLowerCase() : s;
+function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
+function setColor(c){ document.documentElement.style.setProperty('--c', c); }
+
+/* ───────── welcome ───────── */
+function updateWelcome(){
+  const n = SEASONS.reduce((a,s) => a + s.rounds.reduce((b,r) => b + r.questions.length, 0), 0);
+  $('wSeason').textContent = `Seasons I – ${ROMAN[SEASONS.length]}`;
+  $('wCount').textContent = `${n} questions from every round so far`;
+}
+
+/* ───────── rounds ───────── */
+function openRounds(){ show('home'); setColor('#ff3d8b'); renderHome(); window.scrollTo(0,0); }
 function renderHome(){
   const tabs = SEASONS.map((s,k) =>
-    `<button class="tab ${k===curSeason?'on':''}" onclick="curSeason=${k};renderHome();window.scrollTo(0,0)">${esc(s.label.replace('Season ',''))}</button>`);
-  if (!s4Open) tabs.push(`<button class="tab lock ${curSeason===-1?'on':''}" onclick="curSeason=-1;renderHome();window.scrollTo(0,0)">IV 🔒</button>`);
-  $('tabs').innerHTML = `<span class="tl">Season</span>` + tabs.join('');
+    `<button class="tab ${k===curSeason?'on':''}" onclick="curSeason=${k};renderHome();window.scrollTo(0,0)">${ROMAN[k+1]}</button>`);
+  if (!s4Open) tabs.push(`<button class="tab ${curSeason===-1?'on':''}" onclick="curSeason=-1;renderHome();window.scrollTo(0,0)">IV 🔒</button>`);
+  $('tabs').innerHTML = tabs.join('');
   if (curSeason === -1){
-    $('seasons').innerHTML = `<div class="s4lock"><div class="lk">🔒</div><h2>Season IV</h2>
+    $('seasons').innerHTML = `<div class="s4lock"><div class="lk">🔒</div><h2 class="display">Season IV</h2>
       <p>Still a secret. It unlocks here after the show.</p></div>`;
     return;
   }
   const s = SEASONS[curSeason];
   $('seasons').innerHTML = `
-    <div class="sea">
-      <div class="sea-h"><h2>${esc(s.label)}</h2><small>${esc(s.when)}</small></div>
-      <div class="list">
-        ${s.rounds.map(r => {
-          const res = results[r.id];
-          const st = res ? `${res.score}/${res.total}` : (r.bonus ? 'Bonus' : `${r.questions.length} Qs`);
-          return `<button class="row ${res?'done':''}" style="--rc:${r.color}" onclick="startRound('${r.id}')">
-            <span class="dot"></span>
-            <span class="txt"><div class="n">${esc(titleCase(r.name))}</div>${r.subname?`<div class="s">${esc(soft(r.subname))}</div>`:''}</span>
-            <span class="st">${res?'✓ ':''}${st}</span><span class="chev">›</span></button>`;
-        }).join('')}
-      </div>
-    </div>`;
-}
-function openRounds(){ show('home'); renderHome(); window.scrollTo(0,0); }
-function titleCase(s){
-  const small = new Set(['a','an','the','of','to','in','and','or','for','on','at']);
-  return s.toLowerCase().replace(/\b([a-z])([a-z']*)/g, (m,a,b,i) =>
-    (i>0 && small.has(m)) ? m : a.toUpperCase()+b).replace(/\bWs\b/i,'Ws').replace(/\bThe 5 ws\b/i,'The 5 Ws');
+    <div class="sea-h"><h2 class="display">${esc(s.label)}</h2><div class="track">${esc(s.when)}</div></div>
+    <div class="grid">${s.rounds.map(r => {
+      const res = results[r.id];
+      const meta = res ? `✓ ${res.score} / ${res.total}` : `${r.questions.length} question${r.questions.length===1?'':'s'}`;
+      return `<button class="rc glass ${res?'done':''} ${r.bonus?'wide':''}" style="--rc:${r.color}" onclick="startRound('${r.id}')">
+        <div class="bd track">${r.bonus ? 'Bonus' : 'Round ' + r.no}</div>
+        <div class="n display">${esc(r.name)}</div>
+        <div class="m track">${meta}</div></button>`;
+    }).join('')}</div>`;
 }
 function goHome(){
   if (run && run.i < run.items.length && run.i > 0 && !confirm('Leave this round? Your progress in it will be lost.')) return;
-  stopAll(); run = null;
-  show('home'); renderHome(); window.scrollTo(0,0);
+  stopAll(); run = null; openRounds();
 }
-function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
 
 /* ───────── starting ───────── */
 function startRound(id){
   const r = allRounds().find(x => x.id === id);
   curSeason = SEASONS.indexOf(r.season);
-  run = {title:`${r.season.label} · ${r.name}`, color:r.color, round:r,
-         items:r.questions.map(q => ({round:r, q})), i:0, score:0, log:[], roundId:id};
+  run = {round:r, items:r.questions.map(q => ({round:r, q})), i:0, score:0, log:[], roundId:id};
   show('play'); setColor(r.color); renderIntro();
 }
 function startMix(){
   const pool = allRounds().flatMap(r => r.questions.map(q => ({round:r, q})));
   for (let i = pool.length - 1; i > 0; i--){ const j = Math.random()*(i+1)|0; [pool[i],pool[j]] = [pool[j],pool[i]]; }
-  run = {title:'Quick game', color:'#a855f7', round:null, items:pool.slice(0,10), i:0, score:0, log:[], roundId:null};
-  show('play'); setColor(run.color); renderQuestion();
+  run = {round:null, items:pool.slice(0,10), i:0, score:0, log:[], roundId:null};
+  show('play'); renderQuestion();
 }
-function setColor(c){ document.documentElement.style.setProperty('--c', c); }
-
 function renderIntro(){
   const r = run.round;
   $('barTitle').textContent = r.season.label; $('barScore').textContent = '';
   $('stage').innerHTML = `<div class="intro">
-    <span class="tag">${esc(r.season.label)}${r.bonus?' · Bonus':''}</span>
-    <h2>${esc(titleCase(r.name))}</h2>
-    ${r.subname?`<div class="sn">${esc(soft(r.subname))}</div>`:''}
-    <p class="f">${esc(r.format)}</p></div>`;
-  $('foot').innerHTML = `<button class="big btn-c" onclick="renderQuestion()">Start · ${r.questions.length} question${r.questions.length>1?'s':''}</button>`;
+    <div class="num">${r.bonus ? '★' : String(r.no).padStart(2,'0')}</div>
+    <span class="badge track">${r.bonus ? 'Bonus' : 'Round ' + r.no}</span>
+    <h2 class="display">${esc(r.name)}</h2>
+    ${(r.subname || r.format) ? `<div class="sn">${esc(soft(r.subname) || r.format)}</div>` : ''}</div>`;
+  $('foot').innerHTML = `<button class="pill white" onclick="renderQuestion()">Begin →</button>`;
   window.scrollTo(0,0);
 }
 
@@ -296,22 +286,23 @@ function renderIntro(){
 function renderQuestion(){
   stopAll();
   const {round, q} = run.items[run.i];
-  if (!run.round) setColor(round.color);
+  setColor(round.color);
   run.answered = false;
-  $('barTitle').textContent = run.round ? `${round.season.label} · ${titleCase(round.name)}` : `Quick game · ${titleCase(round.name)}`;
-  $('barScore').textContent = `${run.score} ${run.score===1?"pt":"pts"}`;
-  const prog = run.items.map((_,k) => `<i class="${k<run.i?'d':k===run.i?'cur':''}"></i>`).join('');
-  const mc = q.options.length > 0;
+  $('barTitle').textContent = run.round ? round.name : 'Quick game';
+  $('barScore').textContent = `${run.score} ${run.score===1?'pt':'pts'}`;
   $('stage').innerHTML = `
-    <div class="prog">${prog}</div>
-    <div class="qn eyebrow">Question ${run.i+1} of ${run.items.length}</div>
-    <div class="qt">${esc(q.q)}</div>
-    ${mediaHTML(q.media, 'qm', true)}
-    ${mc ? `<div class="opts" id="opts">${q.options.map((o,k)=>`
-      <div class="opt"><span class="l">${'ABCD'[k]}</span><span>${esc(o)}</span></div>`).join('')}</div>` : ''}
+    <div class="prog"><i style="width:${(run.i/run.items.length)*100}%"></i></div>
+    <div class="qhead"><span class="qpill track">${run.round ? (round.bonus ? 'Bonus' : 'Round ' + round.no) : esc(round.season.label + ' · ' + round.name)}</span>
+      <span class="qcount">${run.i+1} / ${run.items.length}</span></div>
+    <div class="qcard glass">
+      <div class="qt">${esc(q.q)}</div>
+      ${mediaHTML(q.media, 'qm', true)}
+      ${q.options.length ? `<div class="opts" id="opts">${q.options.map((o,k)=>`
+        <div class="opt"><span class="l">${'ABCD'[k]}</span><span>${esc(o)}</span></div>`).join('')}</div>` : ''}
+    </div>
     <div id="rev"></div>`;
-  $('foot').innerHTML = `<button class="big btn-c" onclick="reveal()">Show answer</button>`;
-  mountMedia(q.media, 'qm', true);
+  $('foot').innerHTML = `<button class="pill white" onclick="reveal()">Show answer</button>`;
+  mountMedia(q.media, 'qm');
   window.scrollTo(0,0);
 }
 
@@ -321,12 +312,12 @@ function reveal(){
   run.answered = true;
   const {q} = run.items[run.i];
   if (q.options.length){
-    const opts = [...document.querySelectorAll('#opts .opt')];
     $('opts').classList.add('locked');
-    if (opts[q.correct]) opts[q.correct].classList.add('right');
+    const o = $('opts').children[q.correct]; if (o) o.classList.add('right');
   }
-  $('rev').innerHTML = `<div class="rev"><div class="verdict eyebrow u">The answer</div>
-    <div class="ans">${esc(q.answer)}</div>
+  $('rev').innerHTML = `<div class="rev qcard glass">
+    <div class="lab track">The answer</div>
+    <div class="ans display">${esc(q.answer)}</div>
     ${q.sub?`<div class="sub">${esc(q.sub)}</div>`:''}
     ${q.stat?`<div class="stat"><b>${esc(q.stat)}</b>${q.statLabel?`<span>${esc(q.statLabel)}</span>`:''}</div>`:''}
     ${q.img?`<div class="media"><img src="${esc(q.img)}" alt="" loading="lazy"></div>`:''}
@@ -335,47 +326,40 @@ function reveal(){
     ${q.source?`<div class="src">Source: ${esc(q.source)}</div>`:''}
   </div>`;
   if (players.qm) { try { players.qm.pauseVideo(); } catch(e){} }
-  mountMedia(q.amedia, 'am', false);
-  $('foot').innerHTML = `<button class="big btn-n" onclick="score(false)">Missed it</button>
-                         <button class="big btn-y" onclick="score(true)">Got it</button>`;
+  mountMedia(q.amedia, 'am');
+  $('foot').innerHTML = `<button class="pill ghost" onclick="score(false)">Missed it</button>
+                         <button class="pill cyan" onclick="score(true)">Got it</button>`;
   setTimeout(() => $('rev').scrollIntoView({behavior:'smooth', block:'start'}), 60);
 }
 function score(got){
   if (got) run.score++;
   run.log.push({q: run.items[run.i].q, got});
-  next();
-}
-function next(){
   run.i++;
   if (run.i < run.items.length) renderQuestion(); else renderEnd();
 }
 
-/* ───────── end of round ───────── */
+/* ───────── round end ───────── */
 function renderEnd(){
   stopAll();
   const n = run.items.length, s = run.score;
   if (run.roundId) results[run.roundId] = {score:s, total:n};
   const pct = s / n;
-  const msg = pct === 1 ? 'Clean sweep. You do know things.'
-            : pct >= .7 ? 'Strong. The room would be nervous.'
-            : pct >= .4 ? 'Respectable. Some of these were mean.'
-            : 'Rough one. Now you know things.';
+  const msg = pct === 1 ? 'Clean sweep' : pct >= .7 ? 'You know things' : pct >= .4 ? 'Respectable' : 'Now you know things';
+  if (!run.round) setColor('#ff3d8b');
   $('barScore').textContent = '';
   $('stage').innerHTML = `<div class="end">
-    <div class="big-score">${s}</div><div class="of">out of ${n}</div>
-    <p class="msg">${msg}</p></div>
-    <div class="recap">${run.log.map(l=>`<div class="${l.got?'y':'n'}"><b>${l.got?'✓':'✗'}</b><span>${esc(l.q.answer)}</span></div>`).join('')}</div>`;
-  const nextR = run.roundId ? nextRound(run.roundId) : null;
+    <div class="track">${run.round ? esc(run.round.name) : 'Quick game'}</div>
+    <div class="big">${s}<small> / ${n}</small></div>
+    <div class="msg">${msg}</div></div>
+    <div class="recap glass">${run.log.map(l=>`<div class="${l.got?'y':'n'}"><b>${l.got?'✓':'✗'}</b><span>${esc(l.q.answer)}</span></div>`).join('')}</div>`;
+  const all = allRounds(), k = run.roundId ? all.findIndex(r => r.id === run.roundId) : -1;
+  const nextR = k >= 0 ? all[k+1] : null;
   $('foot').innerHTML = run.roundId
-    ? `<button class="big btn-n" onclick="run=null;goHome()">All rounds</button>
-       ${nextR?`<button class="big btn-c" onclick="startRound('${nextR.id}')">Next round</button>`:''}`
-    : `<button class="big btn-n" onclick="run=null;goHome()">All rounds</button>
-       <button class="big btn-c" onclick="startMix()">Play again</button>`;
+    ? `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
+       ${nextR?`<button class="pill white" onclick="startRound('${nextR.id}')">Next round →</button>`:''}`
+    : `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
+       <button class="pill white" onclick="startMix()">Play again</button>`;
   window.scrollTo(0,0);
-}
-function nextRound(id){
-  const all = allRounds(); const k = all.findIndex(r => r.id === id);
-  return all[k+1] || null;
 }
 
 /* ───────── media: images + YouTube (audio clips stay covered) ───────── */
@@ -384,8 +368,8 @@ function mediaHTML(m, slot, isQuestion){
   if (m.kind === 'img') return `<div class="media"><img src="${esc(m.src)}" alt="" loading="lazy"></div>`;
   const covered = isQuestion && !m.video;
   return `<div class="media"><div class="yt" id="${slot}-box"><div id="${slot}-player"></div>
-    ${covered?`<div class="cover"><div class="eq"><b></b><b></b><b></b><b></b></div><div>Listen</div></div>`:''}</div></div>
-    ${covered?`<button class="clipbtn" id="${slot}-btn" onclick="toggleClip('${slot}')">▶︎ Play clip</button>`:''}`;
+    ${covered?`<div class="cover"><div class="eq"><b></b><b></b><b></b><b></b></div><div class="track">Listen</div></div>`:''}</div></div>
+    ${covered?`<button class="pill ghost clipbtn" id="${slot}-btn" onclick="toggleClip('${slot}')">▶︎ Play clip</button>`:''}`;
 }
 function mountMedia(m, slot){
   if (!m || m.kind !== 'yt') return;
@@ -407,50 +391,11 @@ function toggleClip(slot){
   const p = players[slot]; if (!p || !p.getPlayerState) return;
   p.getPlayerState() === YT.PlayerState.PLAYING ? p.pauseVideo() : p.playVideo();
 }
-function stopAll(){
-  for (const k in players){ try { players[k].destroy(); } catch(e){} }
-  players = {};
-}
+function stopAll(){ for (const k in players){ try { players[k].destroy(); } catch(e){} } players = {}; }
 window.onYouTubeIframeAPIReady = () => { ytApiReady = true; ytQueue.splice(0).forEach(f => f()); };
 (function(){ const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s); })();
 
-
-/* ───────── welcome teaser: one random question, answerable in place ───────── */
-let teaserQ = null;
-function teaserPool(){
-  return allRounds().filter(r => !/currentevents/.test(r.id)).flatMap(r => r.questions
-    .filter(q => q.options.length === 4 && !q.media && q.q.length <= 190 && q.options.every(o => o.length <= 48))
-    .map(q => ({round:r, q})));
-}
-function renderTeaser(){
-  const pool = teaserPool(); if (!pool.length) { $('teaser').style.display='none'; return; }
-  let pick; do { pick = pool[Math.random()*pool.length|0]; } while (pool.length > 1 && teaserQ && pick.q === teaserQ.q);
-  teaserQ = pick;
-  const {round, q} = pick;
-  $('teaser').style.setProperty('--tc', round.color);
-  $('teaser').innerHTML = `
-    <div class="th"><span class="eyebrow">Try one · ${esc(round.season.label)}</span><button onclick="renderTeaser()">Another ↻</button></div>
-    <div class="tq">${esc(q.q.replace(/\n+/g,' '))}</div>
-    <div class="to" id="tOpts">${q.options.map(o=>`<div>${esc(o)}</div>`).join('')}</div>
-    <div id="tRes"><button class="tshow" onclick="teaserReveal()">Show answer</button></div>`;
-}
-function teaserReveal(){
-  const {round, q} = teaserQ, box = $('tOpts');
-  box.classList.add('locked');
-  box.children[q.correct].classList.add('right');
-  const fact = q.sub || q.note[0] || '';
-  $('tRes').innerHTML = `<div class="tr"><b>${esc(q.options[q.correct])}.</b> ${esc(fact)}<br>
-    <a href="#" onclick="startRound('${round.id}');return false">Play ${esc(titleCase(round.name))} →</a></div>`;
-}
-
 /* ───────── Season IV unlock ───────── */
-let s4Open = false;
-function updateWelcome(){
-  const n = SEASONS.reduce((a,s) => a + s.rounds.reduce((b,r) => b + r.questions.length, 0), 0);
-  const roman = ['','I','II','III','IV','V','VI'];
-  $('wEyebrow').textContent = `The Archive · Seasons I to ${roman[SEASONS.length]}`;
-  $('wBlurb').textContent = `${n} questions from the first ${['','one','two','three','four','five','six'][SEASONS.length]} seasons of the quiz. Play a round, or let it pick for you.`;
-}
 async function unlockSeason4(pw){
   if (!pw || typeof SEASON_IV_LOCKED === 'undefined' || !window.crypto?.subtle) return false;
   try {
@@ -461,17 +406,15 @@ async function unlockSeason4(pw){
       base, {name:'AES-GCM', length:256}, false, ['decrypt']);
     const plain = await crypto.subtle.decrypt({name:'AES-GCM', iv:b(L.iv)}, key, b(L.data));
     const s4 = JSON.parse(new TextDecoder().decode(plain));
-    SEASONS.push(s4); s4Open = true; return true;
+    paint(s4); SEASONS.push(s4); s4Open = true; return true;
   } catch(e){ return false; }
 }
+updateWelcome();
 (async () => {
   const fromHash = (location.hash.match(/unlock=([^&]+)/) || [])[1];
   const pw = (typeof SEASON_IV_PASSWORD !== 'undefined' && SEASON_IV_PASSWORD) || (fromHash && decodeURIComponent(fromHash));
-  await unlockSeason4(pw);
-  updateWelcome(); renderTeaser();
-  if ($('home').classList.contains('on')) renderHome();
+  if (await unlockSeason4(pw)) { updateWelcome(); if ($('home').classList.contains('on')) renderHome(); }
 })();
-updateWelcome(); renderTeaser();
 </script>
 </body>
 </html>
