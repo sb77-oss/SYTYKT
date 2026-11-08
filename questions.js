@@ -8,6 +8,88 @@ const SEASONS = [
   "hidden": false,
   "rounds": [
    {
+    "id": "s1-tune",
+    "name": "NAME THAT TUNE",
+    "subname": "Play each song for 5 seconds",
+    "format": "",
+    "bonus": false,
+    "color": "#ff3d8b",
+    "questions": [
+     {
+      "q": "Name the song and the artist.",
+      "media": {
+       "kind": "yt",
+       "id": "lDrrrVzTY5c",
+       "start": 0,
+       "video": false
+      },
+      "options": [],
+      "correct": -1,
+      "answer": "Stars Are Blind",
+      "sub": "Paris Hilton · 2006",
+      "img": "",
+      "amedia": {
+       "kind": "yt",
+       "id": "lDrrrVzTY5c",
+       "start": 0,
+       "video": false
+      },
+      "note": [],
+      "source": "",
+      "stat": "",
+      "statLabel": ""
+     },
+     {
+      "q": "Name the song and the artist.",
+      "media": {
+       "kind": "yt",
+       "id": "t-hi0yCeOJ0",
+       "start": 0,
+       "video": false
+      },
+      "options": [],
+      "correct": -1,
+      "answer": "See You Again",
+      "sub": "Miley Cyrus · 2007",
+      "img": "",
+      "amedia": {
+       "kind": "yt",
+       "id": "t-hi0yCeOJ0",
+       "start": 0,
+       "video": false
+      },
+      "note": [],
+      "source": "",
+      "stat": "",
+      "statLabel": ""
+     },
+     {
+      "q": "Name the song and the artist.",
+      "media": {
+       "kind": "yt",
+       "id": "VHb_XIql_gU",
+       "start": 0,
+       "video": false
+      },
+      "options": [],
+      "correct": -1,
+      "answer": "Kids",
+      "sub": "MGMT · 2007",
+      "img": "",
+      "amedia": {
+       "kind": "yt",
+       "id": "VHb_XIql_gU",
+       "start": 0,
+       "video": false
+      },
+      "note": [],
+      "source": "",
+      "stat": "",
+      "statLabel": ""
+     }
+    ]
+   },
+   {
     "id": "s1-warmup",
     "name": "WARM UP",
     "subname": "Name the bebes",
