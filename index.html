@@ -72,9 +72,17 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .w-actions .credit{margin-top:18px}
 /* season tabs */
 .tabs{max-width:520px;margin:0 auto;display:flex;gap:6px;padding:0 20px 12px}
-.tab{flex:1;padding:9px 0;border-radius:10px;background:var(--surface);border:1px solid var(--border);font-weight:700;font-size:14px;text-align:center;color:var(--muted)}
+.tab{flex:1;min-width:0;padding:9px 0;border-radius:10px;background:var(--surface);border:1px solid var(--border);font-weight:700;font-size:14px;text-align:center;color:var(--muted)}
 .tab.on{background:var(--text);color:var(--bg);border-color:var(--text)}
 #seasons .sea:first-child{margin-top:8px}
+.tabs .tl{align-self:center;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-right:4px}
+.locked{text-align:center;padding:70px 20px}
+.locked .lk{font-size:40px}
+.locked h2{font-family:var(--brand);font-weight:800;font-size:28px;margin:14px 0 8px}
+.locked p{color:var(--muted)}
+.rev .stat{margin-top:16px;padding:18px;border-radius:12px;background:var(--surface2);text-align:center}
+.rev .stat b{display:block;font-family:var(--brand);font-weight:800;font-size:44px;line-height:1;color:var(--c)}
+.rev .stat span{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
 #seasons{padding-bottom:40px}
 
 /* round intro */
@@ -149,9 +157,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 <section class="screen on" id="welcome">
   <div class="welcome">
     <div class="w-top">
-      <div class="eyebrow">The Archive · Seasons I to III</div>
+      <div class="eyebrow" id="wEyebrow">The Archive</div>
       <h1>SO YOU THINK<br><span>YOU KNOW THINGS</span></h1>
-      <p>132 questions from the first three seasons of the quiz. Play a round, or let it pick for you.</p>
+      <p id="wBlurb">Every question from past seasons of the quiz. Play a round, or let it pick for you.</p>
     </div>
     <div class="w-actions">
       <button class="big primary" onclick="openRounds()">Choose a round</button>
@@ -183,6 +191,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 </section>
 
 <script src="questions.js"></script>
+<script src="season4.js"></script>
+<script src="unlock.js"></script>
 <script>
 /* ───────── state (in memory only, nothing is saved) ───────── */
 const results = {};          // roundId -> {score, total}
@@ -197,8 +207,15 @@ const allRounds = () => SEASONS.flatMap(s => s.rounds.map(r => ({...r, season: s
 /* ───────── home ───────── */
 let curSeason = 0;
 function renderHome(){
-  $('tabs').innerHTML = SEASONS.map((s,k) =>
-    `<button class="tab ${k===curSeason?'on':''}" onclick="curSeason=${k};renderHome();window.scrollTo(0,0)">${esc(s.label)}</button>`).join('');
+  const tabs = SEASONS.map((s,k) =>
+    `<button class="tab ${k===curSeason?'on':''}" onclick="curSeason=${k};renderHome();window.scrollTo(0,0)">${esc(s.label.replace('Season ',''))}</button>`);
+  if (!s4Open) tabs.push(`<button class="tab lock ${curSeason===-1?'on':''}" onclick="curSeason=-1;renderHome();window.scrollTo(0,0)">IV 🔒</button>`);
+  $('tabs').innerHTML = `<span class="tl">Season</span>` + tabs.join('');
+  if (curSeason === -1){
+    $('seasons').innerHTML = `<div class="locked"><div class="lk">🔒</div><h2>Season IV</h2>
+      <p>Still a secret. It unlocks here after the show.</p></div>`;
+    return;
+  }
   const s = SEASONS[curSeason];
   $('seasons').innerHTML = `
     <div class="sea">
@@ -263,7 +280,7 @@ function renderQuestion(){
   if (!run.round) setColor(round.color);
   run.answered = false;
   $('barTitle').textContent = run.round ? `${round.season.label} · ${titleCase(round.name)}` : `Quick game · ${titleCase(round.name)}`;
-  $('barScore').textContent = `${run.score} pts`;
+  $('barScore').textContent = `${run.score} ${run.score===1?"pt":"pts"}`;
   const prog = run.items.map((_,k) => `<i class="${k<run.i?'d':k===run.i?'cur':''}"></i>`).join('');
   const mc = q.options.length > 0;
   $('stage').innerHTML = `
@@ -299,6 +316,7 @@ function reveal(got){
   $('rev').innerHTML = `<div class="rev">${verdict}
     <div class="ans">${esc(q.answer)}</div>
     ${q.sub?`<div class="sub">${esc(q.sub)}</div>`:''}
+    ${q.stat?`<div class="stat"><b>${esc(q.stat)}</b>${q.statLabel?`<span>${esc(q.statLabel)}</span>`:''}</div>`:''}
     ${q.img?`<div class="media"><img src="${esc(q.img)}" alt="" loading="lazy"></div>`:''}
     ${mediaHTML(q.amedia, 'am', false)}
     ${q.note.length?`<ul>${q.note.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:''}
@@ -312,7 +330,7 @@ function reveal(got){
   } else {
     if (got) run.score++;
     run.log.push({q, got});
-    $('barScore').textContent = `${run.score} pts`;
+    $('barScore').textContent = `${run.score} ${run.score===1?"pt":"pts"}`;
     $('foot').innerHTML = `<button class="big btn-c" onclick="next()">${run.i+1<run.items.length?'Next question':'See score'}</button>`;
   }
   setTimeout(() => $('rev').scrollIntoView({behavior:'smooth', block:'start'}), 60);
@@ -391,6 +409,35 @@ function stopAll(){
 window.onYouTubeIframeAPIReady = () => { ytApiReady = true; ytQueue.splice(0).forEach(f => f()); };
 (function(){ const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s); })();
 
+/* ───────── Season IV unlock ───────── */
+let s4Open = false;
+function updateWelcome(){
+  const n = SEASONS.reduce((a,s) => a + s.rounds.reduce((b,r) => b + r.questions.length, 0), 0);
+  const roman = ['','I','II','III','IV','V','VI'];
+  $('wEyebrow').textContent = `The Archive · Seasons I to ${roman[SEASONS.length]}`;
+  $('wBlurb').textContent = `${n} questions from the first ${['','one','two','three','four','five','six'][SEASONS.length]} seasons of the quiz. Play a round, or let it pick for you.`;
+}
+async function unlockSeason4(pw){
+  if (!pw || typeof SEASON_IV_LOCKED === 'undefined' || !window.crypto?.subtle) return false;
+  try {
+    const b = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+    const L = SEASON_IV_LOCKED, enc = new TextEncoder();
+    const base = await crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt:b(L.salt), iterations:L.iter, hash:'SHA-256'},
+      base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+    const plain = await crypto.subtle.decrypt({name:'AES-GCM', iv:b(L.iv)}, key, b(L.data));
+    const s4 = JSON.parse(new TextDecoder().decode(plain));
+    SEASONS.push(s4); s4Open = true; return true;
+  } catch(e){ return false; }
+}
+(async () => {
+  const fromHash = (location.hash.match(/unlock=([^&]+)/) || [])[1];
+  const pw = (typeof SEASON_IV_PASSWORD !== 'undefined' && SEASON_IV_PASSWORD) || (fromHash && decodeURIComponent(fromHash));
+  await unlockSeason4(pw);
+  updateWelcome();
+  if ($('home').classList.contains('on')) renderHome();
+})();
+updateWelcome();
 </script>
 </body>
 </html>

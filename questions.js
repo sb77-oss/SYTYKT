@@ -1,10 +1,11 @@
-// SO YOU THINK YOU KNOW THINGS: Seasons I to III
-// Edit questions here. Fields: q, media, options, correct (index), answer, sub, img, amedia, note[], source
+// SO YOU THINK YOU KNOW THINGS: the archive
+// Edit questions here. Fields: q, media, options, correct (index), answer, sub, img, amedia, note[], source, stat, statLabel
 const SEASONS = [
  {
   "key": "s1",
   "label": "Season I",
   "when": "May 2026",
+  "hidden": false,
   "rounds": [
    {
     "id": "s1-warmup",
@@ -24,7 +25,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "What's a baby seal called?",
@@ -36,7 +39,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "What's a baby cheetah called?",
@@ -48,7 +53,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "What's a baby gorilla called?",
@@ -60,7 +67,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -82,7 +91,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "WHAT is the dance move where you lie on your stomach and ripple your body across the floor?",
@@ -94,7 +105,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "WHEN do the Plastics wear pink?",
@@ -106,7 +119,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "WHERE is the world's most famous grass tennis court?",
@@ -118,7 +133,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "WHY did President Nixon resign?",
@@ -130,7 +147,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -152,7 +171,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 2018 one audio clip split the internet in half. What were the two names people heard?",
@@ -164,7 +185,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 2011 people everywhere lay face down, stiff as a board, in strange places, and posted the photos. What was the trend called?",
@@ -176,7 +199,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Finish this viral lyric: \"Tryna strike a chord and it's probably...\"",
@@ -188,7 +213,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Whose bum stole the show at the 2011 royal wedding?",
@@ -200,7 +227,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -222,7 +251,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Which late-night host signed off from the Ed Sullivan Theater?",
@@ -234,7 +265,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "What was the official two-word theme of this year's Met Gala exhibition?",
@@ -246,7 +279,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Which two co-stars settled their It Ends With Us case?",
@@ -258,7 +293,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Which ultra-low-cost US airline abruptly shut down?",
@@ -270,7 +307,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -292,7 +331,9 @@ const SEASONS = [
       "img": "",
       "amedia": null,
       "note": [],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    }
@@ -302,6 +343,7 @@ const SEASONS = [
   "key": "s2",
   "label": "Season II",
   "when": "June 2026",
+  "hidden": false,
   "rounds": [
    {
     "id": "s2-warmup",
@@ -333,7 +375,9 @@ const SEASONS = [
       "note": [
        "A composer stood up at a White House poetry evening in 2009 and told the room he had written a hip-hop musical about one of America's founding fathers. The room laughed. Obama laughed. It ran for six years on Broadway and made $650 million."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This song peaked at number 3 in the UK in 1985, was critically adored, and then vanished from the charts for nearly four decades. Name the song and the artist.",
@@ -357,7 +401,9 @@ const SEASONS = [
       "note": [
        "It took a fictional dying teenager in Indiana to finally give it its crown. 37 years after release it became the biggest song on earth."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This track was written on a paper bag between takes on a film set, won an Academy Award for Best Original Song, and the artist wasn't even in the room when it happened. Name the song and the artist.",
@@ -381,7 +427,9 @@ const SEASONS = [
       "note": [
        "Hollywood had written him off before he started. He wrote this on a paper bag between takes on set. The film cost $11 million and grossed $243 million. He won the Oscar and wasn't in the room. Found out the next morning when his alarm went off for school drop-off."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This haunting guitar theme was composed for a 2013 video game that nobody believed a prestige studio could pull off emotionally. Nine years later it became the defining sound of the most successful video game TV adaptation ever made. Name the game.",
@@ -405,7 +453,9 @@ const SEASONS = [
       "note": [
        "Naughty Dog had spent years making Crash Bandicoot. Nobody thought they could do devastating. The show was predicted to be yet another failed game adaptation. It became HBO's biggest debut since Band of Brothers."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Multiple record labels told this artist to change who he was before they would sign him. He refused, recorded the song anyway, and it became one of the biggest debut singles in UK chart history. Name the song and the artist.",
@@ -429,7 +479,9 @@ const SEASONS = [
       "note": [
        "The song is literally about being told to change who you are and refusing. Labels kept passing. He put it out anyway. It went to number one in 14 countries and sold over 3 million copies. The labels who passed watched all of that happen."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -458,7 +510,9 @@ const SEASONS = [
       "note": [
        "The rivalry with A Bug's Life was genuinely vicious. DreamWorks rushed this out specifically to beat Disney to theatres. The man who founded DreamWorks had just been fired by Disney. He felt no need to be subtle about it."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Whose leg is this?",
@@ -480,7 +534,9 @@ const SEASONS = [
       "note": [
        "It got its own Twitter account before she left the building."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Anthropic, one of the world's leading AI safety companies, was co-founded by a brother and sister who both left OpenAI over concerns about the direction of the technology. What is their shared last name?",
@@ -499,7 +555,9 @@ const SEASONS = [
       "note": [
        "They left OpenAI along with several colleagues over disagreements about how fast to push development versus how carefully to test for safety."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Although the axolotl looks like a cheerful modern novelty, this perpetually smiling salamander takes its name from the mythology of which ancient civilisation?",
@@ -521,7 +579,9 @@ const SEASONS = [
       "note": [
        "Xolotl was the god of fire, lightning, and the underworld, who allegedly transformed into the salamander to avoid being sacrificed by the other gods. The axolotl that carries his myth is now almost exclusively found in captivity. Which depending on your perspective is either ironic or deeply on brand."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "After Pearl Harbor, the Secret Service needed a bulletproof car for Roosevelt to deliver his \"date which will live in infamy\" speech and the only one available belonged to a famous criminal. Whose armoured 1928 Cadillac did Roosevelt ride in?",
@@ -540,7 +600,9 @@ const SEASONS = [
       "note": [
        "Capone had been in federal prison since 1931, so the car was sitting in government impound when the Secret Service commandeered it for the president."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -564,7 +626,9 @@ const SEASONS = [
       "note": [
        "The terrain was considered completely unbuildable. The founders filled it in with topsoil, planted trees down the centre, and accidentally created the most expensive strip of pavement in the modern country."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Tel Aviv has over 25,000 registered dogs in a tiny urban footprint.\n\nWhich neighbourhood has the highest concentration of dogs per block?",
@@ -578,7 +642,9 @@ const SEASONS = [
       "note": [
        "The combination of industrial conversions, young tenants without gardens, and a general attitude that the street is the garden means the pavements function as a continuous dog social event at all hours. If you've walked through on a Saturday morning you don't need further explanation."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 2011, a tent city took over Rothschild Boulevard in the biggest social protest in Israeli history.\n\nWhat everyday supermarket item sparked it?",
@@ -595,7 +661,9 @@ const SEASONS = [
       "note": [
        "What began as a Facebook boycott against the price of Tnuva cottage cheese exploded into a national conversation about housing and cost of living, with hundreds of tents lining Rothschild for months. The cottage cheese dropped in price within two weeks. The housing crisis was not resolved."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "What single feature in a Tel Aviv apartment listing can silently double your rent?",
@@ -609,7 +677,9 @@ const SEASONS = [
       "note": [
        "As the municipality systematically removed street parking for bike lanes and bus routes, a deeded parking spot became the most valuable thing you can own per square metre in central Tel Aviv. Everyone in this room knows this in their soul."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Which hospitality group owns the most restaurants in central Tel Aviv?",
@@ -628,7 +698,9 @@ const SEASONS = [
       "note": [
        "Nox handles the nightlife venues. HaAchim rules the Gabirol strip. R2M is the empire of the Tuesday night dinner you're trying to impress someone with. Most people who eat there regularly have never thought about who runs it."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -652,7 +724,9 @@ const SEASONS = [
       "note": [
        "Whether deliberate political branding or just selective cultivation, orange became the global standard. Purple carrots are now sold at farmers markets as a premium novelty. The food equivalent of being erased from history and coming back as a limited edition."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Which of these combinations consists entirely of actual, scientifically classified berries?",
@@ -671,7 +745,9 @@ const SEASONS = [
       "note": [
        "The little yellow specks on the outside of a strawberry are the actual fruits. The red flesh is just swollen flower tissue. Meanwhile watermelons, bananas, and avocados check every botanical box. The concept of fruit is a lie and we're all just coping."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Honey is famous for being the only food in your pantry that never completely spoils.\n\nBiologically speaking, what is honey?",
@@ -690,7 +766,9 @@ const SEASONS = [
       "note": [
        "Bees swallow nectar, break it down with enzymes, throw it back up, and then fan it with their wings to evaporate the water. The low moisture and high acidity create an environment where bacteria instantly dehydrates and dies."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "John Harvey Kellogg invented cornflakes at his Michigan sanatorium in 1894.\n\nWhat was his actual reason for creating them?",
@@ -709,7 +787,9 @@ const SEASONS = [
       "note": [
        "Kellogg was a devout Seventh-day Adventist who ran a health sanatorium and believed masturbation was the root of all physical illness. Cornflakes were his solution. He also invented peanut butter for the same reason. His brother later added sugar to the recipe and became very, very rich."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Rank these four fast food chains from highest to lowest global annual revenue:\n\nMcDonald's, Starbucks, Subway, Taco Bell.",
@@ -723,7 +803,9 @@ const SEASONS = [
       "note": [
        "Starbucks is the second highest-grossing fast food chain on earth. Purely on the back of complicated coffee orders and cups with your name spelled wrong. Taco Bell quietly makes more money every year than Burger King, which has three times as many locations."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -750,7 +832,9 @@ const SEASONS = [
       "note": [
        "The term was coined by Timberlake's PR team in an apology statement the next day. The FCC received over 540,000 complaints. Janet Jackson was blacklisted from radio and awards shows for years. Timberlake's career was completely unaffected. He apologised to her personally in 2024. Twenty years later."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In the 2019 Netflix documentary tracking the disaster of Fyre Festival, event producer Andy King became an overnight viral sensation for detailing the absolute extreme he was ordered to go to by founder Billy McFarland.\n\nWhat did Billy ask him to do to save the festival's drinking water from customs?",
@@ -772,7 +856,9 @@ const SEASONS = [
       "note": [
        "McFarland told him to take one for the team. King went down fully prepared to do it. The official released the water before it got to that. The water was Evian."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "At the 2009 MTV VMAs, Kanye West interrupted Taylor Swift's acceptance speech for Best Female Video to declare that someone else deserved the award.\n\nWho did he say should have won?",
@@ -789,7 +875,9 @@ const SEASONS = [
       "note": [
        "Beyoncé won Video of the Year later that same night. She immediately called Taylor back to the stage to finish her speech. The person Kanye humiliated Taylor for was the one who made it right. Kanye apologised. Then un-apologised. We are still in this cycle."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Ashlee Simpson is live on Saturday Night Live.\n\nWhat happened next?",
@@ -813,7 +901,9 @@ const SEASONS = [
       "note": [
        "The wrong track played while she just stood there. She improvised a hoedown and walked offstage. Her dad blamed her band. She blamed acid reflux. The internet blamed everyone. Her career never recovered. Her ex-husband Pete Wentz's did."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This couple just appeared on the stadium Kiss Cam.\n\nWhat happened next?",
@@ -835,7 +925,9 @@ const SEASONS = [
       "note": [
        "Andy Byron was the CEO of a billion-dollar AI company. Kristin Cabot was his Chief People Officer. Both were married to other people. Byron resigned within days. Chris Martin had looked at their faces on the screen and said into the mic: either they're having an affair or they're very shy. He was right."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -864,7 +956,9 @@ const SEASONS = [
       "note": [
        "The machines never worked. The company was secretly running every test on standard commercial equipment while telling investors their proprietary technology was revolutionary. She wore the same black turtleneck to every interview. And to her sentencing."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 1750 BCE, a merchant named Ea-Nasir received a clay tablet from a customer named Nanni. Found 4,000 years later in the ruins of Ur, Iraq. What kind of letter was it?",
@@ -883,7 +977,9 @@ const SEASONS = [
       "note": [
        "Nanni was furious about substandard copper ingots. Ea-Nasir kept the tablet, nobody knows why. He has been publicly shamed for approximately 3,774 years and counting. He is also the subject of multiple Reddit threads, several TikToks, and at least one podcast episode."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 2023, someone accused Hunter Biden of leaving cocaine in the West Wing. When the accusation went viral, how did he respond on social media?",
@@ -902,7 +998,9 @@ const SEASONS = [
       "note": [
        "242,000 likes. He also went viral the same week for correcting a photoshopped meth pipe: \"A crack pipe doesn't have that little bowl at the end.\""
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 2003, Barbra Streisand sued a photographer for $50 million after he included an aerial photo of her Malibu home in a publicly available collection of 12,000 California coastline images. Before the lawsuit, the photo had been downloaded 6 times — twice by her own lawyers. What happened next, and what phenomenon did it accidentally name?",
@@ -916,7 +1014,9 @@ const SEASONS = [
       "note": [
        "She lost the case, was ordered to pay $177,000 in legal fees, and the photo was viewed by over 420,000 people that month. The term was coined two years later by a journalist writing about a completely unrelated cease-and-desist letter. Streisand has since posted detailed photos of the same house on her own social media."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Pepsi launched in China with the slogan \"Pepsi Brings You Back to Life.\"\n\nWhat did the Chinese translation actually say?",
@@ -935,7 +1035,9 @@ const SEASONS = [
       "note": [
        "The literal translation hit a massive cultural nerve around ancestral veneration. An extraordinary own goal in a market of 1.4 billion people. The slogan was quietly retired and never publicly acknowledged."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -962,7 +1064,9 @@ const SEASONS = [
       "note": [
        "He has said in interviews that scooping so much ice cream so relentlessly as a teenager permanently put him off the dessert for the rest of his life. He went on to have one or two other things to deal with."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Before he was a globally famous Hollywood A-lister, this actor fronted a deeply sincere ghost-rock band that recorded a full album with a children's choir.\n\nWho is he?",
@@ -986,7 +1090,9 @@ const SEASONS = [
       "note": [
        "The internet rediscovered it after Barbie came out. People were delighted to find that Ken had a deeply sincere ghost music side project. The album is genuinely good, which somehow makes it funnier."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This actor spent years being told by Hollywood casting directors he was too old to ever be a lead. He was working as a set dresser on adult films when his break finally came at age 35.\n\nWho is he?",
@@ -1003,7 +1109,9 @@ const SEASONS = [
       "note": [
        "He worked as a set dresser on adult films while waiting for his break. He was 35 when he got the role, considered ancient by Hollywood standards. The Academy then nominated him eight times before giving him the Emmy. In the final season."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Before becoming one of the most polarizing figures in modern music and fashion, this Chicago teenager worked the retail floor folding clothes at the Gap.\n\nWho is he?",
@@ -1020,7 +1128,9 @@ const SEASONS = [
       "note": [
        "He later announced a billion-dollar collaboration with them, calling it a childhood dream come true. Two years later he acrimoniously ended the deal and announced he wanted to buy the whole company. Gap's stock dropped. He did not buy the company."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Before earning six Academy Award nominations for her work across major dramas, comedies, and musicals, this actress paid the bills working as a Hooters waitress in Minnesota.\n\nWho is she?",
@@ -1037,7 +1147,9 @@ const SEASONS = [
       "note": [
        "Six nominations. Zero wins. One of Hollywood's most persistent oversights. She wore the orange shorts so she could learn her craft."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1061,7 +1173,9 @@ const SEASONS = [
       "note": [
        "The Allies built an entire phantom army around him, complete with inflatable tanks and fake radio traffic. Hitler held back his Panzer divisions from Normandy for weeks waiting for Patton to arrive. He never arrived. Because he was never going."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Schrödinger's Cat is a famous thought experiment involving a cat in a box that is simultaneously alive and dead.\n\nWhat is the fundamental quantum physics theory this scenario is meant to illustrate?",
@@ -1075,7 +1189,9 @@ const SEASONS = [
       "note": [
        "He invented the cat to prove superposition was ridiculous. It worked so well as an illustration that physicists started using it to explain superposition seriously. It is now the founding principle of quantum computing. Every major tech company on earth is racing to build machines based on the joke he made to kill the idea."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 1969, Salvador Dalí was paid a reported fee of just $1,000 to redesign a confectionery logo. He made one suggestion that changed how the product was seen forever: move the logo from the side to the top.\n\nName the product.",
@@ -1089,7 +1205,9 @@ const SEASONS = [
       "note": [
        "He charged $1,000. He sketched it over lunch on a newspaper. He suggested putting the logo on top so it would always face you no matter how the sweet was turned. It is still the logo today. It has appeared on roughly 12 billion lollipops. That is the best hourly rate in the history of graphic design."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Before becoming the fire-breathing, blood-spitting frontman of KISS, Gene Simmons was seriously considering which profession?",
@@ -1106,7 +1224,9 @@ const SEASONS = [
       "note": [
        "He attended a theological seminary and genuinely considered the rabbinical path. Then pivoted to teaching sixth grade in Spanish Harlem. Then to KISS. KISS has sold over 100 million records. The distance between those two destinations is not small, but it is very funny."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 1996, Dolly the sheep became the world's first successfully cloned mammal.\n\nHow did she get her name?",
@@ -1120,7 +1240,9 @@ const SEASONS = [
       "note": [
        "The lead researcher said Dolly Parton had the most famous mammary glands he could think of, so it felt like an appropriate tribute. This is a sentence that a scientist said out loud to a journalist and it was printed in scientific publications. Dolly Parton said she was honoured. She remains alive. The sheep does not."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1149,7 +1271,9 @@ const SEASONS = [
       "note": [
        "Several Israeli rabbis attempted to have her removed from the competition before she even got on a plane. She went to Birmingham, wore an extraordinary dress, and won by a significant margin. She remains a genuine icon of this city specifically."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Tel Aviv famously hosts a massive Pride parade every June, but the movement had humble beginnings.\n\nIn what year did the city hold its very first official, municipal-sponsored Pride Parade?",
@@ -1168,7 +1292,9 @@ const SEASONS = [
       "note": [
        "Smaller marches had been happening in Sheinkin since 1993. But 1998 was the first time the municipality officially organised and backed a parade through the streets. Dana's Eurovision win preceded it by a matter of weeks. The energy in the city that summer was apparently something else."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Because the acronym used to be standard as \"GLBT\" with the G up front, the decision to move the L to the very beginning of the LGBTQ+ initialism was an intentional political statement.\n\nWhat major historical event in the 1980s prompted this permanent shift?",
@@ -1182,7 +1308,9 @@ const SEASONS = [
       "note": [
        "When the crisis hit gay men, government inaction left many completely abandoned. The lesbian community stepped up to run blood drives, staff hospital rooms, and lead radical activist networks."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Tel Aviv is globally recognised as a safe haven and massive hub for the queer community.\n\nApproximately what percentage of Tel Aviv's total population identifies as LGBTQ+?",
@@ -1201,7 +1329,9 @@ const SEASONS = [
       "note": [
        "For context, the global average is estimated at around 4 to 5 percent. Tel Aviv at 25 is not an accident. It reflects decades of community building, municipal support, and the fact that this city became a destination for queer people from across the region who had nowhere else to go."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "While Pride parades are banned or heavily restricted across most of the region, which tiny landlocked European principality became one of the latest countries to host its first-ever official Pride festival?",
@@ -1220,7 +1350,9 @@ const SEASONS = [
       "note": [
        "Malta and Cyprus have had established annual events for years. San Marino remains a holdout. Liechtenstein, which is 160 square kilometres and best known for stamps and banking secrecy, held its first Pride in 2022. Small but reportedly joyful. Progress is progress."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1249,7 +1381,9 @@ const SEASONS = [
       "note": [
        "The Korean DMZ has become one of the most biodiverse zones on the peninsula because no humans have entered it in over 70 years. Nature moved in the second people moved out. It is now home to endangered cranes and leopard cats who have absolutely no idea any of this happened."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Which country spans the most time zones in the world?",
@@ -1268,7 +1402,9 @@ const SEASONS = [
       "note": [
        "Metropolitan France is in one time zone. But throw in French Polynesia, New Caledonia, Martinique, Guadeloupe, and the rest and France wraps almost all the way around the planet. Russia is in 11. The United States is in 11. France wins by one, entirely on the strength of having refused to give back islands."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Every single African country was colonised during the Scramble for Africa. Every single one. Except one.\n\nName it.",
@@ -1287,7 +1423,9 @@ const SEASONS = [
       "note": [
        "That's why so many African flags are green, yellow, and red. Ethiopia's victory became proof that colonisation was not inevitable. Italy came back for a second attempt in 1935, using chemical weapons. It still didn't stick."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This Caribbean island is the smallest inhabited landmass in the world to be divided between two different nations. You can cross from one side to the other with zero passport control.\n\nName the island.",
@@ -1306,7 +1444,9 @@ const SEASONS = [
       "note": [
        "Legend has it the border was drawn by a Frenchman and a Dutchman walking in opposite directions around the island to see how much each could claim. The Frenchman walked faster. France got 61 percent, the Netherlands got 39 percent. The Dutch side has the casino."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Which natural disaster is Israel most statistically susceptible to?",
@@ -1325,7 +1465,9 @@ const SEASONS = [
       "note": [
        "The last major one struck in 1927. The one before that was in 749 and destroyed much of Byzantine Tiberias. Geologists estimate a major quake roughly every 100 years. We are, by any reasonable estimate, due. Feel free to think about that on your way home tonight."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1349,7 +1491,9 @@ const SEASONS = [
       "note": [
        "He became the oldest player ever to score a World Cup hat trick. The following week against Austria he scored his 17th and 18th World Cup goals, breaking every remaining scoring record in sight. He turns 39 this week. He is doing this at 39."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This month the UK got its seventh Prime Minister in a decade after Keir Starmer resigned outside Downing Street. Who is his widely expected successor?",
@@ -1363,7 +1507,9 @@ const SEASONS = [
       "note": [
        "A fellow Labour MP resigned his own seat to create the vacancy — the first time that had happened since 1965. Protesters outside Downing Street played Beethoven's Ode to Joy as Starmer spoke. That is the EU anthem. Make of that what you will."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This month, Donald Trump hosted a major sporting event on the South Lawn of the White House to celebrate America's 250th birthday and his own 80th.\n\nWhich sport?",
@@ -1377,7 +1523,9 @@ const SEASONS = [
       "note": [
        "The event cost over $60 million, involved seven federal agencies, and only 16% of Americans thought it was appropriate to hold MMA fights on the White House lawn. UFC CEO Dana White said afterwards he would never do it again. Joe Rogan said beforehand it was kind of a gimmick and a security nightmare — and then attended anyway."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This horror film was made for $750,000, sold at the Toronto Film Festival for $14 million, and has grossed $339 million worldwide. It was written and directed by a 26-year-old YouTube comedian. Name the film.",
@@ -1394,7 +1542,9 @@ const SEASONS = [
       "note": [
        "The studio made a fake commercial for the One Wish Willow toy before release and it sold out within hours. They put up billboards in LA and New York with the obsessive character's texts and a real phone number people could actually call. The film cost less than a music video and made more than most Marvel movies."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This week, a country became eligible to compete in Eurovision for the first time after its public broadcaster joined the European Broadcasting Union. Which country?",
@@ -1408,7 +1558,9 @@ const SEASONS = [
       "note": [
        "CBC had been an associate member since 1950 — 76 years — before finally going full member. Canada would not be the first non-European country in the contest. Australia has competed since 2015, Israel and Morocco have both participated, and the internet has been asking why it is still called Eurovision since approximately 2015. CBC said they will have more to say later. Celine Dion could not be reached for comment."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1437,7 +1589,9 @@ const SEASONS = [
       "note": [
        "Sun said he was experiencing the artwork. The certificate of authenticity is the actual artwork. The banana is a prop, replaceable at any time. He bought the certificate. He ate the banana. This is a true story about the contemporary art market and everything is fine."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This Soviet weapons designer was self-taught, wounded fighting the Germans in WWII, and wanted to create a rifle simple enough for any soldier to use. He succeeded beyond any conceivable measure. His design became the most produced firearm in history.\n\nWhat is his last name?",
@@ -1451,7 +1605,9 @@ const SEASONS = [
       "note": [
        "An estimated 100 million AK-47s exist worldwide. Late in life he wrote to the Russian Orthodox Church asking if he bore moral responsibility. He died two weeks later."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "The Eiffel Tower was built as a temporary structure for the 1889 World's Fair and was always intended to be demolished. Parisians largely hated it.\n\nWhat saved it?",
@@ -1465,7 +1621,9 @@ const SEASONS = [
       "note": [
        "The French military realised its height made it an unparalleled transmission tower. It intercepted enemy radio signals during the war and directly contributed to at least one major Allied operation. The tower Parisians called a metal asparagus became a strategic weapon. It has since become the most visited paid monument on earth."
       ],
-      "source": ""
+      "source": "",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    }
@@ -1475,6 +1633,7 @@ const SEASONS = [
   "key": "s3",
   "label": "Season III",
   "when": "August 2026",
+  "hidden": false,
   "rounds": [
    {
     "id": "s3-warmup",
@@ -1503,7 +1662,9 @@ const SEASONS = [
        "The theme was never the same twice, Wolff re-edited it every episode to sync with Jerry's opening stand-up",
        "That added up to 180 different versions across nine seasons, and almost nobody noticed"
       ],
-      "source": "Jonathan Wolff interview, NPR; NBC press archive"
+      "source": "Jonathan Wolff interview, NPR; NBC press archive",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Name the show.",
@@ -1524,7 +1685,9 @@ const SEASONS = [
        "Roger Daltrey's scream was an accident, he ran out of breath and let out whatever was left, and thirty years later that same scream became the opening note of one of the most watched shows in the world",
        "The meme it spawned (dramatic pause, sunglasses, YEAAAAAAH) is still used online today"
       ],
-      "source": "CBS press archive; The Guardian, 2006 global TV survey"
+      "source": "CBS press archive; The Guardian, 2006 global TV survey",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Name the show.",
@@ -1546,7 +1709,9 @@ const SEASONS = [
        "Kohan sent her rough, unfinished episodes to write to",
        "When she played him the demo, his entire reaction was 'this is fucking awesome'"
       ],
-      "source": "Netflix Press, 2013; Grammy nominations archive"
+      "source": "Netflix Press, 2013; Grammy nominations archive",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Name the show.",
@@ -1567,7 +1732,9 @@ const SEASONS = [
        "It hit the actual top 10 charts in the UK, Italy, Ireland, and Austria",
        "The song shares a co-writing credit with Al Jolson's 1924 standard 'California, Here I Come,' after the similarity was flagged, splitting royalties with songwriters who'd been dead for decades"
       ],
-      "source": "Billboard; Wikipedia, California (Phantom Planet song)"
+      "source": "Billboard; Wikipedia, California (Phantom Planet song)",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Name the show.",
@@ -1588,7 +1755,9 @@ const SEASONS = [
        "He composed multiple versions in different tempos and keys, editing a different one into each episode depending on its emotional tone",
        "The theme won an Emmy in 2019, and the show's opening title sequence was directly inspired by David Fincher's 1997 film The Game"
       ],
-      "source": "HBO; Nicholas Britell interview, Vulture 2018"
+      "source": "HBO; Nicholas Britell interview, Vulture 2018",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1622,7 +1791,9 @@ const SEASONS = [
        "He's since received an honorary degree from the University of Washington, recognition from the Seattle City Council, and his own charity night from the Mariners",
        "Wildlife officials have asked people not to approach him. People are approaching him anyway."
       ],
-      "source": "Seattle Times, June 2026; KOMO News"
+      "source": "Seattle Times, June 2026; KOMO News",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Elliot Page made headlines with his casting in The Odyssey. Looking back at his career, what 2007 indie hit launched him to stardom?",
@@ -1639,7 +1810,9 @@ const SEASONS = [
        "Page has said playing a pregnant teenager was oddly one of the first times he felt real autonomy on set",
        "At the premiere, the studio required him to wear a dress instead of the suit he wanted, an experience he's since said he found nearly unbearable while still closeted"
       ],
-      "source": "Academy Awards database; Box Office Mojo"
+      "source": "Academy Awards database; Box Office Mojo",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This powerhouse vocalist was famously eliminated from American Idol back in 2004. She just sang the American national anthem at this year's World Cup final.\n\nWho is she?",
@@ -1655,7 +1828,9 @@ const SEASONS = [
        "She performed from a plinth in the middle of the field, honored alongside Tom Cruise, despite Team USA already being eliminated by Belgium",
        "Reactions were genuinely split online: fans loved her gospel-inflected style, others called her slow, measured interpretation nearly unrecognizable as the anthem"
       ],
-      "source": "Billboard.com; ABC News, June 2022"
+      "source": "Billboard.com; ABC News, June 2022",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This luxury car manufacturer started out as the Swallow Sidecar Company in the 1920s. After World War II, it dropped its original initials due to some unfortunate historical associations.\n\nWhat is the brand called today?",
@@ -1672,7 +1847,9 @@ const SEASONS = [
        "When shareholders voted to change the name in 1945, Lyons told them: \"Unlike SS, the name Jaguar is distinctive and cannot be connected or confused with any similar foreign name\"",
        "The Jaguar name had already appeared on their most celebrated pre-war model"
       ],
-      "source": "Jaguar Cars Ltd official history; The Times, March 1945"
+      "source": "Jaguar Cars Ltd official history; The Times, March 1945",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This British toymaker was named one of TIME's 100 most influential companies of 2026. Their revenue grew from $7 million to $446 million in just 11 years.\n\nWhat's the brand?",
@@ -1691,7 +1868,9 @@ const SEASONS = [
        "Their Amuseables line broke the assumption that a plush toy has to be an animal, turning coffee cups, toast, and avocados into collectible lifestyle objects",
        "In 2026 they opened experiential spaces in Milan, Copenhagen and Stuttgart"
       ],
-      "source": "TIME 100 Most Influential Companies 2026; CNBC, October 2025"
+      "source": "TIME 100 Most Influential Companies 2026; CNBC, October 2025",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1722,7 +1901,9 @@ const SEASONS = [
        "When he signed with Saudi club Al Nassr in 2023, the club's own Instagram account rocketed from 853,000 followers to over 10 million within days",
        "He was the first person to reach 100, 200, 300, 400, and 500 million followers, and remains the only one to cross a billion combined across platforms"
       ],
-      "source": "Instagram official data, 2026; Forbes"
+      "source": "Instagram official data, 2026; Forbes",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "When streaming services start packing in ads, or marketplace apps flood your feed with sponsored junk instead of what you actually searched for, what catchy, internet-coined term describes this steady decline in quality?",
@@ -1737,7 +1918,9 @@ const SEASONS = [
        "Cory Doctorow's theory has three stages: platforms are good to users, then squeeze users to please advertisers, then squeeze the advertisers too and keep everything for themselves",
        "The term was named Word of the Year twice, by the American Dialect Society in 2023 and Australia's Macquarie Dictionary in 2024, the latter also winning the public vote"
       ],
-      "source": "American Dialect Society, 2023; HouseFresh investigation, 2025"
+      "source": "American Dialect Society, 2023; HouseFresh investigation, 2025",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "According to Imperva's 2026 Bad Bot Report, approximately what percentage of all internet traffic is now generated by bots rather than humans?",
@@ -1758,7 +1941,9 @@ const SEASONS = [
        "According to the Dead Internet Theory, the real internet, made by humans for humans, died around 2016 and got replaced by bots, algorithms, and AI-generated content",
        "When looking specifically at AI web-scrapers, Meta's external agent accounts for the largest share at 44%, followed by AppleBot at 23% and ByteSpider at 13%"
       ],
-      "source": "Imperva Bad Bot Report 2026"
+      "source": "Imperva Bad Bot Report 2026",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "TikTok has a sister app that operates only inside mainland China.\n\nWhat's it called?",
@@ -1779,7 +1964,9 @@ const SEASONS = [
        "Douyin is only available through mainland Chinese app stores, TikTok is available almost everywhere except mainland China",
        "The split exists specifically so a single global app doesn't have to choose between breaking Chinese content law abroad or exporting Chinese censorship rules everywhere else"
       ],
-      "source": "Britannica; ByteDance; Charlesworth Group, 2026"
+      "source": "Britannica; ByteDance; Charlesworth Group, 2026",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Complete the Vine. Two bros, chillin in a hot tub...",
@@ -1802,7 +1989,9 @@ const SEASONS = [
        "It became shorthand for performative heterosexuality online and is still quoted a decade later",
        "Vine shut down in 2016, but its content never died, it migrated to YouTube compilations, Twitter, and TikTok, where the audio is still used today"
       ],
-      "source": "Know Your Meme; Vine archive, 2013"
+      "source": "Know Your Meme; Vine archive, 2013",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1828,7 +2017,9 @@ const SEASONS = [
        "It entered English through the Jewish immigrant communities of the Lower East Side",
        "Some of the earliest heroin traffickers in 1920s and 30s New York were Jewish, which carried the word directly into the drug trade itself rather than leaving it stuck as neighborhood slang"
       ],
-      "source": "Etymology Online; Oxford English Dictionary"
+      "source": "Etymology Online; Oxford English Dictionary",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 2001, a European country took a radical step and decriminalised personal possession of every single drug, from weed to heroin and methamphetamine.\n\nWhich country was it?",
@@ -1845,7 +2036,9 @@ const SEASONS = [
        "For nearly two decades it didn't: drug-related deaths fell sharply, HIV infections among drug users dropped, and use rates stayed below the European average",
        "More recently, overdose rates in Lisbon have risen again, and the country is now openly debating whether the model still works as designed"
       ],
-      "source": "European Monitoring Centre for Drugs and Drug Addiction, 2019"
+      "source": "European Monitoring Centre for Drugs and Drug Addiction, 2019",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Which of these combinations is most toxic for your liver?",
@@ -1866,7 +2059,9 @@ const SEASONS = [
        "It lingers in the bloodstream with a significantly longer half-life than cocaine alone, extending strain on internal organs by a factor of 3",
        "The combination also multiplies the risk of sudden cardiovascular failure and death by 18 to 25 times compared to cocaine use by itself"
       ],
-      "source": "Pinnacle Detox & Recovery; American Addiction Centers; Journal of Pharmacology and Experimental Therapeutics"
+      "source": "Pinnacle Detox & Recovery; American Addiction Centers; Journal of Pharmacology and Experimental Therapeutics",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Magic mushrooms don't actually hyperactivate your brain. Instead, they force a very specific part of it to completely go quiet.\n\nWhich part?",
@@ -1888,7 +2083,9 @@ const SEASONS = [
        "The visuals are a side effect, the loss of self is the mechanism",
        "The DMN is overactive in depressed people, which is part of why it's become a focus of therapeutic research"
       ],
-      "source": "Carhart-Harris et al., PNAS, 2012; Imperial College London"
+      "source": "Carhart-Harris et al., PNAS, 2012; Imperial College London",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Most deaths at festivals involving MDMA aren't caused by the drug's direct effects on the body.\n\nWhat actually kills people?",
@@ -1910,7 +2107,9 @@ const SEASONS = [
        "In severe cases it's fatal",
        "The people who die are often the ones who were trying to be careful"
       ],
-      "source": "Journal of the International Neuropsychological Society; harm reduction.org"
+      "source": "Journal of the International Neuropsychological Society; harm reduction.org",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -1937,7 +2136,9 @@ const SEASONS = [
        "She finished the apprenticeship in May 2025 and sat the full California Bar Exam that July, she didn't pass, and as of today she's still not a licensed lawyer",
        "Her father famously defended O.J. Simpson"
       ],
-      "source": "Vogue, 2021 interview; White House clemency records, 2018-2020"
+      "source": "Vogue, 2021 interview; White House clemency records, 2018-2020",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This media mogul spent two full decades as a practicing attorney before founding TMZ.\n\nWho is he?",
@@ -1954,7 +2155,9 @@ const SEASONS = [
        "He deactivated his law license in 1996",
        "He never really stopped practicing law, he just stopped calling it that"
       ],
-      "source": "University of Chicago Law School alumni profile; Wikipedia"
+      "source": "University of Chicago Law School alumni profile; Wikipedia",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This Australian comedy star, best known for Pitch Perfect, has a full law degree. She ended up using it for real, successfully suing a magazine for defamation.\n\nWho is she?",
@@ -1970,7 +2173,9 @@ const SEASONS = [
        "The Bauer Media case, over a magazine falsely claiming she'd lied about her age and background, won her a record defamation payout in Australia",
        "The jury's original award was AU$4.5 million, reduced to about AU$600,000 on appeal in 2018"
       ],
-      "source": "University of New South Wales alumni records; Sydney Morning Herald, 2017-2018 coverage of Wilson v Bauer Media"
+      "source": "University of New South Wales alumni records; Sydney Morning Herald, 2017-2018 coverage of Wilson v Bauer Media",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "This Scottish movie star, best known for 300, studied law at the University of Glasgow. He was fired from his law firm just one week before he would have qualified as a solicitor.\n\nWho is he?",
@@ -1987,7 +2192,9 @@ const SEASONS = [
        "He's said if he hadn't been fired, he might still be \"a very mediocre lawyer in some small town in the middle of Scotland\"",
        "Instead, he became a movie star, his first major Hollywood role was playing King Leonidas in 300"
       ],
-      "source": "IMDb; Biography.com; Grokipedia"
+      "source": "IMDb; Biography.com; Grokipedia",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 1859, this legendary composer graduated from a Russian law school and spent four miserable years working as a civil servant. He eventually quit entirely to write some of the most performed music in history.\n\nWho was he?",
@@ -2004,7 +2211,9 @@ const SEASONS = [
        "He entered the newly founded St Petersburg Conservatory in 1862 while still nominally employed at the ministry",
        "Within two decades he'd written some of the most performed ballets and symphonies in the Western repertoire"
       ],
-      "source": "Tchaikovsky Research; St Petersburg Conservatory historical archives"
+      "source": "Tchaikovsky Research; St Petersburg Conservatory historical archives",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -2034,7 +2243,9 @@ const SEASONS = [
        "Raspberries have near-identical fiber content, around 6.7 grams per 100 grams, mostly earning their reputation because they don't taste like punishment",
        "Psyllium husk, the actual supplement fibermaxxers use, wasn't even invited to this multiple choice, it's nearly 70 percent fiber by weight and would have made the question pointless"
       ],
-      "source": "USDA FoodData Central; Mayo Clinic Press, 2026; Fast Company, 2026"
+      "source": "USDA FoodData Central; Mayo Clinic Press, 2026; Fast Company, 2026",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Your body constantly replaces almost all of its cells, but one major organ is the ultimate exception, keeping most of its original cells for your entire life.\n\nWhich organ is it?",
@@ -2056,7 +2267,9 @@ const SEASONS = [
        "Heart muscle cells replace themselves at about 1% per year",
        "The neurons in your cerebral cortex are almost entirely original, the brain you're using right now is largely the same brain you had as an infant"
       ],
-      "source": "Spalding et al., Cell, 2005; Nature Neuroscience"
+      "source": "Spalding et al., Cell, 2005; Nature Neuroscience",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In the 1990s, this peptide was tested as a treatment for erectile dysfunction. Now nicknamed the \"Barbie Drug,\" it is a popular cosmetic injectable.\n\nWhat are people using it for?",
@@ -2073,7 +2286,9 @@ const SEASONS = [
        "It's been linked to darkening or growth of existing moles, raising real melanoma risk",
        "This is a genuine medical exposure with real consequences"
       ],
-      "source": "Dorr et al., Life Sciences, 1996; Wessells et al., International Journal of Impotence Research, 2000; McGill Office for Science and Society, 2026"
+      "source": "Dorr et al., Life Sciences, 1996; Wessells et al., International Journal of Impotence Research, 2000; McGill Office for Science and Society, 2026",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "A fully grown oak tree can weigh a massive 10,000 kilograms.\n\nWhere does almost all of that physical weight actually come from?",
@@ -2093,7 +2308,9 @@ const SEASONS = [
        "The trunk, branches, and leaves are almost entirely solidified carbon pulled from the atmosphere",
        "When you cut down a tree, you're essentially holding compressed air"
       ],
-      "source": "van Helmont experiment, 1648; USDA Forest Service"
+      "source": "van Helmont experiment, 1648; USDA Forest Service",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "For the first two billion years of life on Earth, one gas was lethal to almost every living organism on the planet.\n\nWhich gas?",
@@ -2115,7 +2332,9 @@ const SEASONS = [
        "The survivors adapted to breathe it",
        "Every breath you take is the legacy of the greatest mass extinction in the history of the planet"
       ],
-      "source": "Holland et al., Philosophical Transactions B, 2006; NASA"
+      "source": "Holland et al., Philosophical Transactions B, 2006; NASA",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -2141,7 +2360,9 @@ const SEASONS = [
        "The friend shaking the bed is called a jump-humper",
        "The logic: movement constitutes the sin, so outsourcing the movement to a third party creates a theological loophole"
       ],
-      "source": "Know Your Meme; MEL Magazine, 2017; Rolling Stone, 2022"
+      "source": "Know Your Meme; MEL Magazine, 2017; Rolling Stone, 2022",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "While Islam is the world's fastest-growing religion by birth rates, demographers tracking Western percentage growth by conversion saw a massive, unexpected surge in which alternative religion?",
@@ -2162,7 +2383,9 @@ const SEASONS = [
        "From approximately 8,000 practitioners in 1990, modern Paganism and Wicca surged to over 1.5 million adherents by the 2020s",
        "The explosion is driven by young people leaving organized religion, a rise in nature-based spirituality, and digital communities making niche beliefs easily accessible"
       ],
-      "source": "Trinity College ARIS Survey; Pew Research Center, 2014"
+      "source": "Trinity College ARIS Survey; Pew Research Center, 2014",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "The Bible, the Torah, and the Quran are full of it. 40 days in the desert. 40 years of wandering. 40 nights of flood.\n\nAccording to many biblical scholars, what did the number 40 actually mean in ancient Semitic languages?",
@@ -2184,7 +2407,9 @@ const SEASONS = [
        "It appears over 150 times across religious texts",
        "The specificity generations of readers took literally may never have been intended to be specific at all"
       ],
-      "source": "Jewish Encyclopedia; Oxford Bible Commentary"
+      "source": "Jewish Encyclopedia; Oxford Bible Commentary",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "What common domesticated companion animal is completely missing from the Bible?",
@@ -2205,7 +2430,9 @@ const SEASONS = [
        "One theory is that cats were associated with Egyptian goddess worship, particularly Bastet, and biblical authors avoided animals tied to foreign religious practice",
        "One possible exception exists, a 1611 King James Apocrypha passage mentions cats, but the Apocrypha isn't part of most Bibles' core canon"
       ],
-      "source": "Commonplace Fun Facts; GraceFiber; FunTrivia"
+      "source": "Commonplace Fun Facts; GraceFiber; FunTrivia",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "The Star of David is one of the most recognizable symbols in the world.\n\nWhen did it actually become an official symbol of the Jewish people?",
@@ -2227,7 +2454,9 @@ const SEASONS = [
        "Morocco used it on its flag until 1945, when it was replaced specifically because it had become associated with Zionism",
        "The symbol everyone associates with thousands of years of Jewish history is 129 years old"
       ],
-      "source": "Gershom Scholem, The Messianic Idea in Judaism, 1971; First Zionist Congress records"
+      "source": "Gershom Scholem, The Messianic Idea in Judaism, 1971; First Zionist Congress records",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -2253,7 +2482,9 @@ const SEASONS = [
        "Fall a fraction below the line and a party gets nothing, cross it and they get their full proportional share, there's no partial credit",
        "Several parties have been eliminated by a few hundred votes, missing the cutoff by less than a rounding error"
       ],
-      "source": "Israel Democracy Institute; Central Elections Committee"
+      "source": "Israel Democracy Institute; Central Elections Committee",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Named after two rival politicians from opposing parties who teamed up in 1973, what is the unique local name for Israel's system of distributing leftover, surplus votes (internally identical to the D'Hondt method)?",
@@ -2269,7 +2500,9 @@ const SEASONS = [
        "To avoid wasting those leftovers, allied parties sign agreements before the election to pool their remaining unallocated votes together, giving them a better shot at claiming an extra seat",
        "It was proposed by two politicians from opposing parties working together across the aisle, and the math explicitly favors larger parties and blocs in winning those leftover seats"
       ],
-      "source": "Israel Democracy Institute; Wikipedia; Times of Israel"
+      "source": "Israel Democracy Institute; Wikipedia; Times of Israel",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In April 2024, this former Knesset member, cosmetics mogul, and 1980s Eurovision contestant released a defiant pop-protest song aimed at Iran.\n\nWho is she?",
@@ -2295,7 +2528,9 @@ const SEASONS = [
        "She ran her own political party in 1999 focused on women's issues, years before she eventually served in the Knesset for Likud",
        "The song mashes her original vocals with a Linkin Park instrumental, produced by Oren Cohen"
       ],
-      "source": "Wikipedia; Grokipedia; original YouTube upload"
+      "source": "Wikipedia; Grokipedia; original YouTube upload",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "When an Israeli municipal council election ends in an absolute statistical tie that cannot be resolved by a recount, what legally mandated tie-breaking method does the election commission ultimately enforce?",
@@ -2316,7 +2551,9 @@ const SEASONS = [
        "In the 2018 Tzafria village council tie, two rival lists ended up with precisely 197 votes each after a recount, settling the final seat with a 5-shekel coin",
        "One list chose the side etched with a column capital, the other chose the side marked \"5\""
       ],
-      "source": "The Times of Israel, November 2018"
+      "source": "The Times of Israel, November 2018",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In 75 years of Israeli elections, how many times has a single party won an outright majority of 61 seats in the Knesset?",
@@ -2332,7 +2569,9 @@ const SEASONS = [
        "No party has ever been able to govern alone",
        "Every prime minister in Israeli history has had to negotiate, compromise, and horse-trade to stay in power"
       ],
-      "source": "Knesset official records; Israel Democracy Index"
+      "source": "Knesset official records; Israel Democracy Index",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -2358,7 +2597,9 @@ const SEASONS = [
        "Nolan's response was that adaptation is adaptation",
        "Lupita's response was more direct"
       ],
-      "source": "Theoi Greek Mythology; Apollodorus, Library 3.10.7"
+      "source": "Theoi Greek Mythology; Apollodorus, Library 3.10.7",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Most people picture ancient Greece as marble columns and togas. The Odyssey is actually set in a completely different era.\n\nWhat age?",
@@ -2375,7 +2616,9 @@ const SEASONS = [
        "The Mycenaeans, the Hittites, the Minoans, gone, nobody knows exactly why",
        "The world Odysseus came home to was already ending"
       ],
-      "source": "Encyclopaedia Britannica; The Oxford Classical Dictionary"
+      "source": "Encyclopaedia Britannica; The Oxford Classical Dictionary",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Everyone pictures the Sirens as half woman, half fish. In the original myth, what were they actually half of?",
@@ -2392,7 +2635,9 @@ const SEASONS = [
        "The fish tail arrived in medieval European illustration and stuck",
        "The image most people carry in their head is not from Homer, Greece, or anywhere near the original story; the bones on the rocks are Homer's, the tail is medieval clipart"
       ],
-      "source": "Homer, Odyssey Book 12; British Museum collection notes"
+      "source": "Homer, Odyssey Book 12; British Museum collection notes",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Aside from Homer's original text, Christopher Nolan's script for The Odyssey notoriously pulled major plot points and characters directly from which other classical epic poem?",
@@ -2408,7 +2653,9 @@ const SEASONS = [
        "Nolan blended Roman epic tradition into the mix to flesh out the Trojan War prologue and bring in characters like Sinon, who is not mentioned anywhere in Homer's Odyssey or Iliad",
        "Critics have jokingly referred to the dense literary mashup as an \"Odysseus Expanded Universe\""
       ],
-      "source": "Britannica; Variety, 2026"
+      "source": "Britannica; Variety, 2026",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Heinrich Schliemann excavated the ruins of ancient Troy in the late 19th century.\n\nIn what modern-day country are those ruins actually located?",
@@ -2425,7 +2672,9 @@ const SEASONS = [
        "Nine distinct layers of city have been found at Hisarlik, each built on top of the last",
        "Troy VI or VII, dating to around 1200 BCE, is the most likely candidate for the city of the Trojan War"
       ],
-      "source": "UNESCO World Heritage Centre; Britannica; Heinrich Schliemann excavation records"
+      "source": "UNESCO World Heritage Centre; Britannica; Heinrich Schliemann excavation records",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -2451,7 +2700,9 @@ const SEASONS = [
        "Much of SpaceX's recent spending has gone into artificial intelligence, after merging with Musk's AI company xAI earlier in the year",
        "The company was still unprofitable heading into the IPO, losing nearly $4.3 billion in the first quarter of 2026 alone"
       ],
-      "source": "Bloomberg; Axios; CNBC, June 2026"
+      "source": "Bloomberg; Axios; CNBC, June 2026",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Taylor Swift and Travis Kelce got married at Madison Square Garden this month in what has been called the wedding of the century.\n\nWho officiated the ceremony?",
@@ -2468,7 +2719,9 @@ const SEASONS = [
        "Streets around MSG were closed for three days and the Empire State Building lit up",
        "Adam Sandler officiated all of it"
       ],
-      "source": "People Magazine, July 2026; Entertainment Weekly"
+      "source": "People Magazine, July 2026; Entertainment Weekly",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Spain won the 2026 World Cup conceding only one goal in eight matches, the fewest ever by a winning team.\n\nWhich country scored it?",
@@ -2485,7 +2738,9 @@ const SEASONS = [
        "Unai Simon's 650 consecutive minutes without conceding is a World Cup record",
        "Belgium is the only team that can say it beat Spain's defense that summer. Belgium still lost the match, 2-1."
       ],
-      "source": "FIFA.com official records; ESPN, July 2026"
+      "source": "FIFA.com official records; ESPN, July 2026",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "Americans are literally shitting themselves following an outbreak of cyclosporiasis. You find yourself at a food court. Which meal are you avoiding?",
@@ -2507,7 +2762,9 @@ const SEASONS = [
        "The FDA is also investigating three other separate cyclospora outbreaks unrelated to Taco Bell",
        "Taco Bell confirmed they're no longer using lettuce from Taylor Farms"
       ],
-      "source": "FDA.gov press release, July 2026; CDC outbreak report"
+      "source": "FDA.gov press release, July 2026; CDC outbreak report",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "The security tests where Claude and OpenAI's models went rogue this summer are standard in cybersecurity, and also happen to share a name with a childhood playground game.\n\nWhat's the test called?",
@@ -2523,7 +2780,9 @@ const SEASONS = [
        "Top teams train for months, the same way athletes drill plays, except the playbook is exploits and vulnerabilities",
        "This version had one AI, one hidden secret, and a shaky read on which network was real"
       ],
-      "source": "Reuters/The Jakarta Post, Aug 1 2026; Anthropic blog, Jul 30 2026; TechCrunch, Jul 30 2026; Washington Post, Jul 30 2026"
+      "source": "Reuters/The Jakarta Post, Aug 1 2026; Anthropic blog, Jul 30 2026; TechCrunch, Jul 30 2026; Washington Post, Jul 30 2026",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    },
@@ -2549,7 +2808,9 @@ const SEASONS = [
        "Flying squirrels and sugar gliders only glide, using a skin flap called a patagium, they can't generate lift or change direction under their own power",
        "Bats make up roughly one-fifth of all mammal species on Earth, more than 1,400 species in total"
       ],
-      "source": "Smithsonian Institution; A-Z Animals"
+      "source": "Smithsonian Institution; A-Z Animals",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "In the endless lore of internet memes, what color is the infamous pill you take if you want to swallow harsh reality instead of comforting illusion?",
@@ -2565,7 +2826,9 @@ const SEASONS = [
        "The metaphor escaped the film entirely and got adopted across totally unrelated online communities, sometimes sincerely, sometimes as a joke",
        "Lilly Wachowski confirmed in 2020 that she and her sister Lana wrote the film partly as a trans allegory, with the red pill originally meant to evoke hormone therapy, a reading many communities that later adopted the term have ignored"
       ],
-      "source": "The Matrix (1999); NBC News; NPR, 2021"
+      "source": "The Matrix (1999); NBC News; NPR, 2021",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "What color is a polar bear's skin underneath all that thick white fur?",
@@ -2581,7 +2844,9 @@ const SEASONS = [
        "Cubs are born with pink skin, it darkens to black within their first few months of life",
        "The black skin absorbs solar heat directly through the translucent fur, working like a built-in solar panel"
       ],
-      "source": "Smithsonian; Library of Congress; ScienceInsights"
+      "source": "Smithsonian; Library of Congress; ScienceInsights",
+      "stat": "",
+      "statLabel": ""
      },
      {
       "q": "What multi-billion-dollar global corporate giant started out selling bulk dried fish, noodles, and groceries in South Korea in 1938?",
@@ -2597,7 +2862,9 @@ const SEASONS = [
        "Samsung means \"three stars\" in Korean, chosen to suggest something permanent and powerful",
        "The Korean War nearly destroyed everything, Lee relocated the company to Busan and rebuilt from there"
       ],
-      "source": "Quartr; Facts and Details; Samsung Community"
+      "source": "Quartr; Facts and Details; Samsung Community",
+      "stat": "",
+      "statLabel": ""
      }
     ]
    }
