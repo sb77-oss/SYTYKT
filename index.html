@@ -60,6 +60,23 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .row .chev{flex:none;color:var(--dim);font-size:18px;margin-left:-4px}
 .credit{text-align:center;color:var(--dim);font-size:12px;margin-top:40px;letter-spacing:.14em;text-transform:uppercase}
 
+
+/* welcome */
+.welcome{min-height:100dvh;max-width:520px;margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;padding:calc(48px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom))}
+.w-top{margin-top:8vh}
+.welcome h1{font-family:var(--brand);font-weight:800;font-size:clamp(24px,7.4vw,40px);line-height:1.02;letter-spacing:-.01em;margin:14px 0 16px}
+.welcome h1 span{background:linear-gradient(90deg,#ff6eb4,#a855f7 55%,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.welcome p{color:var(--muted);font-size:16px;max-width:32ch}
+.w-actions{display:grid;gap:10px;margin-top:40px}
+.big.ghost{background:var(--surface);border:1px solid var(--border)}
+.w-actions .credit{margin-top:18px}
+/* season tabs */
+.tabs{max-width:520px;margin:0 auto;display:flex;gap:6px;padding:0 20px 12px}
+.tab{flex:1;padding:9px 0;border-radius:10px;background:var(--surface);border:1px solid var(--border);font-weight:700;font-size:14px;text-align:center;color:var(--muted)}
+.tab.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+#seasons .sea:first-child{margin-top:8px}
+#seasons{padding-bottom:40px}
+
 /* round intro */
 .intro{padding:56px 0 10px}
 .intro .tag{display:inline-block;padding:5px 11px;border-radius:99px;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
@@ -129,17 +146,29 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 <body>
 
 <!-- HOME -->
-<section class="screen on" id="home">
-  <div class="wrap">
-    <div class="hero">
+<section class="screen on" id="welcome">
+  <div class="welcome">
+    <div class="w-top">
       <div class="eyebrow">The Archive · Seasons I to III</div>
       <h1>SO YOU THINK<br><span>YOU KNOW THINGS</span></h1>
-      <p>Every question from the first three seasons. Play a round, or let it pick for you.</p>
+      <p>132 questions from the first three seasons of the quiz. Play a round, or let it pick for you.</p>
     </div>
-    <button class="big primary" onclick="startMix()">Quick game · 10 random questions</button>
-    <div id="seasons"></div>
-    <div class="credit">sara behar</div>
+    <div class="w-actions">
+      <button class="big primary" onclick="openRounds()">Choose a round</button>
+      <button class="big ghost" onclick="startMix()">Quick game · 10 random questions</button>
+      <div class="credit">sara behar</div>
+    </div>
   </div>
+</section>
+
+<!-- ROUNDS -->
+<section class="screen" id="home">
+  <div class="bar"><div class="in">
+    <button class="icon" onclick="show('welcome');window.scrollTo(0,0)" aria-label="Back">←</button>
+    <div class="t">Choose a round</div>
+  </div>
+  <div class="tabs" id="tabs"></div></div>
+  <div class="wrap" id="seasons"></div>
 </section>
 
 <!-- PLAY -->
@@ -166,8 +195,12 @@ const soft = s => (s && s === s.toUpperCase() && /[A-Z]{3}/.test(s)) ? s.charAt(
 const allRounds = () => SEASONS.flatMap(s => s.rounds.map(r => ({...r, season: s})));
 
 /* ───────── home ───────── */
+let curSeason = 0;
 function renderHome(){
-  $('seasons').innerHTML = SEASONS.map(s => `
+  $('tabs').innerHTML = SEASONS.map((s,k) =>
+    `<button class="tab ${k===curSeason?'on':''}" onclick="curSeason=${k};renderHome();window.scrollTo(0,0)">${esc(s.label)}</button>`).join('');
+  const s = SEASONS[curSeason];
+  $('seasons').innerHTML = `
     <div class="sea">
       <div class="sea-h"><h2>${esc(s.label)}</h2><small>${esc(s.when)}</small></div>
       <div class="list">
@@ -180,8 +213,9 @@ function renderHome(){
             <span class="st">${res?'✓ ':''}${st}</span><span class="chev">›</span></button>`;
         }).join('')}
       </div>
-    </div>`).join('');
+    </div>`;
 }
+function openRounds(){ show('home'); renderHome(); window.scrollTo(0,0); }
 function titleCase(s){
   const small = new Set(['a','an','the','of','to','in','and','or','for','on','at']);
   return s.toLowerCase().replace(/\b([a-z])([a-z']*)/g, (m,a,b,i) =>
@@ -197,6 +231,7 @@ function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList
 /* ───────── starting ───────── */
 function startRound(id){
   const r = allRounds().find(x => x.id === id);
+  curSeason = SEASONS.indexOf(r.season);
   run = {title:`${r.season.label} · ${r.name}`, color:r.color, round:r,
          items:r.questions.map(q => ({round:r, q})), i:0, score:0, log:[], roundId:id};
   show('play'); setColor(r.color); renderIntro();
@@ -356,7 +391,6 @@ function stopAll(){
 window.onYouTubeIframeAPIReady = () => { ytApiReady = true; ytQueue.splice(0).forEach(f => f()); };
 (function(){ const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s); })();
 
-renderHome();
 </script>
 </body>
 </html>

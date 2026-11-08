@@ -1479,7 +1479,7 @@ const SEASONS = [
    {
     "id": "s3-warmup",
     "name": "NAME THAT TUNE",
-    "subname": "TV OPENING CREDITS",
+    "subname": "TV opening credits",
     "format": "Play the clip. Name the show.",
     "bonus": false,
     "color": "#ff6eb4",
