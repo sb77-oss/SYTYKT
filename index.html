@@ -250,7 +250,7 @@ const ROMAN = ['','I','II','III','IV','V','VI','VII'];
 const ROUND_COLORS = ['#ff468c','#f34a99','#e84fa6','#dc53b2','#d058bf','#c55ccc','#b961d9','#ad65e5','#a26af2','#966eff'];
 function paint(season){
   let k = 0;
-  season.rounds.forEach(r => { r.color = r.bonus ? '#ffffff' : ROUND_COLORS[Math.min(k++, 9)]; r.no = r.bonus ? 0 : k; });
+  season.rounds.forEach(r => { if (/\b(19|20)\d\d\b/.test(r.subname || '')) r.subname = ''; r.color = r.bonus ? '#ffffff' : ROUND_COLORS[Math.min(k++, 9)]; r.no = r.bonus ? 0 : k; });
 }
 SEASONS.forEach(paint);
 const allRounds = () => SEASONS.flatMap(s => s.rounds.map(r => ({...r, season: s})));
@@ -279,7 +279,7 @@ function renderHome(){
   }
   const s = SEASONS[curSeason];
   $('seasons').innerHTML = `
-    <div class="sea-h"><h2 class="display">${esc(s.label)}</h2><div class="track">${esc(s.when)}</div>
+    <div class="sea-h"><h2 class="display">${esc(s.label)}</h2>
       <div class="prog-s">${s.rounds.filter(r=>results[r.id]).length} of ${s.rounds.length} rounds played</div></div>
     <div class="grid">${s.rounds.map(r => {
       const res = results[r.id];
