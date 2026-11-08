@@ -206,7 +206,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
       <div class="w-rule"></div>
     </div>
     <div class="w-actions">
-      <button class="start w-in" style="--d:1.15s" onclick="openRounds()"><span>▶︎&nbsp; Press to start</span></button>
+      <button class="start w-in" style="--d:1.15s" onclick="yeah();openRounds()"><span>▶︎&nbsp; Press to start</span></button>
       <button class="pill ghost w-in" style="--d:1.25s" onclick="startMix()">Quick game · 10 questions</button>
       <div class="credit w-in" style="--d:1.35s">sara behar</div>
     </div>
@@ -255,6 +255,10 @@ const allRounds = () => SEASONS.flatMap(s => s.rounds.map(r => ({...r, season: s
 const soft = s => (s && s === s.toUpperCase() && /[A-Z]{3}/.test(s)) ? s.charAt(0)+s.slice(1).toLowerCase() : s;
 function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
 function setColor(c){ document.documentElement.style.setProperty('--c', c); }
+
+/* ───────── the "yeah" from the live quiz's PRESS TO START ───────── */
+const YEAH = new Audio('assets/yeah.mp3'); YEAH.preload = 'auto'; YEAH.volume = 0.85;
+function yeah(){ try { YEAH.currentTime = 0; YEAH.play().catch(()=>{}); } catch(e){} }
 
 /* ───────── welcome ───────── */
 function updateWelcome(){

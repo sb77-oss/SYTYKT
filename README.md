@@ -24,3 +24,7 @@ All questions live in `questions.js`. Each question has:
 | `source` | where the facts come from |
 
 Images are in `assets/`.
+
+## Credits
+
+"Yeah" sound on Press to start: [druki on Freesound](https://freesound.org/s/320739/), the same clip the live quiz uses.
