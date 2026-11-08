@@ -206,7 +206,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
       <div class="w-rule"></div>
     </div>
     <div class="w-actions">
-      <button class="start w-in" style="--d:1.15s" onclick="yeah();openRounds()"><span>▶︎&nbsp; Press to start</span></button>
+      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah()" onclick="openRounds()"><span>▶︎&nbsp; Press to start</span></button>
       <button class="pill ghost w-in" style="--d:1.25s" onclick="startMix()">Quick game · 10 questions</button>
       <div class="credit w-in" style="--d:1.35s">sara behar</div>
     </div>
@@ -256,9 +256,36 @@ const soft = s => (s && s === s.toUpperCase() && /[A-Z]{3}/.test(s)) ? s.charAt(
 function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
 function setColor(c){ document.documentElement.style.setProperty('--c', c); }
 
-/* ───────── the "yeah" from the live quiz's PRESS TO START ───────── */
-const YEAH = new Audio('assets/yeah.mp3'); YEAH.preload = 'auto'; YEAH.volume = 0.85;
-function yeah(){ try { YEAH.currentTime = 0; YEAH.play().catch(()=>{}); } catch(e){} }
+/* ───────── the "yeah" from the live quiz's PRESS TO START ─────────
+   Web Audio, decoded as the page loads, fired on finger-down: no iPhone lag. */
+const YEAH_VOLUME = 0.4;
+const AC = window.AudioContext || window.webkitAudioContext;
+let actx = null, yeahBuf = null;
+try {
+  actx = AC ? new AC() : null;
+  if (actx) fetch('assets/yeah.mp3').then(r => r.arrayBuffer())
+    .then(ab => new Promise((ok, no) => actx.decodeAudioData(ab, ok, no)))
+    .then(b => { yeahBuf = b; }).catch(() => {});
+} catch(e) { actx = null; }
+/* wake the audio engine on the very first touch anywhere, so the start button is instant */
+document.addEventListener('pointerdown', function wake(){
+  try { if (actx && actx.state !== 'running') actx.resume(); } catch(e){}
+  document.removeEventListener('pointerdown', wake, true);
+}, true);
+let yeahFallback = null;
+function yeah(){
+  try {
+    if (actx && yeahBuf){
+      if (actx.state !== 'running') actx.resume();
+      const src = actx.createBufferSource(), g = actx.createGain();
+      g.gain.value = YEAH_VOLUME; src.buffer = yeahBuf;
+      src.connect(g); g.connect(actx.destination); src.start(0);
+      return;
+    }
+    yeahFallback = yeahFallback || new Audio('assets/yeah.mp3');
+    yeahFallback.volume = YEAH_VOLUME; yeahFallback.currentTime = 0; yeahFallback.play().catch(()=>{});
+  } catch(e){}
+}
 
 /* ───────── welcome ───────── */
 function updateWelcome(){
