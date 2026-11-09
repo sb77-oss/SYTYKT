@@ -192,6 +192,10 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .end .big small{font-size:40px;color:var(--dim);letter-spacing:-.02em}
 .end .msg{font-family:var(--d);font-weight:800;text-transform:uppercase;font-size:22px;letter-spacing:-.02em;margin:18px 0 26px}
 .recap{border-radius:20px;overflow:hidden}
+.season-done{margin-top:28px;padding:18px;border-radius:20px;text-align:center;border-color:color-mix(in srgb,var(--pink) 50%,transparent);animation:up .6s .4s both}
+.season-done .track{color:var(--pink)}
+.season-done .sd-score{font-family:var(--d);font-weight:800;font-size:48px;line-height:1;letter-spacing:-.03em;margin-top:10px}
+.season-done .sd-score small{font-size:22px;color:var(--dim)}
 .recap div{display:flex;gap:12px;align-items:baseline;padding:13px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:14.5px}
 .recap div:first-child{border-top:0}
 .recap b{flex:none;width:14px;font-family:var(--d)}
@@ -395,7 +399,7 @@ function reveal(){
   mountMedia(q.amedia, 'am');
   $('foot').innerHTML = `<button class="pill ghost" onclick="score(false)">Missed it</button>
                          <button class="pill cyan" onclick="score(true)">Got it</button>`;
-  setTimeout(() => $('rev').scrollIntoView({behavior:'smooth', block:'start'}), 60);
+  setTimeout(() => { const el = $('rev'); if (el && el.firstChild) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
 }
 function score(got){
   if (got) run.score++;
@@ -420,13 +424,28 @@ function renderEnd(){
     <div class="recap glass">${run.log.map(l=>`<div class="${l.got?'y':'n'}"><b>${l.got?'✓':'✗'}</b><span>${esc(l.q.answer)}</span></div>`).join('')}</div>`;
   let c = 0; const step = () => { if (!$('cnt')) return; $('cnt').textContent = c; if (c++ < s) setTimeout(step, 700 / Math.max(s,1)); }; step();
   if (pct >= .6) setTimeout(() => flecks(pct === 1 ? 260 : 120), 500);
-  const all = allRounds(), k = run.roundId ? all.findIndex(r => r.id === run.roundId) : -1;
-  const nextR = k >= 0 ? all[k+1] : null;
-  $('foot').innerHTML = run.roundId
-    ? `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
-       ${nextR?`<button class="pill white" onclick="startRound('${nextR.id}')">Next round →</button>`:''}`
-    : `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
+  if (!run.roundId){
+    $('foot').innerHTML = `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
        <button class="pill white" onclick="startMix()">Play again</button>`;
+  } else {
+    /* stay inside this season: next unplayed round after this one, then any unplayed one before it */
+    const season = run.round.season, rs = season.rounds, k = rs.findIndex(r => r.id === run.roundId);
+    const nextR = rs.slice(k+1).find(r => !results[r.id]) || rs.slice(0, k).find(r => !results[r.id]) || null;
+    if (nextR){
+      $('foot').innerHTML = `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
+         <button class="pill white" onclick="startRound('${nextR.id}')">Next round →</button>`;
+    } else {
+      /* whole season played: show the season total */
+      const got = rs.reduce((a,r) => a + results[r.id].score, 0), tot = rs.reduce((a,r) => a + results[r.id].total, 0);
+      const si = SEASONS.indexOf(season), nextS = SEASONS[si+1];
+      $('stage').insertAdjacentHTML('afterbegin', `<div class="season-done glass">
+        <div class="track">${esc(season.label)} complete</div>
+        <div class="sd-score">${got}<small> / ${tot}</small></div></div>`);
+      $('foot').innerHTML = `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
+         ${nextS ? `<button class="pill white" onclick="run=null;curSeason=${si+1};openRounds()">${esc(nextS.label)} →</button>` : ''}`;
+      setTimeout(() => flecks(260), 900);
+    }
+  }
   window.scrollTo(0,0);
 }
 
