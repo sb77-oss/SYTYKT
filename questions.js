@@ -831,8 +831,8 @@ const SEASONS = [
    },
    {
     "id": "s1-doubledown",
-    "name": "P.S.M.I.H.S.M.",
-    "subname": "Please Sir, May I Have Some More?",
+    "name": "PLEASE SIR",
+    "subname": "May I have some more?",
     "format": "",
     "bonus": true,
     "color": "#f59e0b",
@@ -2124,8 +2124,8 @@ const SEASONS = [
    },
    {
     "id": "s2-doubledown",
-    "name": "P.S.M.I.H.S.M.",
-    "subname": "Please Sir, May I Have Some More?",
+    "name": "PLEASE SIR",
+    "subname": "May I have some more?",
     "format": "",
     "bonus": true,
     "color": "#f59e0b",
@@ -3346,8 +3346,8 @@ const SEASONS = [
    },
    {
     "id": "s3-doubledown",
-    "name": "P.S.M.I.H.S.M.",
-    "subname": "Please Sir, May I Have Some More?",
+    "name": "PLEASE SIR",
+    "subname": "May I have some more?",
     "format": "",
     "bonus": true,
     "color": "#f59e0b",
