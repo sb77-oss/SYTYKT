@@ -145,6 +145,14 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .sea-h h2{text-shadow:0 0 40px rgba(255,61,139,.35)}
 .sea-h .prog-s{margin-top:12px;font-size:12px;color:var(--muted)}
 .rc.wide{grid-column:1/-1;min-height:96px}
+.intro .bnote{position:relative;margin-top:16px;font-size:11px;color:var(--muted)}
+.bonus-h{margin:26px 0 10px;text-align:center;color:var(--muted)}
+.rc.bonus{width:100%;min-height:120px;text-align:center;align-items:center;padding:16px 18px;
+  background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border-color:rgba(255,255,255,.3)}
+.rc.bonus::before{left:0;right:0;top:0;bottom:auto;width:auto;height:3px;background:linear-gradient(90deg,#ff468c,#c04fd8 55%,#8f6dff)}
+.rc.bonus .bd{color:#fff}
+.rc.bonus .n{font-size:22px;letter-spacing:.02em}
+.rc.bonus .bsub{margin-top:6px;font-size:14px;color:var(--muted)}
 @media (max-width:350px){.rc{padding:12px 10px 12px 14px}.rc .n{font-size:15px}.rc .bd{letter-spacing:.18em}}
 
 /* ── round intro ── */
@@ -473,17 +481,26 @@ function renderHome(){
     `<button class="tab ${k===curSeason?'on':''}" aria-label="${esc(s.label)}" aria-pressed="${k===curSeason}" onclick="pickSeason(${k})">${ROMAN[k+1]}</button>`);
   $('tabs').innerHTML = tabs.join('');
   const s = SEASONS[curSeason];
+  const scored = s.rounds.filter(r => !r.bonus), bonus = s.rounds.find(r => r.bonus);
+  const card = r => {
+    const res = results[r.id];
+    const meta = res ? `<span aria-hidden="true">✓ </span><span class="sr">Played. Score </span>${res.score} / ${res.total}` : `${r.questions.length} question${r.questions.length===1?'':'s'}`;
+    return `<button class="rc glass ${res?'done':''}" style="--rc:${r.color};--i:${s.rounds.indexOf(r)}" onclick="startRound('${r.id}')">
+      <div class="bd track">Round ${r.no}</div>
+      <div class="n display">${esc(r.name)}</div>
+      <div class="m track">${meta}</div></button>`;
+  };
+  const bres = bonus && results[bonus.id];
   $('seasons').innerHTML = `
     <div class="sea-h"><h2 class="display">${esc(s.label)}</h2>
-      <div class="prog-s">${s.rounds.filter(r=>results[r.id]).length} of ${s.rounds.length} rounds played</div></div>
-    <div class="grid">${s.rounds.map(r => {
-      const res = results[r.id];
-      const meta = res ? `<span aria-hidden="true">✓ </span><span class="sr">Played. Score </span>${res.score} / ${res.total}` : `${r.questions.length} question${r.questions.length===1?'':'s'}`;
-      return `<button class="rc glass ${res?'done':''} ${r.bonus?'wide':''}" style="--rc:${r.color};--i:${s.rounds.indexOf(r)}" onclick="startRound('${r.id}')">
-        <div class="bd track">${r.bonus ? 'Bonus' : 'Round ' + r.no}</div>
-        <div class="n display">${esc(r.name)}</div>
-        <div class="m track">${meta}</div></button>`;
-    }).join('')}</div>`;
+      <div class="prog-s">${scored.filter(r=>results[r.id]).length} of ${scored.length} rounds played</div></div>
+    <div class="grid">${scored.map(card).join('')}</div>
+    ${bonus ? `<div class="bonus-h track">Bonus round</div>
+    <button class="rc glass bonus ${bres?'done':''}" style="--rc:${bonus.color};--i:${scored.length}" onclick="startRound('${bonus.id}')">
+      <div class="bd track"><span aria-hidden="true">★ </span>Bonus</div>
+      <div class="n display">${esc(bonus.name)}</div>
+      <div class="bsub">${esc(bonus.subname)}</div>
+      <div class="m track">${bres ? `<span aria-hidden="true">✓ </span>${bres.score} / ${bres.total}` : `${bonus.questions.length} questions`} · doesn't count</div></button>` : ''}`;
 }
 
 /* ───────── starting ───────── */
@@ -519,7 +536,8 @@ function renderIntro(){
     <div class="num" aria-hidden="true">${r.bonus ? '★' : String(r.no).padStart(2,'0')}</div>
     <span class="badge track">${r.bonus ? 'Bonus' : 'Round ' + r.no}</span>
     <h2 class="display">${esc(r.name)}</h2>
-    ${(r.subname || r.format) ? `<div class="sn">${esc(soft(r.subname) || r.format)}</div>` : ''}</div>`;
+    ${(r.subname || r.format) ? `<div class="sn">${esc(soft(r.subname) || r.format)}</div>` : ''}
+    ${r.bonus ? `<div class="track bnote">Doesn't count. Bragging rights only.</div>` : ''}</div>`;
   setFoot(`<button class="pill white" onclick="renderQuestion()">Begin →</button>`);
   fetchAhead(run.items[0].q);
   window.scrollTo(0,0); land($('stage'));
@@ -621,22 +639,31 @@ function renderEnd(){
     setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>
              <button class="pill white" onclick="startMix()">Play again</button>`);
   } else {
-    /* stay inside this season: next unplayed round after this one, then any unplayed one before it */
-    const season = run.round.season, rs = season.rounds, k = rs.findIndex(r => r.id === run.roundId);
-    const nextR = rs.slice(k+1).find(r => !results[r.id]) || rs.slice(0, k).find(r => !results[r.id]) || null;
-    if (nextR){
-      setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>
-               <button class="pill white" onclick="startRound('${nextR.id}')">Next round →</button>`);
+    const season = run.round.season, rs = season.rounds;
+    const scored = rs.filter(r => !r.bonus), bonus = rs.find(r => r.bonus);
+    const si = SEASONS.indexOf(season), nextS = SEASONS[si+1];
+    const nextSeasonBtn = nextS ? `<button class="pill white" onclick="toRounds(${si+1})">${esc(nextS.label)} →</button>` : '';
+    if (run.round.bonus){
+      /* the bonus: bragging rights only */
+      $('stage').querySelector('.msg').textContent = 'Bragging rights only';
+      setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>${nextSeasonBtn}`);
     } else {
-      /* whole season played: show the season total */
-      const got = rs.reduce((a,r) => a + results[r.id].score, 0), tot = rs.reduce((a,r) => a + results[r.id].total, 0);
-      const si = SEASONS.indexOf(season), nextS = SEASONS[si+1];
-      $('stage').insertAdjacentHTML('afterbegin', `<div class="season-done glass">
-        <div class="track">${esc(season.label)} complete</div>
-        <div class="sd-score">${got}<small> / ${tot}</small></div></div>`);
-      setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>
-               ${nextS ? `<button class="pill white" onclick="toRounds(${si+1})">${esc(nextS.label)} →</button>` : ''}`);
-      setTimeout(() => flecks(260), 900);
+      /* stay inside this season: next unplayed scored round after this one, then any before it */
+      const k = scored.findIndex(r => r.id === run.roundId);
+      const nextR = scored.slice(k+1).find(r => !results[r.id]) || scored.slice(0, k).find(r => !results[r.id]) || null;
+      if (nextR){
+        setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>
+                 <button class="pill white" onclick="startRound('${nextR.id}')">Next round →</button>`);
+      } else {
+        /* every scored round played: the season total, then the bonus, as on the night */
+        const got = scored.reduce((a,r) => a + results[r.id].score, 0), tot = scored.reduce((a,r) => a + results[r.id].total, 0);
+        $('stage').insertAdjacentHTML('afterbegin', `<div class="season-done glass">
+          <div class="track">${esc(season.label)} complete</div>
+          <div class="sd-score">${got}<small> / ${tot}</small></div></div>`);
+        const bonusBtn = bonus && !results[bonus.id] ? `<button class="pill white" onclick="startRound('${bonus.id}')">${esc(bonus.name)} →</button>` : '';
+        setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>${bonusBtn || nextSeasonBtn}`);
+        setTimeout(() => flecks(260), 900);
+      }
     }
   }
   window.scrollTo(0,0); land($('stage'));

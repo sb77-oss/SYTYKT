@@ -831,9 +831,9 @@ const SEASONS = [
    },
    {
     "id": "s1-doubledown",
-    "name": "TIE BREAKERS",
-    "subname": "Lunar mission and friends",
-    "format": "One question. Make it count.",
+    "name": "P.S.M.I.H.S.M.",
+    "subname": "Please Sir, May I Have Some More?",
+    "format": "",
     "bonus": true,
     "color": "#f59e0b",
     "questions": [
@@ -2124,9 +2124,9 @@ const SEASONS = [
    },
    {
     "id": "s2-doubledown",
-    "name": "PLEASE SIR",
-    "subname": "May I have some more?",
-    "format": "Bonus questions. No gimmicks. Just know things.",
+    "name": "P.S.M.I.H.S.M.",
+    "subname": "Please Sir, May I Have Some More?",
+    "format": "",
     "bonus": true,
     "color": "#f59e0b",
     "questions": [
@@ -3346,9 +3346,9 @@ const SEASONS = [
    },
    {
     "id": "s3-doubledown",
-    "name": "PLEASE SIR",
-    "subname": "May I have some more?",
-    "format": "Bonus questions and tie breakers.",
+    "name": "P.S.M.I.H.S.M.",
+    "subname": "Please Sir, May I Have Some More?",
+    "format": "",
     "bonus": true,
     "color": "#f59e0b",
     "questions": [
