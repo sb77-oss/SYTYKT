@@ -1551,7 +1551,7 @@ const SEASONS = [
       "correct": 0,
       "answer": "\"It most definitely was not. I would never have forgotten my drugs.\"",
       "sub": "The Secret Service ultimately closed the investigation without finding a suspect",
-      "img": "assets/img-r5-q3-biden.gif",
+      "img": "assets/img-r5-q3-biden.webp",
       "amedia": null,
       "note": [
        "242,000 likes. He also went viral the same week for correcting a photoshopped meth pipe: \"A crack pipe doesn't have that little bowl at the end.\""
@@ -1662,7 +1662,7 @@ const SEASONS = [
       "correct": -1,
       "answer": "Jon Hamm",
       "sub": "Auditioned 2006. Won an Emmy on his 8th nomination in 2015",
-      "img": "assets/img-r6-q3-hamm.gif",
+      "img": "assets/img-r6-q3-hamm.webp",
       "amedia": null,
       "note": [
        "He worked as a set dresser on adult films while waiting for his break. He was 35 when he got the role, considered ancient by Hollywood standards. The Academy then nominated him eight times before giving him the Emmy. In the final season."
@@ -1819,7 +1819,7 @@ const SEASONS = [
       "correct": -1,
       "answer": "Dana International",
       "sub": "Representing Israel at Eurovision 1998 in Birmingham",
-      "img": "assets/img-r9-q1-dana.gif",
+      "img": "assets/img-r9-q1-dana.webp",
       "amedia": {
        "kind": "yt",
        "id": "FKn-n0vVMEk",

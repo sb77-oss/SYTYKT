@@ -6,6 +6,27 @@
 <meta name="theme-color" content="#08080b">
 <title>SO YOU THINK YOU KNOW THINGS · The Archive</title>
 <meta name="description" content="Play past seasons of So You Think You Know Things on your phone.">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-title" content="SYTYKT">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- how the link looks when shared (WhatsApp, iMessage, X and so on) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="So You Think You Know Things">
+<meta property="og:title" content="SO YOU THINK YOU KNOW THINGS · The Archive">
+<meta property="og:description" content="Three seasons of a Tel Aviv pub quiz, playable on your phone. Pick a round or try 10 random questions.">
+<meta property="og:url" content="https://sb77-oss.github.io/SYTYKT/">
+<meta property="og:image" content="https://sb77-oss.github.io/SYTYKT/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="So You Think You Know Things: The Archive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SO YOU THINK YOU KNOW THINGS · The Archive">
+<meta name="twitter:description" content="Three seasons of a Tel Aviv pub quiz, playable on your phone.">
+<meta name="twitter:image" content="https://sb77-oss.github.io/SYTYKT/assets/og.jpg">
+<!-- the two fonts the first screen needs, fetched early so the title does not flash in a fallback font -->
+<link rel="preload" href="fonts/inter-tight-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/dm-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:'Inter Tight';font-weight:700;font-display:swap;src:url(fonts/inter-tight-latin-700-normal.woff2) format('woff2')}
 @font-face{font-family:'Inter Tight';font-weight:800;font-display:swap;src:url(fonts/inter-tight-latin-800-normal.woff2) format('woff2')}
@@ -498,6 +519,7 @@ function renderIntro(){
     <h2 class="display">${esc(r.name)}</h2>
     ${(r.subname || r.format) ? `<div class="sn">${esc(soft(r.subname) || r.format)}</div>` : ''}</div>`;
   setFoot(`<button class="pill white" onclick="renderQuestion()">Begin →</button>`);
+  fetchAhead(run.items[0].q);
   window.scrollTo(0,0); land($('stage'));
 }
 
@@ -531,6 +553,7 @@ function renderQuestion(){
     <div id="rev"></div>`;
   setFoot(`<button class="pill white" onclick="reveal()">Show answer</button>`);
   mountMedia(q.media, 'qm');
+  fetchAhead(q);
   window.scrollTo(0,0); land($('stage'));
 }
 
@@ -557,6 +580,7 @@ function reveal(){
   if (players.qm) { try { players.qm.pauseVideo(); } catch(e){} }
   mountMedia(q.amedia, 'am');
   say(`The answer: ${q.answer}. ${q.sub || ''}`); buzz(8);
+  fetchAhead((run.items[run.i + 1] || {}).q);
   setFoot(`<button class="pill ghost" onclick="score(false)">Missed it</button>
            <button class="pill cyan" onclick="score(true)">Got it</button>`);
   setTimeout(() => { const el = $('rev'); if (el && el.firstChild) el.scrollIntoView({behavior: reducedMotion() ? 'auto' : 'smooth', block:'start'}); }, 60);
@@ -652,6 +676,15 @@ function mediaHTML(m, slot, isQuestion){
     ${covered?`<div class="cover" aria-hidden="true"><div class="eq"><b></b><b></b><b></b><b></b></div><div class="track">Listen</div></div>`:''}
     <div class="ytmsg track">The clip did not load</div></div></div>
     ${covered?`<button class="pill ghost clipbtn" id="${slot}-btn" onclick="toggleClip('${slot}')" disabled>Loading clip</button>`:''}`;
+}
+
+/* pictures are fetched one step ahead (the answer's while you think, the next question's while
+   you read the answer), so they are already there when shown and the page does not jump */
+const fetched = new Set();
+function fetchAhead(q){
+  if (!q) return;
+  [q.media && q.media.kind === 'img' && q.media.src, q.img, q.amedia && q.amedia.kind === 'img' && q.amedia.src]
+    .forEach(src => { if (src && !fetched.has(src)){ fetched.add(src); new Image().src = src; } });
 }
 
 /* YouTube's player script is fetched the first time a round needs it.
