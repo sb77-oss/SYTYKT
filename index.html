@@ -800,6 +800,10 @@ const Disco = (() => {
     beams.push({ v: Math.random(), lon: Math.random() * Math.PI * 2,
       hue: HUES[k % HUES.length], white: Math.random() < .35, size: 2.2 + Math.random() * 3.2, tw: Math.random() * 6.28 });
   }
+  const iconBeams = ICON_NAMES_LIST().map((name, k, all) => ({
+    name, v: .08 + ((k * 5) % all.length) / all.length * .82, lon: k * 2 * Math.PI / all.length + (k >= 8 ? Math.PI / all.length : 0) + .4,
+    hue: [330, 290, 265, 190][k % 4], tw: Math.random() * 6.28 }));
+  function ICON_NAMES_LIST(){ return ['science','geography','history','literature','music','screen','food','internet','history','music','internet','geography','food','science','literature','screen']; }
   /* pre-rendered glow sprites, one per colour, so hundreds of spots stay cheap */
   const sprites = {};
   function sprite(key, hue, white){
@@ -811,6 +815,60 @@ const Disco = (() => {
     gr.addColorStop(.45, `hsla(${hue},100%,65%,.22)`); gr.addColorStop(1, `hsla(${hue},100%,60%,0)`);
     g.fillStyle = gr; g.fillRect(0, 0, S, S);
     return (sprites[key] = c);
+  }
+
+
+  /* category icons the ball throws around the room, drawn as glowing outlines */
+  const ICONS = {
+    science(g){ /* atom */
+      for (const a of [0, Math.PI/3, -Math.PI/3]){ g.save(); g.rotate(a); g.beginPath(); g.ellipse(0, 0, 1, .38, 0, 0, 7); g.stroke(); g.restore(); }
+      g.beginPath(); g.arc(0, 0, .13, 0, 7); g.fill();
+    },
+    geography(g){ /* globe */
+      g.beginPath(); g.arc(0, 0, .95, 0, 7); g.stroke();
+      g.beginPath(); g.ellipse(0, 0, .42, .95, 0, 0, 7); g.stroke();
+      g.beginPath(); g.moveTo(-.95, 0); g.lineTo(.95, 0); g.stroke();
+      g.beginPath(); g.moveTo(-.8, -.48); g.lineTo(.8, -.48); g.moveTo(-.8, .48); g.lineTo(.8, .48); g.stroke();
+    },
+    history(g){ /* classical column */
+      g.beginPath(); g.moveTo(-.85, -.75); g.lineTo(.85, -.75); g.moveTo(-.7, -.6); g.lineTo(.7, -.6);
+      g.moveTo(-.85, .85); g.lineTo(.85, .85); g.moveTo(-.7, .7); g.lineTo(.7, .7);
+      for (const x of [-.45, -.15, .15, .45]){ g.moveTo(x, -.5); g.lineTo(x, .6); }
+      g.stroke();
+    },
+    literature(g){ /* open book */
+      g.beginPath(); g.moveTo(0, -.55); g.quadraticCurveTo(-.45, -.8, -.95, -.6); g.lineTo(-.95, .7); g.quadraticCurveTo(-.45, .5, 0, .75);
+      g.quadraticCurveTo(.45, .5, .95, .7); g.lineTo(.95, -.6); g.quadraticCurveTo(.45, -.8, 0, -.55); g.lineTo(0, .75); g.stroke();
+    },
+    music(g){ /* eighth note */
+      g.beginPath(); g.ellipse(-.3, .62, .3, .22, -.4, 0, 7); g.fill();
+      g.beginPath(); g.moveTo(-.02, .58); g.lineTo(-.02, -.9); g.quadraticCurveTo(.25, -.55, .6, -.45); g.quadraticCurveTo(.3, -.3, .35, .05); g.stroke();
+    },
+    screen(g){ /* TV and film */
+      g.beginPath(); g.roundRect ? g.roundRect(-.95, -.65, 1.9, 1.3, .22) : g.rect(-.95, -.65, 1.9, 1.3); g.stroke();
+      g.beginPath(); g.moveTo(-.2, -.3); g.lineTo(.35, 0); g.lineTo(-.2, .3); g.closePath(); g.fill();
+    },
+    food(g){ /* fork */
+      g.beginPath();
+      for (const x of [-.32, -.11, .11, .32]){ g.moveTo(x, -.95); g.lineTo(x, -.35); }
+      g.moveTo(-.32, -.35); g.quadraticCurveTo(0, .05, .32, -.35); g.moveTo(0, -.15); g.lineTo(0, .95); g.stroke();
+    },
+    internet(g){ /* wifi */
+      for (const r of [.35, .7, 1.05]){ g.beginPath(); g.arc(0, .55, r, -Math.PI * .78, -Math.PI * .22); g.stroke(); }
+      g.beginPath(); g.arc(0, .55, .1, 0, 7); g.fill();
+    }
+  };
+  const ICON_NAMES = Object.keys(ICONS), iconSprites = {};
+  function iconSprite(name, hue){
+    const key = name + hue; if (iconSprites[key]) return iconSprites[key];
+    const S = 96, c = document.createElement('canvas'); c.width = c.height = S;
+    const g = c.getContext('2d');
+    g.translate(S / 2, S / 2); g.scale(S * .3, S * .3);
+    g.lineCap = g.lineJoin = 'round'; g.lineWidth = .11;
+    g.shadowColor = `hsla(${hue},100%,65%,1)`; g.shadowBlur = 12;
+    g.strokeStyle = g.fillStyle = `hsla(${hue},100%,88%,1)`;
+    ICONS[name](g); ICONS[name](g);       /* twice: brighter core inside the glow */
+    return (iconSprites[key] = c);
   }
 
   function layout(){
@@ -838,6 +896,18 @@ const Disco = (() => {
       ctx.globalAlpha = Math.min(1, facing * 1.8) * tw * .75;
       const s = b.size * (.75 + facing * .5) * 4.2;
       ctx.drawImage(sprite(b.white ? 'w' + b.hue : b.hue, b.hue, b.white), x - s, y - s * .8, s * 2, s * 1.6);
+    }
+    const isz = Math.max(18, Math.min(30, W * .06));
+    for (const b of iconBeams){
+      const lon = b.lon + spin * .9, facing = Math.cos(lon);
+      if (facing < .15) continue;
+      const y = top + b.v * span;
+      const x = bx + Math.sin(lon) * W * (.5 + b.v * .2);
+      if (x < -40 || x > W + 40) continue;
+      const tw = .7 + .3 * Math.sin(t * .0025 + b.tw);
+      ctx.globalAlpha = Math.min(1, (facing - .15) * 2.2) * tw * .55;
+      const s = isz * (.8 + facing * .35), sx = s * (.55 + facing * .45);   /* squash as it slides off the edge */
+      ctx.drawImage(iconSprite(b.name, b.hue), x - sx * 1.6, y - s * 1.6, sx * 3.2, s * 3.2);
     }
     ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
