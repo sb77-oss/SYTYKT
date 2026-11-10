@@ -16,7 +16,7 @@
 /* ═══ Same system as the live quiz: Sleek Stage + Glass layer ═══ */
 :root{
   --bg:#08080b; --pink:#ff3d8b; --cyan:#5de6ff; --red:#ff5a6e;
-  --text:#fff; --muted:#b4b4c8; --dim:#6d6d80;
+  --text:#fff; --muted:#b4b4c8; --dim:#9a9aae;
   --glass:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
   --glass-b:rgba(255,255,255,.16);
   --d:'Inter Tight','Helvetica Neue',Arial,sans-serif;
@@ -25,7 +25,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg);color:var(--text);font-family:var(--b);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
-body{min-height:100dvh;overflow-x:hidden}
+html{overscroll-behavior-y:none}
+body{min-height:100vh;min-height:100dvh;overflow-x:hidden}
 #aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 #aurora i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;will-change:transform}
 #aurora i:nth-child(1){width:85vw;height:85vw;left:-30vw;top:-20vw;background:#ff3d8b;animation:b1 19s ease-in-out infinite}
@@ -38,8 +39,13 @@ body{min-height:100dvh;overflow-x:hidden}
 body.dim #aurora{opacity:.55;transition:opacity .6s}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.07;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
-@media (prefers-reduced-motion:reduce){#aurora i,.welcome h1,.welcome h1 .ln{animation:none!important}}
-button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-align:inherit}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-align:inherit;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+/* keyboard focus ring (never shown for taps) */
+:focus{outline:none}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.pill.white:focus-visible,.pill.cyan:focus-visible,.tab.on:focus-visible{box-shadow:0 0 0 3px var(--bg),0 0 0 5px #fff;outline:none}
+/* read by screen readers, invisible on screen */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .screen{display:none;position:relative;z-index:1}.screen.on{display:block;animation:fade .3s ease}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .wrap{max-width:520px;margin:0 auto;padding:16px 20px 130px}
@@ -48,14 +54,16 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .track{font-family:var(--b);font-weight:500;font-size:11px;letter-spacing:.3em;text-transform:uppercase}
 .display{font-family:var(--d);font-weight:800;text-transform:uppercase;letter-spacing:-.035em;line-height:.92}
 .pill{display:block;width:100%;padding:16px 20px;border-radius:999px;font-family:var(--d);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-align:center}
-.pill:active{transform:scale(.98)}
+.pill,.rc,.tab,.icon,.start{transition:transform .12s ease}
+.pill:active{transform:scale(.97)}
+.icon:active,.tab:active{transform:scale(.94)}
 .pill.white{background:#fff;color:var(--bg)}
 .pill.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
 .pill.cyan{background:var(--cyan);color:var(--bg)}
-.credit{text-align:center;color:rgba(255,255,255,.4);font-size:11px;letter-spacing:.3em}
+.credit{text-align:center;color:rgba(255,255,255,.62);font-size:11px;letter-spacing:.3em}
 
 /* ── welcome: the quiz's title screen, for a phone ── */
-.welcome{min-height:100dvh;max-width:520px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+.welcome{min-height:100vh;min-height:100dvh;max-width:520px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   padding:calc(30px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom))}
 .w-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .w-mast{color:var(--pink);font-size:17px;font-weight:700;letter-spacing:.5em;padding-left:.5em;text-shadow:0 0 18px rgba(255,61,139,.55)}
@@ -102,7 +110,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .rc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rc);opacity:.9}
 .rc .bd{color:var(--rc);font-size:10px;letter-spacing:.24em}
 .rc .n{font-size:18px;line-height:1.02;letter-spacing:-.02em;margin:6px 0 0;overflow-wrap:anywhere}
-.rc .m{font-size:10px;letter-spacing:.14em;color:var(--dim);margin-top:9px}
+.rc .m{font-size:10.5px;letter-spacing:.14em;color:var(--muted);margin-top:9px}
 .rc.done .m{color:var(--rc)}
 .rc.done{background:linear-gradient(160deg,color-mix(in srgb,var(--rc) 26%,transparent),color-mix(in srgb,var(--rc) 8%,transparent));
   border-color:color-mix(in srgb,var(--rc) 55%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 30px -14px color-mix(in srgb,var(--rc) 60%,transparent)}
@@ -114,6 +122,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .sea-h h2{text-shadow:0 0 40px rgba(255,61,139,.35)}
 .sea-h .prog-s{margin-top:12px;font-size:12px;color:var(--muted)}
 .rc.wide{grid-column:1/-1;min-height:96px}
+@media (max-width:350px){.rc{padding:12px 10px 12px 14px}.rc .n{font-size:15px}.rc .bd{letter-spacing:.18em}}
 
 /* ── round intro ── */
 .intro{position:relative;text-align:center;min-height:calc(100dvh - 230px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 0}
@@ -136,6 +145,10 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .qt{font-family:var(--d);font-weight:700;font-size:23px;line-height:1.18;letter-spacing:-.02em;white-space:pre-line}
 .media{margin-top:16px;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid var(--glass-b)}
 .media img{display:block;width:100%;max-height:46vh;object-fit:contain}
+button.media{display:block;width:100%;padding:0;position:relative;cursor:zoom-in}
+.media[hidden]{display:none}
+button.media::after{content:'';position:absolute;right:8px;bottom:8px;width:30px;height:30px;border-radius:50%;background:rgba(8,8,11,.6) center/14px no-repeat;border:1px solid rgba(255,255,255,.25);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5L8 6M1.5 12.5L6 8'/></svg>")}
 .yt{position:relative;aspect-ratio:16/9;background:#000}
 .yt iframe,.yt>div{position:absolute;inset:0;width:100%;height:100%;border:0}
 .yt .cover{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
@@ -164,6 +177,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .rev{scroll-margin-top:76px;margin-top:14px;animation:fade .35s ease}
 .rev .lab{color:var(--c)}
 .rev .ans{font-size:clamp(34px,10vw,46px);margin-top:12px;overflow-wrap:anywhere;animation:rise .7s cubic-bezier(.2,.7,.2,1) .1s both;text-shadow:0 0 40px color-mix(in srgb,var(--c) 40%,transparent)}
+.rev .ans.mid{font-size:clamp(26px,7.6vw,34px);line-height:.98}
+.rev .ans.long{font-size:clamp(20px,5.6vw,24px);line-height:1.08;letter-spacing:-.02em}
 .rev .sub,.rev .stat,.rev .media,.rev ul{animation:up .5s .3s both}
 .rev .sub{color:#d2d2e2;font-size:15px;margin-top:10px}
 .rev .stat{margin-top:16px;text-align:center;padding:16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid var(--glass-b)}
@@ -193,6 +208,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .recap div{display:flex;gap:12px;align-items:baseline;padding:13px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:14.5px}
 .recap div:first-child{border-top:0}
 .recap b{flex:none;width:14px;font-family:var(--d)}
+#stage:focus,#seasons:focus{outline:none}
 .recap .y b{color:var(--cyan)}.recap .n b{color:var(--red)}
 
 /* ── overlays: the "leave this round?" sheet ── */
@@ -202,11 +218,22 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .sheet-card{width:100%;max-width:480px;padding:26px 20px 20px;border-radius:24px;text-align:center;display:grid;gap:10px;background:linear-gradient(160deg,rgba(40,40,52,.96),rgba(20,20,28,.96))}
 .sheet-card h2{font-size:28px}
 .sheet-card p{color:var(--muted);margin:2px 0 10px}
+
+/* ── a picture, full screen ── */
+#zoom{align-items:center;padding:calc(12px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));background:rgba(8,8,11,.94);cursor:zoom-out}
+#zoom img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px}
+#zoom .icon{position:absolute;top:calc(10px + env(safe-area-inset-top));right:14px;background:rgba(8,8,11,.7)}
+
+/* ── for people who ask their phone for less motion: everything appears in place ── */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  #aurora i{animation:none!important}
+}
 </style>
 </head>
 <body>
-<div id="aurora"><i></i><i></i><i></i><i></i></div>
-<canvas id="fx" style="position:fixed;inset:0;width:100%;height:100%;z-index:20;pointer-events:none"></canvas>
+<div id="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<canvas id="fx" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:20;pointer-events:none"></canvas>
 
 <!-- WELCOME -->
 <section class="screen on" id="welcome">
@@ -228,10 +255,10 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 <section class="screen" id="home">
   <div class="bar"><div class="in">
     <button class="icon" onclick="goBack(showWelcome)" aria-label="Back to the start">←</button>
-    <div class="t">Choose a round</div>
+    <h1 class="t">Choose a round</h1>
   </div>
-  <div class="tabs" id="tabs"></div></div>
-  <div class="wrap" id="seasons"></div>
+  <div class="tabs" id="tabs" role="group" aria-label="Season"></div></div>
+  <div class="wrap" id="seasons" tabindex="-1"></div>
 </section>
 
 <!-- PLAY -->
@@ -239,9 +266,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
   <div class="bar"><div class="in">
     <button class="icon" onclick="leavePlay()" aria-label="Back">←</button>
     <div class="t" id="barTitle"></div>
-    <div class="score" id="barScore"></div>
+    <div class="score" id="barScore" aria-label="Score so far"></div>
   </div></div>
-  <div class="wrap" id="stage"></div>
+  <div class="wrap" id="stage" tabindex="-1"></div>
   <div class="foot"><div class="in" id="foot"></div></div>
 </section>
 
@@ -255,6 +282,16 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
   </div>
 </div>
 
+<!-- A PICTURE, FULL SCREEN -->
+<div class="sheet" id="zoom" hidden role="dialog" aria-modal="true" aria-label="Picture, full screen" onclick="closeOverlays()">
+  <img id="zoomImg" alt="">
+  <button class="icon" aria-label="Close picture">✕</button>
+</div>
+
+<!-- what screen readers hear when an answer or a score appears -->
+<div class="sr" id="live" role="status" aria-live="polite"></div>
+<noscript><p style="position:relative;z-index:2;padding:24px;text-align:center">This game needs JavaScript. Turn it on and refresh.</p></noscript>
+
 <script src="questions.js"></script>
 <script>
 /* ───────── state (in memory only, nothing is saved) ───────── */
@@ -264,6 +301,9 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ROMAN = ['','I','II','III','IV','V','VI','VII'];
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const say = text => { $('live').textContent = text; };                                  /* for screen readers */
+const buzz = ms => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch(e){} };  /* a tiny tap on phones that allow it */
+const land = el => { try { el.focus({preventScroll:true}); } catch(e){} };               /* keyboard and screen readers follow the new screen */
 
 /* if questions.js has a typo the whole file fails to load: say so instead of showing a dead page */
 if (typeof SEASONS === 'undefined' || !SEASONS.length){
@@ -301,7 +341,7 @@ function goBack(fallback){
   history.back();
 }
 function showWelcome(){ show('welcome'); window.scrollTo(0,0); }
-function showRounds(){ fleckList = []; show('home'); setColor('#ff3d8b'); renderHome(); window.scrollTo(0,0); }
+function showRounds(){ fleckList = []; show('home'); setColor('#ff3d8b'); renderHome(); window.scrollTo(0,0); land($('seasons')); }
 const midRound = () => !!run && !run.done && (run.i > 0 || run.answered);
 window.addEventListener('popstate', e => {
   backing = false;
@@ -321,12 +361,52 @@ function toRounds(season){                   /* "All rounds" and "Season II →"
   try { history.replaceState({v:'home'}, ''); } catch(e){}
   showRounds();
 }
-function askLeave(){ $('leave').hidden = false; $('leave').querySelector('button').focus(); }
+let overlayFrom = null;
+function openOverlay(id){
+  overlayFrom = document.activeElement;
+  document.querySelectorAll('.screen').forEach(s => { s.inert = true; });   /* nothing behind it can be tapped or tabbed to */
+  $(id).hidden = false;
+  $(id).querySelector('button').focus();
+}
+function askLeave(){ openOverlay('leave'); }
+function zoom(btn){ const img = btn.querySelector('img'); $('zoomImg').src = img.currentSrc || img.src; openOverlay('zoom'); }
 function closeOverlays(){
   let was = false;
   document.querySelectorAll('.sheet').forEach(s => { if (!s.hidden){ s.hidden = true; was = true; } });
+  if (was){
+    document.querySelectorAll('.screen').forEach(s => { s.inert = false; });
+    if (overlayFrom && overlayFrom.isConnected) land(overlayFrom);
+    overlayFrom = null;
+  }
   return was;
 }
+
+/* ───────── keyboard, for playing on a laptop ─────────
+   Space or Enter: the main button. Right arrow: Got it. Left arrow: Missed it. Esc: back. */
+document.addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
+  const open = !!document.querySelector('.sheet:not([hidden])');
+  if (e.key === 'Escape'){
+    if (closeOverlays()) return;
+    if (view === 'play') leavePlay(); else if (view === 'home') goBack(showWelcome);
+    return;
+  }
+  if (open) return;
+  const onControl = e.target.closest && e.target.closest('button, a, input, textarea, select, iframe');
+  const main = e.key === ' ' || e.key === 'Enter';
+  if (main && onControl) return;                        /* the focused button handles its own key press */
+  if (view === 'welcome' && main){ e.preventDefault(); yeah(); openRounds(); return; }
+  if (view === 'home' && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')){
+    const k = curSeason + (e.key === 'ArrowRight' ? 1 : -1);
+    if (SEASONS[k]) pickSeason(k);
+    return;
+  }
+  if (view !== 'play') return;
+  const btns = $('foot').querySelectorAll('button');
+  if (!btns.length) return;
+  if (main || e.key === 'ArrowRight'){ e.preventDefault(); btns[btns.length - 1].click(); }
+  else if (e.key === 'ArrowLeft' && run && run.answered && !run.done && btns.length === 2) btns[0].click();
+});
 
 /* ───────── the "yeah" from the live quiz's PRESS TO START ─────────
    Web Audio, decoded as the page loads, fired on finger-down: no iPhone lag. */
@@ -367,7 +447,7 @@ function openRounds(){ if (view === 'home' || !SEASONS.length) return; push('hom
 function pickSeason(k){ curSeason = k; renderHome(); window.scrollTo(0,0); }
 function renderHome(){
   const tabs = SEASONS.map((s,k) =>
-    `<button class="tab ${k===curSeason?'on':''}" onclick="pickSeason(${k})">${ROMAN[k+1]}</button>`);
+    `<button class="tab ${k===curSeason?'on':''}" aria-label="${esc(s.label)}" aria-pressed="${k===curSeason}" onclick="pickSeason(${k})">${ROMAN[k+1]}</button>`);
   $('tabs').innerHTML = tabs.join('');
   const s = SEASONS[curSeason];
   $('seasons').innerHTML = `
@@ -375,7 +455,7 @@ function renderHome(){
       <div class="prog-s">${s.rounds.filter(r=>results[r.id]).length} of ${s.rounds.length} rounds played</div></div>
     <div class="grid">${s.rounds.map(r => {
       const res = results[r.id];
-      const meta = res ? `✓ ${res.score} / ${res.total}` : `${r.questions.length} question${r.questions.length===1?'':'s'}`;
+      const meta = res ? `<span aria-hidden="true">✓ </span><span class="sr">Played. Score </span>${res.score} / ${res.total}` : `${r.questions.length} question${r.questions.length===1?'':'s'}`;
       return `<button class="rc glass ${res?'done':''} ${r.bonus?'wide':''}" style="--rc:${r.color};--i:${s.rounds.indexOf(r)}" onclick="startRound('${r.id}')">
         <div class="bd track">${r.bonus ? 'Bonus' : 'Round ' + r.no}</div>
         <div class="n display">${esc(r.name)}</div>
@@ -413,12 +493,12 @@ function renderIntro(){
   const r = run.round;
   $('barTitle').textContent = r.season.label; $('barScore').textContent = '';
   $('stage').innerHTML = `<div class="intro">
-    <div class="num">${r.bonus ? '★' : String(r.no).padStart(2,'0')}</div>
+    <div class="num" aria-hidden="true">${r.bonus ? '★' : String(r.no).padStart(2,'0')}</div>
     <span class="badge track">${r.bonus ? 'Bonus' : 'Round ' + r.no}</span>
     <h2 class="display">${esc(r.name)}</h2>
     ${(r.subname || r.format) ? `<div class="sn">${esc(soft(r.subname) || r.format)}</div>` : ''}</div>`;
   setFoot(`<button class="pill white" onclick="renderQuestion()">Begin →</button>`);
-  window.scrollTo(0,0);
+  window.scrollTo(0,0); land($('stage'));
 }
 
 /* the buttons at the bottom. They ignore taps for a moment after they change,
@@ -439,19 +519,19 @@ function renderQuestion(){
   const label = run.round ? (round.bonus ? 'Bonus' : 'Round ' + round.no)
                           : esc(ROMAN[SEASONS.indexOf(round.season)+1] + ' · ' + round.name);
   $('stage').innerHTML = `
-    <div class="prog"><i style="width:${(run.i/run.items.length)*100}%"></i></div>
+    <div class="prog" aria-hidden="true"><i style="width:${(run.i/run.items.length)*100}%"></i></div>
     <div class="qhead"><span class="qpill track">${label}</span>
-      <span class="qcount">${run.i+1} / ${run.items.length}</span></div>
+      <span class="qcount"><span class="sr">Question </span>${run.i+1} / ${run.items.length}</span></div>
     <div class="qcard glass">
       <div class="qt">${esc(q.q)}</div>
       ${mediaHTML(q.media, 'qm', true)}
-      ${q.options.length ? `<div class="opts" id="opts">${q.options.map((o,k)=>`
-        <div class="opt"><span class="l">${'ABCDEF'[k] || ''}</span><span>${esc(o)}</span></div>`).join('')}</div>` : ''}
+      ${q.options.length ? `<div class="opts" id="opts" role="list">${q.options.map((o,k)=>`
+        <div class="opt" role="listitem"><span class="l">${'ABCDEF'[k] || ''}</span><span>${esc(o)}</span></div>`).join('')}</div>` : ''}
     </div>
     <div id="rev"></div>`;
   setFoot(`<button class="pill white" onclick="reveal()">Show answer</button>`);
   mountMedia(q.media, 'qm');
-  window.scrollTo(0,0);
+  window.scrollTo(0,0); land($('stage'));
 }
 
 /* every question reveals the same way: show the answer, then the player marks themselves */
@@ -459,29 +539,31 @@ function reveal(){
   if (!run || run.answered || !$('rev')) return;
   run.answered = true;
   const {q} = run.items[run.i];
+  const len = String(q.answer).length, size = len > 60 ? 'long' : len > 26 ? 'mid' : '';   /* long answers get smaller type */
   if (q.options.length && $('opts')){
     $('opts').classList.add('locked');
     const o = $('opts').children[q.correct]; if (o) o.classList.add('right');
   }
   $('rev').innerHTML = `<div class="rev qcard glass">
     <div class="lab track">The answer</div>
-    <div class="ans display">${esc(q.answer)}</div>
+    <div class="ans display ${size}">${esc(q.answer)}</div>
     ${q.sub?`<div class="sub">${esc(q.sub)}</div>`:''}
     ${q.stat?`<div class="stat"><b>${esc(q.stat)}</b>${q.statLabel?`<span>${esc(q.statLabel)}</span>`:''}</div>`:''}
-    ${q.img?mediaHTML({kind:'img', src:q.img}):''}
+    ${q.img?mediaHTML({kind:'img', src:q.img}, 'ai', false):''}
     ${mediaHTML(q.amedia, 'am', false)}
     ${q.note.length?`<ul>${q.note.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:''}
     ${q.source?`<div class="src">Source: ${esc(q.source)}</div>`:''}
   </div>`;
   if (players.qm) { try { players.qm.pauseVideo(); } catch(e){} }
   mountMedia(q.amedia, 'am');
+  say(`The answer: ${q.answer}. ${q.sub || ''}`); buzz(8);
   setFoot(`<button class="pill ghost" onclick="score(false)">Missed it</button>
            <button class="pill cyan" onclick="score(true)">Got it</button>`);
   setTimeout(() => { const el = $('rev'); if (el && el.firstChild) el.scrollIntoView({behavior: reducedMotion() ? 'auto' : 'smooth', block:'start'}); }, 60);
 }
 function score(got){
   if (!run || !run.answered || run.i >= run.items.length) return;
-  if (got) run.score++;
+  if (got){ run.score++; buzz(12); }
   run.log.push({q: run.items[run.i].q, got});
   run.i++;
   if (run.i < run.items.length) renderQuestion(); else renderEnd();
@@ -501,12 +583,13 @@ function renderEnd(){
     <div class="track">${run.round ? esc(run.round.name) : 'Quick game'}</div>
     <div class="big"><span id="cnt">${reducedMotion() ? s : 0}</span><small> / ${n}</small></div>
     <div class="msg">${msg}</div></div>
-    <div class="recap glass">${run.log.map(l=>`<div class="${l.got?'y':'n'}"><b>${l.got?'✓':'✗'}</b><span>${esc(l.q.answer)}</span></div>`).join('')}</div>`;
+    <div class="recap glass">${run.log.map(l=>`<div class="${l.got?'y':'n'}"><b aria-hidden="true">${l.got?'✓':'✗'}</b><span><span class="sr">${l.got?'Got it: ':'Missed it: '}</span>${esc(l.q.answer)}</span></div>`).join('')}</div>`;
   if (!reducedMotion()){
     const cnt = $('cnt'); let c = 0;
     const step = () => { if (!cnt.isConnected) return; cnt.textContent = c; if (c++ < s) setTimeout(step, 700 / Math.max(s,1)); };
     step();
   }
+  say(`${run.round ? run.round.name : 'Quick game'}: ${s} out of ${n}. ${msg}.`);
   if (pct >= .6) setTimeout(() => flecks(pct === 1 ? 260 : 120), 500);
   if (!run.roundId){
     setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>
@@ -530,7 +613,7 @@ function renderEnd(){
       setTimeout(() => flecks(260), 900);
     }
   }
-  window.scrollTo(0,0);
+  window.scrollTo(0,0); land($('stage'));
 }
 
 /* ───────── disco flecks, same hues as the quiz's disco balls ───────── */
@@ -562,10 +645,11 @@ function flecks(count){
 /* ───────── media: images + YouTube (audio clips stay covered) ───────── */
 function mediaHTML(m, slot, isQuestion){
   if (!m) return '';
-  if (m.kind === 'img') return `<div class="media"><img src="${esc(m.src)}" alt="" onerror="this.parentNode.hidden=true"></div>`;
+  if (m.kind === 'img') return `<button class="media" onclick="zoom(this)" aria-label="${isQuestion ? 'Picture for this question' : 'Picture for the answer'}. Open full screen">
+    <img src="${esc(m.src)}" alt="" decoding="async" onerror="this.parentNode.hidden=true"></button>`;
   const covered = isQuestion && !m.video;
   return `<div class="media"><div class="yt" id="${slot}-box"><div id="${slot}-player"></div>
-    ${covered?`<div class="cover"><div class="eq"><b></b><b></b><b></b><b></b></div><div class="track">Listen</div></div>`:''}
+    ${covered?`<div class="cover" aria-hidden="true"><div class="eq"><b></b><b></b><b></b><b></b></div><div class="track">Listen</div></div>`:''}
     <div class="ytmsg track">The clip did not load</div></div></div>
     ${covered?`<button class="pill ghost clipbtn" id="${slot}-btn" onclick="toggleClip('${slot}')" disabled>Loading clip</button>`:''}`;
 }
