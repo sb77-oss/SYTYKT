@@ -87,6 +87,10 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .welcome{min-height:100vh;min-height:100dvh;max-width:520px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   padding:calc(30px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom))}
 .w-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#disco{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#welcome .welcome{position:relative;z-index:1}
+.w-ballroom{height:clamp(96px,17vh,150px);flex:none}
+@media (max-height:700px){.w-ballroom{height:66px}.welcome h1{font-size:min(18.5vw,8.4vh);margin-top:14px}.w-rule{margin-top:18px!important}.w-actions{margin-top:14px}}
 .w-mast{color:var(--pink);font-size:17px;font-weight:700;letter-spacing:.5em;padding-left:.5em;text-shadow:0 0 18px rgba(255,61,139,.55)}
 .welcome h1{font-size:clamp(58px,18.5vw,92px);margin-top:20px;line-height:.88;
   filter:drop-shadow(0 0 24px rgba(255,61,139,.35)) drop-shadow(0 0 60px rgba(124,58,237,.35));animation:float 6s ease-in-out 1.5s infinite}
@@ -258,14 +262,16 @@ button.media::after{content:'';position:absolute;right:8px;bottom:8px;width:30px
 
 <!-- WELCOME -->
 <section class="screen on" id="welcome">
+  <canvas id="disco" aria-hidden="true"></canvas>
   <div class="welcome">
     <div class="w-main">
+      <div class="w-ballroom" aria-hidden="true"></div>
       <div class="track w-mast w-in" style="--d:.05s">The Archive</div>
       <h1 class="display"><span class="ln" style="--d:.15s">So you</span><span class="ln" style="--d:.25s">think you</span><span class="ln" style="--d:.35s">know</span><span class="ln" style="--d:.45s">things</span></h1>
       <div class="w-rule"></div>
     </div>
     <div class="w-actions">
-      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah()" onclick="yeah();openRounds()"><span>▶︎&nbsp; Press to start</span></button>
+      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah();Disco.kick()" onclick="yeah();Disco.kick();pressStart()"><span>▶︎&nbsp; Press to start</span></button>
       <button class="pill ghost w-in" style="--d:1.25s" onclick="startMix()">Quick game · 10 questions</button>
       <div class="credit w-in" style="--d:1.35s">sara behar</div>
     </div>
@@ -757,6 +763,153 @@ function stopAll(){
   for (const k in players){ try { players[k].destroy(); } catch(e){} }
   players = {}; slotMedia = {}; ytWaiting = [];
 }
+
+/* ───────── welcome mirror ball ─────────
+   One ball in the quiz's pink to violet palette, hanging above the title.
+   It turns slowly and throws soft light spots that sweep across the screen.
+   Press to start spins it up. Pauses when the welcome screen is hidden. */
+let pressing = false;
+function pressStart(){
+  if (pressing) return; pressing = true;
+  setTimeout(() => { pressing = false; openRounds(); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 420);
+}
+const Disco = (() => {
+  const cv = document.getElementById('disco');
+  if (!cv || !cv.getContext) return { kick(){} };
+  const ctx = cv.getContext('2d');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const HUES = [330, 320, 300, 285, 265, 250, 190];   /* pinks, violets, a touch of cyan */
+  let W = 0, H = 0, dpr = 1, bx = 0, by = 0, br = 40;
+  let spin = 0, boost = 0, raf = 0, last = 0;
+  const SPEED = 0.0032;
+  const L = (() => { const v = [-.5, -.62, .6], m = Math.hypot(...v); return v.map(x => x / m); })();
+
+  /* the ball's mirror tiles: a dense grid on the sphere */
+  const tiles = [], ROWS = 22;
+  for (let i = 0; i < ROWS; i++){
+    const lat = -Math.PI/2 + (i + .5) * Math.PI / ROWS;
+    const cols = Math.max(6, Math.round(44 * Math.cos(lat)));
+    for (let j = 0; j < cols; j++){
+      const tinted = ((i * 13 + j * 7) % 11) === 0;
+      tiles.push({ lat, lon: j * 2 * Math.PI / cols, cols, tinted, hue: HUES[(i * 5 + j * 3) % HUES.length], jit: Math.random() * .18 });
+    }
+  }
+  /* the light it throws: a sparser set of beams */
+  const beams = [];
+  for (let k = 0; k < 120; k++){
+    beams.push({ v: Math.random(), lon: Math.random() * Math.PI * 2,
+      hue: HUES[k % HUES.length], white: Math.random() < .35, size: 2.2 + Math.random() * 3.2, tw: Math.random() * 6.28 });
+  }
+  /* pre-rendered glow sprites, one per colour, so hundreds of spots stay cheap */
+  const sprites = {};
+  function sprite(key, hue, white){
+    if (sprites[key]) return sprites[key];
+    const c = document.createElement('canvas'), S = 64; c.width = c.height = S;
+    const g = c.getContext('2d'), gr = g.createRadialGradient(S/2, S/2, 0, S/2, S/2, S/2);
+    const core = white ? 'rgba(255,255,255,1)' : `hsla(${hue},100%,82%,1)`;
+    gr.addColorStop(0, core); gr.addColorStop(.18, white ? 'rgba(255,235,250,.85)' : `hsla(${hue},100%,75%,.8)`);
+    gr.addColorStop(.45, `hsla(${hue},100%,65%,.22)`); gr.addColorStop(1, `hsla(${hue},100%,60%,0)`);
+    g.fillStyle = gr; g.fillRect(0, 0, S, S);
+    return (sprites[key] = c);
+  }
+
+  function layout(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const room = document.querySelector('.w-ballroom');
+    const r = room ? room.getBoundingClientRect() : { top: 40, height: 110 };
+    br = Math.max(26, Math.min(48, r.height * .34));
+    bx = W / 2;
+    by = Math.max(br + 14, r.top + r.height * .5);
+  }
+
+  function spots(t){
+    ctx.globalCompositeOperation = 'lighter';
+    const top = by + br * 1.2, span = H - top + 20;
+    for (const b of beams){
+      const lon = b.lon + spin, facing = Math.cos(lon);
+      if (facing < .08) continue;
+      const y = top + b.v * span;
+      const x = bx + Math.sin(lon) * W * (.55 + b.v * .25);
+      if (x < -30 || x > W + 30 || y < -30 || y > H + 30) continue;
+      const tw = .6 + .4 * Math.sin(t * .003 + b.tw);
+      ctx.globalAlpha = Math.min(1, facing * 1.8) * tw * .75;
+      const s = b.size * (.75 + facing * .5) * 4.2;
+      ctx.drawImage(sprite(b.white ? 'w' + b.hue : b.hue, b.hue, b.white), x - s, y - s * .8, s * 2, s * 1.6);
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  function ball(t){
+    /* cord */
+    const cord = ctx.createLinearGradient(0, 0, 0, by - br);
+    cord.addColorStop(0, 'rgba(255,255,255,0)'); cord.addColorStop(1, 'rgba(255,255,255,.45)');
+    ctx.strokeStyle = cord; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(bx, 0); ctx.lineTo(bx, by - br); ctx.stroke();
+    /* halo */
+    const halo = ctx.createRadialGradient(bx, by, br * .8, bx, by, br * 3.4);
+    halo.addColorStop(0, 'rgba(255,61,139,.28)'); halo.addColorStop(.5, 'rgba(150,110,255,.1)'); halo.addColorStop(1, 'rgba(150,110,255,0)');
+    ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(bx, by, br * 3.4, 0, 7); ctx.fill();
+    /* dark grout under the tiles */
+    ctx.fillStyle = '#0d0b12'; ctx.beginPath(); ctx.arc(bx, by, br, 0, 7); ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.arc(bx, by, br, 0, 7); ctx.clip();
+    const rowH = Math.PI * br / ROWS;
+    for (const f of tiles){
+      const lon = f.lon + spin, cl = Math.cos(f.lat);
+      const nx = Math.sin(lon) * cl, ny = Math.sin(f.lat), nz = Math.cos(lon) * cl;
+      if (nz <= 0.02) continue;
+      const x = bx + nx * br, y = by + ny * br;
+      const d = Math.max(0, -(nx * L[0] + ny * L[1]) + nz * L[2]);
+      const spec = Math.pow(d, 40), diff = .18 + .5 * d;
+      const flick = .5 + .5 * Math.sin(t * .004 + f.jit * 40);
+      const lit = Math.min(1, diff + spec * 1.4 + f.jit * flick * .5);
+      const w = Math.max(.8, (2 * Math.PI * br * cl / f.cols) * nz * .82), hh = Math.max(.8, rowH * Math.sqrt(1 - ny * ny) * .82 + rowH * .05);
+      ctx.fillStyle = f.tinted
+        ? `hsla(${f.hue},85%,${30 + lit * 55}%,1)`
+        : `hsla(${f.hue},12%,${22 + lit * 72}%,1)`;
+      ctx.fillRect(x - w / 2, y - hh / 2, w, hh);
+    }
+    /* shading so it reads as a sphere */
+    const shade = ctx.createRadialGradient(bx - br * .3, by - br * .35, br * .2, bx, by, br * 1.05);
+    shade.addColorStop(0, 'rgba(255,255,255,.08)'); shade.addColorStop(.7, 'rgba(10,6,16,.15)'); shade.addColorStop(1, 'rgba(10,6,16,.65)');
+    ctx.fillStyle = shade; ctx.fillRect(bx - br, by - br, br * 2, br * 2);
+    ctx.restore();
+    /* rim */
+    ctx.strokeStyle = 'rgba(255,170,215,.4)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(bx, by, br - .5, 0, 7); ctx.stroke();
+    /* glints that pop now and then on bright tiles */
+    for (let g = 0; g < 2; g++){
+      const gp = (t * .00042 + g * .5) % 1;
+      if (gp > .1) continue;
+      const k = Math.sin(gp / .1 * Math.PI), ang = g ? -2.2 : -.9;
+      const gx = bx + Math.cos(ang) * br * .55, gy = by + Math.sin(ang) * br * .55, Lg = br * .75 * k;
+      ctx.strokeStyle = `rgba(255,255,255,${.95 * k})`; ctx.lineWidth = 1.3;
+      ctx.beginPath(); ctx.moveTo(gx - Lg, gy); ctx.lineTo(gx + Lg, gy); ctx.moveTo(gx, gy - Lg); ctx.lineTo(gx, gy + Lg); ctx.stroke();
+      ctx.fillStyle = `rgba(255,255,255,${k})`; ctx.beginPath(); ctx.arc(gx, gy, 1.8 * k, 0, 7); ctx.fill();
+    }
+  }
+
+  function frame(t){
+    const dt = last ? Math.min(50, t - last) : 16; last = t;
+    boost *= Math.pow(.97, dt / 16);
+    spin += (SPEED + boost) * dt / 16;
+    ctx.clearRect(0, 0, W, H);
+    spots(t); ball(t);
+    raf = still ? 0 : requestAnimationFrame(frame);
+  }
+  function visible(){ return document.getElementById('welcome').classList.contains('on') && !document.hidden; }
+  function start(){ if (!raf && visible()){ layout(); last = 0; still ? frame(performance.now()) : (raf = requestAnimationFrame(frame)); } }
+  function stop(){ if (raf){ cancelAnimationFrame(raf); raf = 0; } }
+  addEventListener('resize', () => { if (visible()){ layout(); if (still) frame(performance.now()); } });
+  document.addEventListener('visibilitychange', () => visible() ? start() : stop());
+  new MutationObserver(() => visible() ? start() : stop())
+    .observe(document.getElementById('welcome'), { attributes: true, attributeFilter: ['class'] });
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(start));
+  return { kick(){ boost = .09; } };
+})();
 </script>
 </body>
 </html>
