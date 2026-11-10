@@ -275,7 +275,7 @@ button.media::after{content:'';position:absolute;right:8px;bottom:8px;width:30px
       <div class="track w-mast w-in" style="--d:.7s">The Archive</div>
     </div>
     <div class="w-actions">
-      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah();Disco.kick();Disco.shower(this)" onclick="yeah();Disco.kick();Disco.shower(this);pressStart()"><span>▶︎&nbsp; Press to start</span></button>
+      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah()" onclick="yeah();Disco.kick();Disco.shower(this);pressStart()"><span>▶︎&nbsp; Press to start</span></button>
       <button class="pill ghost w-in" style="--d:1.25s" onclick="startMix()">Quick game · 10 questions</button>
       <div class="credit w-in" style="--d:1.35s">sara behar</div>
     </div>
@@ -426,7 +426,7 @@ document.addEventListener('keydown', e => {
   const onControl = e.target.closest && e.target.closest('button, a, input, textarea, select, iframe');
   const main = e.key === ' ' || e.key === 'Enter';
   if (main && onControl) return;                        /* the focused button handles its own key press */
-  if (view === 'welcome' && main){ e.preventDefault(); yeah(); openRounds(); return; }
+  if (view === 'welcome' && main){ e.preventDefault(); document.querySelector('.start').click(); return; }
   if (view === 'home' && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')){
     const k = curSeason + (e.key === 'ArrowRight' ? 1 : -1);
     if (SEASONS[k]) pickSeason(k);
