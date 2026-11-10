@@ -38,7 +38,6 @@ body{min-height:100dvh;overflow-x:hidden}
 body.dim #aurora{opacity:.55;transition:opacity .6s}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.07;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
-@keyframes drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3vw,-2vh,0)}}
 @media (prefers-reduced-motion:reduce){#aurora i,.welcome h1,.welcome h1 .ln{animation:none!important}}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-align:inherit}
 .screen{display:none;position:relative;z-index:1}.screen.on{display:block;animation:fade .3s ease}
@@ -74,10 +73,6 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 @keyframes rise{from{opacity:0;transform:translateY(40%);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 @keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.chips{display:flex;gap:8px;margin-top:22px}
-.chip{padding:10px 12px;border-radius:14px;min-width:84px;text-align:center}
-.chip b{display:block;font-family:var(--d);font-weight:800;font-size:22px;line-height:1;letter-spacing:-.02em}
-.chip span{display:block;margin-top:6px;font-size:9px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500}
 @keyframes psGlow{0%,100%{text-shadow:0 0 14px rgba(255,61,139,.7),0 0 34px rgba(124,58,237,.4);opacity:1}50%{text-shadow:0 0 26px rgba(255,61,139,1),0 0 60px rgba(124,58,237,.7);opacity:.85}}
 .start{display:block;width:100%;padding:18px 10px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,61,139,.45);
   box-shadow:0 0 0 0 rgba(255,61,139,.4),inset 0 1px 0 rgba(255,255,255,.18);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
@@ -85,26 +80,23 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .start span{display:inline-block;animation:psGlow 1.8s ease-in-out infinite;padding-left:.3em}
 .start:active{transform:scale(.98)}
 @keyframes ring{0%,100%{box-shadow:0 0 0 0 rgba(255,61,139,.0),inset 0 1px 0 rgba(255,255,255,.18)}50%{box-shadow:0 0 0 6px rgba(255,61,139,.18),0 0 40px rgba(255,61,139,.25),inset 0 1px 0 rgba(255,255,255,.18)}}
-.w-season{color:var(--pink);letter-spacing:.55em;margin-top:18px;font-size:12px;padding-left:.55em}
-.w-rule{width:160px;margin-top:28px!important;height:3px;border-radius:2px;margin:22px 0 0;background:linear-gradient(90deg,#ff468c,#c04fd8 55%,#8f6dff);transform-origin:center;animation:draw .8s cubic-bezier(.2,.7,.2,1) .8s both;box-shadow:0 0 18px rgba(255,61,139,.5)}
-.w-count{margin-top:20px;color:var(--muted);font-size:15px}
+.w-rule{width:160px;height:3px;border-radius:2px;margin:28px 0 0;background:linear-gradient(90deg,#ff468c,#c04fd8 55%,#8f6dff);transform-origin:center;animation:draw .8s cubic-bezier(.2,.7,.2,1) .8s both;box-shadow:0 0 18px rgba(255,61,139,.5)}
 .w-actions{width:100%;display:grid;gap:10px}
 .w-actions .credit{margin-top:16px}
 
 /* ── top bar ── */
 .bar{position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top);background:rgba(8,8,11,.55);-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.08)}
-.bar .in{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 20px}
+.bar .in{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:8px 20px 8px 16px}
 .bar .t{flex:1;min-width:0;font-family:var(--d);font-weight:800;font-size:15px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar .score{font-family:var(--d);font-weight:800;font-size:15px;color:var(--c);font-variant-numeric:tabular-nums}
-.icon{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);font-size:15px}
+.icon{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);font-size:15px}
 
 /* ── rounds ── */
 .tabs{max-width:520px;margin:0 auto;display:flex;gap:6px;padding:2px 20px 12px}
-.tab{flex:1;min-width:0;padding:9px 0;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);font-family:var(--d);font-weight:800;font-size:13px;letter-spacing:.06em;text-align:center;color:var(--muted)}
+.tab{flex:1;min-width:0;min-height:44px;padding:9px 0;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);font-family:var(--d);font-weight:800;font-size:13px;letter-spacing:.06em;text-align:center;color:var(--muted)}
 .tab.on{background:#fff;color:var(--bg);border-color:#fff}
 .sea-h{text-align:center;padding:18px 0 18px}
 .sea-h h2{font-size:34px}
-.sea-h .track{color:var(--pink);margin-top:10px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .rc{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:118px;padding:14px 14px 13px 17px;border-radius:18px;text-align:left}
 .rc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rc);opacity:.9}
@@ -122,17 +114,13 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .sea-h h2{text-shadow:0 0 40px rgba(255,61,139,.35)}
 .sea-h .prog-s{margin-top:12px;font-size:12px;color:var(--muted)}
 .rc.wide{grid-column:1/-1;min-height:96px}
-.s4lock{text-align:center;padding:80px 10px}
-.s4lock .lk{font-size:36px}
-.s4lock h2{font-size:34px;margin:16px 0 10px}
-.s4lock p{color:var(--muted)}
 
 /* ── round intro ── */
 .intro{position:relative;text-align:center;min-height:calc(100dvh - 230px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 0}
-.intro .num{position:absolute;left:0;right:0;top:50%;transform:translateY(-78%);font-family:var(--d);font-weight:800;font-size:200px;line-height:1;color:var(--c);opacity:.08;letter-spacing:-.04em;pointer-events:none}
+.intro .num{position:absolute;left:50%;top:50%;transform:translate(-50%,-78%);white-space:nowrap;font-family:var(--d);font-weight:800;font-size:200px;line-height:1;color:var(--c);opacity:.08;letter-spacing:-.04em;pointer-events:none}
 .intro .badge{position:relative;display:inline-block;padding:8px 18px;border-radius:999px;border:1px solid var(--c);color:var(--c);background:rgba(255,255,255,.06);padding-left:calc(18px + .35em);letter-spacing:.35em}
 .intro .num{animation:numIn 1s cubic-bezier(.2,.7,.2,1) both}
-@keyframes numIn{from{opacity:0;transform:translateY(-60%) scale(1.25)}}
+@keyframes numIn{from{opacity:0;transform:translate(-50%,-60%) scale(1.25)}}
 .intro .badge{animation:up .6s .15s both}.intro h2{animation:rise .8s cubic-bezier(.2,.7,.2,1) .25s both}.intro .sn{animation:up .6s .5s both}
 .intro h2{position:relative;text-shadow:0 0 50px color-mix(in srgb,var(--c) 45%,transparent);font-size:clamp(40px,12vw,56px);margin:22px 0 14px;overflow-wrap:anywhere}
 .intro .sn{position:relative;color:var(--muted);font-size:17px}
@@ -140,9 +128,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 /* ── question ── */
 .prog{height:3px;border-radius:3px;background:rgba(255,255,255,.1);margin:8px 0 18px;overflow:hidden}
 .prog i{display:block;height:100%;background:var(--c);transition:width .4s ease}
-.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.qpill{padding:6px 13px;border-radius:999px;border:1px solid var(--c);color:var(--c);background:rgba(255,255,255,.06);letter-spacing:.24em}
-.qcount{color:#8a8a9e;font-size:14px;font-weight:500}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.qpill{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:6px 13px;border-radius:999px;border:1px solid var(--c);color:var(--c);background:rgba(255,255,255,.06);letter-spacing:.24em}
+.qcount{flex:none;color:#8a8a9e;font-size:14px;font-weight:500}
 .qcard{position:relative;overflow:hidden;border-radius:24px;padding:22px 20px;animation:up .45s cubic-bezier(.2,.7,.2,1) both}
 .qcard::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--c),transparent 70%)}
 .qt{font-family:var(--d);font-weight:700;font-size:23px;line-height:1.18;letter-spacing:-.02em;white-space:pre-line}
@@ -157,7 +145,12 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .yt.playing .cover .eq b{animation:eq .9s ease-in-out infinite}
 .yt.playing .cover .eq b:nth-child(2){animation-delay:.15s}.yt.playing .cover .eq b:nth-child(3){animation-delay:.3s}.yt.playing .cover .eq b:nth-child(4){animation-delay:.45s}
 @keyframes eq{0%,100%{height:25%}50%{height:100%}}
+.yt .ytmsg{display:none;position:absolute;inset:0;align-items:center;justify-content:center;padding:0 20px;text-align:center;color:var(--muted);background:#0c0c11;line-height:1.8}
+.yt.failed .ytmsg{display:flex}
+.yt.failed .cover{display:none}
 .clipbtn{margin-top:12px}
+.pill:disabled{opacity:.5;cursor:default}
+.pill:disabled:active{transform:none}
 .opts{display:grid;gap:8px;margin-top:18px}
 .opt{display:flex;gap:12px;align-items:center;padding:13px 14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--glass-b);color:#e8e8f2;font-weight:500;font-size:16px;line-height:1.3}
 .opt .l{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);font-family:var(--d);font-weight:800;font-size:12px;color:var(--muted)}
@@ -182,7 +175,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 
 /* ── footer actions ── */
 .foot{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:26px 20px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(rgba(8,8,11,0),rgba(8,8,11,.92) 40%)}
-.foot .in{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.foot{pointer-events:none}
+.foot .in{max-width:520px;margin:0 auto;display:flex;gap:10px;pointer-events:auto}
 .foot .in:empty{display:none}
 
 /* ── round end ── */
@@ -200,6 +194,14 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .recap div:first-child{border-top:0}
 .recap b{flex:none;width:14px;font-family:var(--d)}
 .recap .y b{color:var(--cyan)}.recap .n b{color:var(--red)}
+
+/* ── overlays: the "leave this round?" sheet ── */
+.sheet{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;padding:20px 20px calc(20px + env(safe-area-inset-bottom));
+  background:rgba(8,8,11,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);animation:fade .2s ease}
+.sheet[hidden]{display:none}
+.sheet-card{width:100%;max-width:480px;padding:26px 20px 20px;border-radius:24px;text-align:center;display:grid;gap:10px;background:linear-gradient(160deg,rgba(40,40,52,.96),rgba(20,20,28,.96))}
+.sheet-card h2{font-size:28px}
+.sheet-card p{color:var(--muted);margin:2px 0 10px}
 </style>
 </head>
 <body>
@@ -215,7 +217,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
       <div class="w-rule"></div>
     </div>
     <div class="w-actions">
-      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah()" onclick="openRounds()"><span>▶︎&nbsp; Press to start</span></button>
+      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah()" onclick="yeah();openRounds()"><span>▶︎&nbsp; Press to start</span></button>
       <button class="pill ghost w-in" style="--d:1.25s" onclick="startMix()">Quick game · 10 questions</button>
       <div class="credit w-in" style="--d:1.35s">sara behar</div>
     </div>
@@ -225,7 +227,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 <!-- ROUNDS -->
 <section class="screen" id="home">
   <div class="bar"><div class="in">
-    <button class="icon" onclick="show('welcome');window.scrollTo(0,0)" aria-label="Back">←</button>
+    <button class="icon" onclick="goBack(showWelcome)" aria-label="Back to the start">←</button>
     <div class="t">Choose a round</div>
   </div>
   <div class="tabs" id="tabs"></div></div>
@@ -235,7 +237,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 <!-- PLAY -->
 <section class="screen" id="play">
   <div class="bar"><div class="in">
-    <button class="icon" onclick="goHome()" aria-label="Back to rounds">←</button>
+    <button class="icon" onclick="leavePlay()" aria-label="Back">←</button>
     <div class="t" id="barTitle"></div>
     <div class="score" id="barScore"></div>
   </div></div>
@@ -243,27 +245,88 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
   <div class="foot"><div class="in" id="foot"></div></div>
 </section>
 
+<!-- LEAVE THIS ROUND? -->
+<div class="sheet" id="leave" hidden role="dialog" aria-modal="true" aria-labelledby="leaveT" onclick="if(event.target===this)closeOverlays()">
+  <div class="sheet-card glass">
+    <h2 class="display" id="leaveT">Leave this round?</h2>
+    <p>Your score for this round will be lost.</p>
+    <button class="pill white" onclick="closeOverlays()">Keep playing</button>
+    <button class="pill ghost" onclick="closeOverlays();exitPlay()">Leave</button>
+  </div>
+</div>
+
 <script src="questions.js"></script>
 <script>
 /* ───────── state (in memory only, nothing is saved) ───────── */
 const results = {};
-let run = null, curSeason = 0, s4Open = false;
-let ytApiReady = false, ytQueue = [], players = {};
+let run = null, curSeason = 0;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ROMAN = ['','I','II','III','IV','V','VI','VII'];
+const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* if questions.js has a typo the whole file fails to load: say so instead of showing a dead page */
+if (typeof SEASONS === 'undefined' || !SEASONS.length){
+  window.SEASONS = window.SEASONS || [];
+  document.querySelector('.w-actions').innerHTML =
+    '<p style="color:var(--muted)">The questions did not load. Check questions.js for a typo, then refresh.</p>';
+}
 
 /* Same round colours as the live quiz: pink to violet across the night, white for the bonus */
 const ROUND_COLORS = ['#ff468c','#f34a99','#e84fa6','#dc53b2','#d058bf','#c55ccc','#b961d9','#ad65e5','#a26af2','#966eff'];
 function paint(season){
   let k = 0;
-  season.rounds.forEach(r => { r.color = r.bonus ? '#ffffff' : ROUND_COLORS[Math.min(k++, 9)]; r.no = r.bonus ? 0 : k; });
+  season.rounds.forEach(r => {
+    r.color = r.bonus ? '#ffffff' : ROUND_COLORS[Math.min(k++, 9)]; r.no = r.bonus ? 0 : k;
+    /* fill in anything a question leaves out, so a missing field never breaks the page */
+    r.questions.forEach(q => { q.options = q.options || []; q.note = [].concat(q.note || []); });
+  });
 }
 SEASONS.forEach(paint);
 const allRounds = () => SEASONS.flatMap(s => s.rounds.map(r => ({...r, season: s})));
 const soft = s => (s && s === s.toUpperCase() && /[A-Z]{3}/.test(s)) ? s.charAt(0)+s.slice(1).toLowerCase() : s;
-function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
 function setColor(c){ document.documentElement.style.setProperty('--c', c); }
+
+/* ───────── screens, and the phone's back button ─────────
+   Each screen change adds a step to the browser history, so the back gesture
+   moves one screen back inside the app. Mid-round it asks before leaving. */
+let view = 'welcome', cameFrom = 'welcome', hist = false, backing = false, fleckList = [];
+function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id)); view = id; }
+function push(id){ try { history.pushState({v:id}, ''); hist = true; } catch(e){ hist = false; } }
+try { history.replaceState({v:'welcome'}, ''); } catch(e){}
+function goBack(fallback){
+  if (backing) return;                       /* ignore a second tap while the first is still going back */
+  if (!hist) return fallback();
+  backing = true; setTimeout(() => { backing = false; }, 600);
+  history.back();
+}
+function showWelcome(){ show('welcome'); window.scrollTo(0,0); }
+function showRounds(){ fleckList = []; show('home'); setColor('#ff3d8b'); renderHome(); window.scrollTo(0,0); }
+const midRound = () => !!run && !run.done && (run.i > 0 || run.answered);
+window.addEventListener('popstate', e => {
+  backing = false;
+  const to = (e.state && e.state.v) || 'welcome';
+  if (closeOverlays()){ push(view); return; }                         /* back closes whatever is open on top */
+  if (view === 'play' && midRound()){ push('play'); askLeave(); return; }
+  stopAll(); run = null;
+  if (to === 'play'){ try { history.replaceState({v:'home'}, ''); } catch(e){} }   /* a finished round has nothing to go forward to */
+  to === 'welcome' ? showWelcome() : showRounds();
+});
+function leavePlay(){ midRound() ? askLeave() : exitPlay(); }
+function exitPlay(){ stopAll(); run = null; goBack(() => cameFrom === 'home' ? showRounds() : showWelcome()); }
+function toRounds(season){                   /* "All rounds" and "Season II →" on the end screen */
+  stopAll(); run = null;
+  if (season != null) curSeason = season;
+  if (cameFrom === 'home') return goBack(showRounds);
+  try { history.replaceState({v:'home'}, ''); } catch(e){}
+  showRounds();
+}
+function askLeave(){ $('leave').hidden = false; $('leave').querySelector('button').focus(); }
+function closeOverlays(){
+  let was = false;
+  document.querySelectorAll('.sheet').forEach(s => { if (!s.hidden){ s.hidden = true; was = true; } });
+  return was;
+}
 
 /* ───────── the "yeah" from the live quiz's PRESS TO START ─────────
    Web Audio, decoded as the page loads, fired on finger-down: no iPhone lag. */
@@ -281,8 +344,10 @@ document.addEventListener('pointerdown', function wake(){
   try { if (actx && actx.state !== 'running') actx.resume(); } catch(e){}
   document.removeEventListener('pointerdown', wake, true);
 }, true);
-let yeahFallback = null;
+let yeahFallback = null, yeahAt = 0;
 function yeah(){
+  if (Date.now() - yeahAt < 1200) return;    /* one yeah per press, even though finger-down and click both ask */
+  yeahAt = Date.now();
   try {
     if (actx && yeahBuf){
       if (actx.state !== 'running') actx.resume();
@@ -292,22 +357,17 @@ function yeah(){
       return;
     }
     yeahFallback = yeahFallback || new Audio('assets/yeah.mp3');
-    yeahFallback.volume = YEAH_VOLUME; yeahFallback.currentTime = 0; yeahFallback.play().catch(()=>{});
+    yeahFallback.volume = YEAH_VOLUME; yeahFallback.currentTime = 0;
+    const p = yeahFallback.play(); if (p && p.catch) p.catch(() => {});
   } catch(e){}
 }
 
-/* ───────── welcome ───────── */
-function updateWelcome(){
-  const n = SEASONS.reduce((a,s) => a + s.rounds.reduce((b,r) => b + r.questions.length, 0), 0);
-  const rounds = SEASONS.reduce((a,s) => a + s.rounds.filter(r => !r.bonus).length, 0);
-
-}
-
 /* ───────── rounds ───────── */
-function openRounds(){ show('home'); setColor('#ff3d8b'); renderHome(); window.scrollTo(0,0); }
+function openRounds(){ if (view === 'home' || !SEASONS.length) return; push('home'); showRounds(); }
+function pickSeason(k){ curSeason = k; renderHome(); window.scrollTo(0,0); }
 function renderHome(){
   const tabs = SEASONS.map((s,k) =>
-    `<button class="tab ${k===curSeason?'on':''}" onclick="curSeason=${k};renderHome();window.scrollTo(0,0)">${ROMAN[k+1]}</button>`);
+    `<button class="tab ${k===curSeason?'on':''}" onclick="pickSeason(${k})">${ROMAN[k+1]}</button>`);
   $('tabs').innerHTML = tabs.join('');
   const s = SEASONS[curSeason];
   $('seasons').innerHTML = `
@@ -322,23 +382,32 @@ function renderHome(){
         <div class="m track">${meta}</div></button>`;
     }).join('')}</div>`;
 }
-function goHome(){
-  if (run && run.i < run.items.length && run.i > 0 && !confirm('Leave this round? Your progress in it will be lost.')) return;
-  stopAll(); run = null; openRounds();
-}
 
 /* ───────── starting ───────── */
+function enterPlay(){ if (view !== 'play'){ cameFrom = view; push('play'); } show('play'); fleckList = []; }
 function startRound(id){
   const r = allRounds().find(x => x.id === id);
+  if (!r) return;
+  stopAll();
   curSeason = SEASONS.indexOf(r.season);
   run = {round:r, items:r.questions.map(q => ({round:r, q})), i:0, score:0, log:[], roundId:id};
-  show('play'); setColor(r.color); renderIntro();
+  enterPlay(); setColor(r.color); renderIntro();
+  warmClips();
 }
 function startMix(){
   const pool = allRounds().flatMap(r => r.questions.map(q => ({round:r, q})));
+  if (!pool.length) return;
   for (let i = pool.length - 1; i > 0; i--){ const j = Math.random()*(i+1)|0; [pool[i],pool[j]] = [pool[j],pool[i]]; }
-  run = {round:null, items:pool.slice(0,10), i:0, score:0, log:[], roundId:null};
-  show('play'); renderQuestion();
+  /* ten questions with ten different answers (a few answers come up in more than one season) */
+  const seen = new Set(), items = [];
+  for (const it of pool){
+    const key = String(it.q.answer).trim().toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key); items.push(it);
+    if (items.length === 10) break;
+  }
+  run = {round:null, items, i:0, score:0, log:[], roundId:null};
+  enterPlay(); renderQuestion();
 }
 function renderIntro(){
   const r = run.round;
@@ -348,40 +417,49 @@ function renderIntro(){
     <span class="badge track">${r.bonus ? 'Bonus' : 'Round ' + r.no}</span>
     <h2 class="display">${esc(r.name)}</h2>
     ${(r.subname || r.format) ? `<div class="sn">${esc(soft(r.subname) || r.format)}</div>` : ''}</div>`;
-  $('foot').innerHTML = `<button class="pill white" onclick="renderQuestion()">Begin →</button>`;
+  setFoot(`<button class="pill white" onclick="renderQuestion()">Begin →</button>`);
   window.scrollTo(0,0);
 }
 
+/* the buttons at the bottom. They ignore taps for a moment after they change,
+   so a double tap on "Got it" can't also press "Show answer" on the next question. */
+let footLock = 0;
+function setFoot(html){ $('foot').innerHTML = html; footLock = Date.now() + 350; }
+$('foot').addEventListener('click', e => { if (Date.now() < footLock){ e.stopPropagation(); e.preventDefault(); } }, true);
+
 /* ───────── question ───────── */
 function renderQuestion(){
+  if (!run || run.i >= run.items.length) return;
   stopAll();
   const {round, q} = run.items[run.i];
   setColor(round.color);
   run.answered = false;
   $('barTitle').textContent = run.round ? round.name : 'Quick game';
   $('barScore').textContent = `${run.score} ${run.score===1?'pt':'pts'}`;
+  const label = run.round ? (round.bonus ? 'Bonus' : 'Round ' + round.no)
+                          : esc(ROMAN[SEASONS.indexOf(round.season)+1] + ' · ' + round.name);
   $('stage').innerHTML = `
     <div class="prog"><i style="width:${(run.i/run.items.length)*100}%"></i></div>
-    <div class="qhead"><span class="qpill track">${run.round ? (round.bonus ? 'Bonus' : 'Round ' + round.no) : esc(round.season.label + ' · ' + round.name)}</span>
+    <div class="qhead"><span class="qpill track">${label}</span>
       <span class="qcount">${run.i+1} / ${run.items.length}</span></div>
     <div class="qcard glass">
       <div class="qt">${esc(q.q)}</div>
       ${mediaHTML(q.media, 'qm', true)}
       ${q.options.length ? `<div class="opts" id="opts">${q.options.map((o,k)=>`
-        <div class="opt"><span class="l">${'ABCD'[k]}</span><span>${esc(o)}</span></div>`).join('')}</div>` : ''}
+        <div class="opt"><span class="l">${'ABCDEF'[k] || ''}</span><span>${esc(o)}</span></div>`).join('')}</div>` : ''}
     </div>
     <div id="rev"></div>`;
-  $('foot').innerHTML = `<button class="pill white" onclick="reveal()">Show answer</button>`;
+  setFoot(`<button class="pill white" onclick="reveal()">Show answer</button>`);
   mountMedia(q.media, 'qm');
   window.scrollTo(0,0);
 }
 
 /* every question reveals the same way: show the answer, then the player marks themselves */
 function reveal(){
-  if (run.answered) return;
+  if (!run || run.answered || !$('rev')) return;
   run.answered = true;
   const {q} = run.items[run.i];
-  if (q.options.length){
+  if (q.options.length && $('opts')){
     $('opts').classList.add('locked');
     const o = $('opts').children[q.correct]; if (o) o.classList.add('right');
   }
@@ -390,18 +468,19 @@ function reveal(){
     <div class="ans display">${esc(q.answer)}</div>
     ${q.sub?`<div class="sub">${esc(q.sub)}</div>`:''}
     ${q.stat?`<div class="stat"><b>${esc(q.stat)}</b>${q.statLabel?`<span>${esc(q.statLabel)}</span>`:''}</div>`:''}
-    ${q.img?`<div class="media"><img src="${esc(q.img)}" alt="" loading="lazy"></div>`:''}
+    ${q.img?mediaHTML({kind:'img', src:q.img}):''}
     ${mediaHTML(q.amedia, 'am', false)}
     ${q.note.length?`<ul>${q.note.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:''}
     ${q.source?`<div class="src">Source: ${esc(q.source)}</div>`:''}
   </div>`;
   if (players.qm) { try { players.qm.pauseVideo(); } catch(e){} }
   mountMedia(q.amedia, 'am');
-  $('foot').innerHTML = `<button class="pill ghost" onclick="score(false)">Missed it</button>
-                         <button class="pill cyan" onclick="score(true)">Got it</button>`;
-  setTimeout(() => { const el = $('rev'); if (el && el.firstChild) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
+  setFoot(`<button class="pill ghost" onclick="score(false)">Missed it</button>
+           <button class="pill cyan" onclick="score(true)">Got it</button>`);
+  setTimeout(() => { const el = $('rev'); if (el && el.firstChild) el.scrollIntoView({behavior: reducedMotion() ? 'auto' : 'smooth', block:'start'}); }, 60);
 }
 function score(got){
+  if (!run || !run.answered || run.i >= run.items.length) return;
   if (got) run.score++;
   run.log.push({q: run.items[run.i].q, got});
   run.i++;
@@ -411,6 +490,7 @@ function score(got){
 /* ───────── round end ───────── */
 function renderEnd(){
   stopAll();
+  run.done = true;
   const n = run.items.length, s = run.score;
   if (run.roundId) results[run.roundId] = {score:s, total:n};
   const pct = s / n;
@@ -419,21 +499,25 @@ function renderEnd(){
   $('barScore').textContent = '';
   $('stage').innerHTML = `<div class="end">
     <div class="track">${run.round ? esc(run.round.name) : 'Quick game'}</div>
-    <div class="big"><span id="cnt">0</span><small> / ${n}</small></div>
+    <div class="big"><span id="cnt">${reducedMotion() ? s : 0}</span><small> / ${n}</small></div>
     <div class="msg">${msg}</div></div>
     <div class="recap glass">${run.log.map(l=>`<div class="${l.got?'y':'n'}"><b>${l.got?'✓':'✗'}</b><span>${esc(l.q.answer)}</span></div>`).join('')}</div>`;
-  let c = 0; const step = () => { if (!$('cnt')) return; $('cnt').textContent = c; if (c++ < s) setTimeout(step, 700 / Math.max(s,1)); }; step();
+  if (!reducedMotion()){
+    const cnt = $('cnt'); let c = 0;
+    const step = () => { if (!cnt.isConnected) return; cnt.textContent = c; if (c++ < s) setTimeout(step, 700 / Math.max(s,1)); };
+    step();
+  }
   if (pct >= .6) setTimeout(() => flecks(pct === 1 ? 260 : 120), 500);
   if (!run.roundId){
-    $('foot').innerHTML = `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
-       <button class="pill white" onclick="startMix()">Play again</button>`;
+    setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>
+             <button class="pill white" onclick="startMix()">Play again</button>`);
   } else {
     /* stay inside this season: next unplayed round after this one, then any unplayed one before it */
     const season = run.round.season, rs = season.rounds, k = rs.findIndex(r => r.id === run.roundId);
     const nextR = rs.slice(k+1).find(r => !results[r.id]) || rs.slice(0, k).find(r => !results[r.id]) || null;
     if (nextR){
-      $('foot').innerHTML = `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
-         <button class="pill white" onclick="startRound('${nextR.id}')">Next round →</button>`;
+      setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>
+               <button class="pill white" onclick="startRound('${nextR.id}')">Next round →</button>`);
     } else {
       /* whole season played: show the season total */
       const got = rs.reduce((a,r) => a + results[r.id].score, 0), tot = rs.reduce((a,r) => a + results[r.id].total, 0);
@@ -441,8 +525,8 @@ function renderEnd(){
       $('stage').insertAdjacentHTML('afterbegin', `<div class="season-done glass">
         <div class="track">${esc(season.label)} complete</div>
         <div class="sd-score">${got}<small> / ${tot}</small></div></div>`);
-      $('foot').innerHTML = `<button class="pill ghost" onclick="run=null;openRounds()">All rounds</button>
-         ${nextS ? `<button class="pill white" onclick="run=null;curSeason=${si+1};openRounds()">${esc(nextS.label)} →</button>` : ''}`;
+      setFoot(`<button class="pill ghost" onclick="toRounds()">All rounds</button>
+               ${nextS ? `<button class="pill white" onclick="toRounds(${si+1})">${esc(nextS.label)} →</button>` : ''}`);
       setTimeout(() => flecks(260), 900);
     }
   }
@@ -450,60 +534,112 @@ function renderEnd(){
 }
 
 /* ───────── disco flecks, same hues as the quiz's disco balls ───────── */
+let flecksOn = false;
 function flecks(count){
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const cv = $('fx'), ctx = cv.getContext('2d'), dpr = devicePixelRatio || 1;
-  const W = cv.width = innerWidth * dpr, H = cv.height = innerHeight * dpr;
+  if (reducedMotion() || view !== 'play') return;
+  const cv = $('fx'), ctx = cv.getContext('2d'), dpr = Math.min(devicePixelRatio || 1, 2);
+  const W = Math.round(innerWidth * dpr), H = Math.round(innerHeight * dpr);
+  if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
   const hues = [330, 280, 200, 160, 60, 0, 320];
-  const ps = Array.from({length:count}, () => ({
-    x: W/2, y: H*.32, vx: (Math.random()-.5)*14*dpr, vy: (-Math.random()*13-3)*dpr,
-    r: (2+Math.random()*4)*dpr, h: hues[Math.random()*hues.length|0], life: 70+Math.random()*60 }));
-  ps.forEach(p => p.max = p.life);
+  for (let n = 0; n < count; n++){
+    const life = 70 + Math.random()*60;
+    fleckList.push({ x: W/2, y: H*.32, vx: (Math.random()-.5)*14*dpr, vy: (-Math.random()*13-3)*dpr,
+      r: (2+Math.random()*4)*dpr, h: hues[Math.random()*hues.length|0], life, max: life, g: .32*dpr });
+  }
+  if (flecksOn) return;                      /* a second burst joins the one already on screen */
+  flecksOn = true;
   (function tick(){
-    ctx.clearRect(0,0,W,H);
-    let alive = 0;
-    for (const p of ps){ if (p.life <= 0) continue; alive++;
-      p.x += p.vx; p.y += p.vy; p.vy += .32*dpr; p.vx *= .985; p.life--;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    fleckList = fleckList.filter(p => p.life > 0);
+    for (const p of fleckList){
+      p.x += p.vx; p.y += p.vy; p.vy += p.g; p.vx *= .985; p.life--;
       ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7);
       ctx.fillStyle = `hsla(${p.h},100%,72%,${p.life/p.max})`; ctx.fill(); }
-    if (alive) requestAnimationFrame(tick); else ctx.clearRect(0,0,W,H);
+    if (fleckList.length) requestAnimationFrame(tick); else { flecksOn = false; ctx.clearRect(0, 0, cv.width, cv.height); }
   })();
 }
 
 /* ───────── media: images + YouTube (audio clips stay covered) ───────── */
 function mediaHTML(m, slot, isQuestion){
   if (!m) return '';
-  if (m.kind === 'img') return `<div class="media"><img src="${esc(m.src)}" alt="" loading="lazy"></div>`;
+  if (m.kind === 'img') return `<div class="media"><img src="${esc(m.src)}" alt="" onerror="this.parentNode.hidden=true"></div>`;
   const covered = isQuestion && !m.video;
   return `<div class="media"><div class="yt" id="${slot}-box"><div id="${slot}-player"></div>
-    ${covered?`<div class="cover"><div class="eq"><b></b><b></b><b></b><b></b></div><div class="track">Listen</div></div>`:''}</div></div>
-    ${covered?`<button class="pill ghost clipbtn" id="${slot}-btn" onclick="toggleClip('${slot}')">▶︎ Play clip</button>`:''}`;
+    ${covered?`<div class="cover"><div class="eq"><b></b><b></b><b></b><b></b></div><div class="track">Listen</div></div>`:''}
+    <div class="ytmsg track">The clip did not load</div></div></div>
+    ${covered?`<button class="pill ghost clipbtn" id="${slot}-btn" onclick="toggleClip('${slot}')" disabled>Loading clip</button>`:''}`;
+}
+
+/* YouTube's player script is fetched the first time a round needs it.
+   If it can't be reached (offline, slow, blocked) the clip says so and offers a retry. */
+let players = {}, slotMedia = {}, ytState = 'idle', ytWaiting = [], ytTimer = 0;
+function loadYT(){
+  if (ytState === 'ready' || ytState === 'loading') return;
+  if (window.YT && YT.Player){ ytState = 'ready'; return; }
+  ytState = 'loading';
+  const s = document.createElement('script');
+  s.src = 'https://www.youtube.com/iframe_api'; s.async = true;
+  const fail = () => { if (ytState !== 'loading') return; ytState = 'failed'; s.remove(); Object.keys(slotMedia).forEach(clipFailed); };
+  s.onerror = fail;
+  clearTimeout(ytTimer); ytTimer = setTimeout(fail, 12000);
+  document.head.appendChild(s);
+}
+window.onYouTubeIframeAPIReady = () => { ytState = 'ready'; clearTimeout(ytTimer); ytWaiting.splice(0).forEach(f => f()); };
+function warmClips(){ if (run && run.items.some(it => [it.q.media, it.q.amedia].some(m => m && m.kind === 'yt'))) loadYT(); }
+function clipFailed(slot){
+  const box = $(`${slot}-box`), btn = $(`${slot}-btn`);
+  if (box) box.classList.add('failed');
+  if (btn){ btn.disabled = false; btn.textContent = 'Try again'; }
 }
 function mountMedia(m, slot){
   if (!m || m.kind !== 'yt') return;
+  slotMedia[slot] = m;
   const make = () => {
-    players[slot] = new YT.Player(`${slot}-player`, {
-      videoId: m.id,
-      playerVars: {start: m.start || 0, playsinline: 1, rel: 0, modestbranding: 1, controls: 1},
-      events: {onStateChange: e => {
-        const box = $(`${slot}-box`), btn = $(`${slot}-btn`);
-        const playing = e.data === YT.PlayerState.PLAYING;
-        if (box) box.classList.toggle('playing', playing);
-        if (btn) btn.textContent = playing ? '❚❚ Pause' : '▶︎ Play clip';
-      }}
-    });
+    if (slotMedia[slot] !== m || !$(`${slot}-player`)) return;      /* the player moved on to another question */
+    try {
+      players[slot] = new YT.Player(`${slot}-player`, {
+        videoId: m.id,
+        playerVars: {start: m.start || 0, playsinline: 1, rel: 0, modestbranding: 1, controls: 1},
+        events: {
+          onReady: () => {
+            if (slotMedia[slot] !== m) return;
+            const box = $(`${slot}-box`), btn = $(`${slot}-btn`);
+            if (box) box.classList.remove('failed');
+            if (btn){ btn.disabled = false; btn.textContent = '▶︎ Play clip'; }
+          },
+          onError: () => { if (slotMedia[slot] === m) clipFailed(slot); },
+          onStateChange: e => {
+            if (slotMedia[slot] !== m) return;
+            const box = $(`${slot}-box`), btn = $(`${slot}-btn`);
+            const playing = e.data === YT.PlayerState.PLAYING;
+            if (box) box.classList.toggle('playing', playing);
+            if (btn) btn.textContent = playing ? '❚❚ Pause' : '▶︎ Play clip';
+          }
+        }
+      });
+    } catch(e){ clipFailed(slot); }
   };
-  ytApiReady ? make() : ytQueue.push(make);
+  if (ytState === 'ready') make(); else { ytWaiting.push(make); loadYT(); }
 }
 function toggleClip(slot){
+  const box = $(`${slot}-box`), btn = $(`${slot}-btn`), m = slotMedia[slot];
+  if (box && box.classList.contains('failed')){                      /* "Try again" */
+    try { if (players[slot]) players[slot].destroy(); } catch(e){}
+    delete players[slot];
+    box.classList.remove('failed');
+    box.querySelectorAll(`iframe, #${slot}-player`).forEach(el => el.remove());
+    box.insertAdjacentHTML('afterbegin', `<div id="${slot}-player"></div>`);
+    if (btn){ btn.disabled = true; btn.textContent = 'Loading clip'; }
+    mountMedia(m, slot);
+    return;
+  }
   const p = players[slot]; if (!p || !p.getPlayerState) return;
-  p.getPlayerState() === YT.PlayerState.PLAYING ? p.pauseVideo() : p.playVideo();
+  try { p.getPlayerState() === YT.PlayerState.PLAYING ? p.pauseVideo() : p.playVideo(); } catch(e){}
 }
-function stopAll(){ for (const k in players){ try { players[k].destroy(); } catch(e){} } players = {}; }
-window.onYouTubeIframeAPIReady = () => { ytApiReady = true; ytQueue.splice(0).forEach(f => f()); };
-(function(){ const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s); })();
-
-updateWelcome();
+function stopAll(){
+  for (const k in players){ try { players[k].destroy(); } catch(e){} }
+  players = {}; slotMedia = {}; ytWaiting = [];
+}
 </script>
 </body>
 </html>
