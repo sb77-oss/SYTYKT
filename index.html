@@ -267,7 +267,7 @@ button.media::after{content:'';position:absolute;right:8px;bottom:8px;width:30px
       <div class="track w-mast w-in" style="--d:.7s">The Archive</div>
     </div>
     <div class="w-actions">
-      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah();Disco.kick()" onclick="yeah();Disco.kick();pressStart()"><span>▶︎&nbsp; Press to start</span></button>
+      <button class="start w-in" style="--d:1.15s" onpointerdown="yeah();Disco.shower(this)" onclick="yeah();Disco.shower(this);pressStart()"><span>▶︎&nbsp; Press to start</span></button>
       <button class="pill ghost w-in" style="--d:1.25s" onclick="startMix()">Quick game · 10 questions</button>
       <div class="credit w-in" style="--d:1.35s">sara behar</div>
     </div>
@@ -767,11 +767,11 @@ function stopAll(){
 let pressing = false;
 function pressStart(){
   if (pressing) return; pressing = true;
-  setTimeout(() => { pressing = false; openRounds(); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 420);
+  setTimeout(() => { pressing = false; openRounds(); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 480);
 }
 const Disco = (() => {
   const cv = document.getElementById('disco');
-  if (!cv || !cv.getContext) return { kick(){} };
+  if (!cv || !cv.getContext) return { kick(){}, shower(){} };
   const ctx = cv.getContext('2d');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const HUES = [330, 320, 300, 285, 265, 250, 190];   /* pinks, violets, a touch of cyan */
@@ -910,7 +910,57 @@ const Disco = (() => {
   new MutationObserver(() => visible() ? start() : stop())
     .observe(document.getElementById('welcome'), { attributes: true, attributeFilter: ['class'] });
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(start));
-  return { kick(){ boost = .09; } };
+
+  /* ── icon shower: the category icons burst out of Press to start and fade ── */
+  const sc = document.createElement('canvas');
+  sc.setAttribute('aria-hidden', 'true');
+  sc.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:21;pointer-events:none';
+  document.body.appendChild(sc);
+  const sx = sc.getContext('2d');
+  let bits = [], sraf = 0, slast = 0, lastShower = 0;
+  function showerFrame(t){
+    const dt = slast ? Math.min(40, t - slast) : 16; slast = t;
+    const w = innerWidth, hgt = innerHeight;
+    sx.clearRect(0, 0, w, hgt);
+    bits = bits.filter(b => (b.age += dt) < b.life);
+    for (const b of bits){
+      const k = dt / 16;
+      b.vx *= Math.pow(.975, k); b.vy = b.vy * Math.pow(.975, k) + .32 * k;
+      b.x += b.vx * k; b.y += b.vy * k; b.rot += b.spin * k;
+      const p = b.age / b.life;
+      const grow = Math.min(1, b.age / 140);                   /* pop out of the button */
+      sx.globalAlpha = (1 - p * p) * (.55 + .45 * grow);
+      const s = b.size * (.45 + .55 * grow) * (1 + p * .25);
+      sx.save(); sx.translate(b.x, b.y); sx.rotate(b.rot);
+      sx.drawImage(iconSprite(b.name, b.hue), -s * 1.6, -s * 1.6, s * 3.2, s * 3.2);
+      sx.restore();
+    }
+    sx.globalAlpha = 1;
+    if (bits.length) sraf = requestAnimationFrame(showerFrame);
+    else { sraf = 0; slast = 0; sx.clearRect(0, 0, w, hgt); }
+  }
+  function shower(el){
+    if (still) return;
+    const now = performance.now();
+    if (now - lastShower < 600) return;                        /* pointerdown and click both call this */
+    lastShower = now;
+    const d = Math.min(devicePixelRatio || 1, 2);
+    sc.width = innerWidth * d; sc.height = innerHeight * d; sx.setTransform(d, 0, 0, d, 0, 0);
+    const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const names = ['science','geography','history','literature','music','screen','food','internet'];
+    const hues = [330, 300, 285, 265, 250, 190];
+    for (let i = 0; i < 26; i++){
+      const a = -Math.PI / 2 + (Math.random() - .5) * Math.PI * 1.5;   /* mostly up and out */
+      const v = 7 + Math.random() * 9;
+      bits.push({ name: names[i % names.length], hue: hues[(i * 5) % hues.length],
+        x: cx + (Math.random() - .5) * r.width * .5, y: cy + (Math.random() - .5) * r.height * .3,
+        vx: Math.cos(a) * v * 1.15, vy: Math.sin(a) * v,
+        rot: (Math.random() - .5) * .6, spin: (Math.random() - .5) * .08,
+        size: 15 + Math.random() * 13, age: 0, life: 850 + Math.random() * 450 });
+    }
+    if (!sraf) sraf = requestAnimationFrame(showerFrame);
+  }
+  return { kick(){ boost = .09; }, shower };
 })();
 </script>
 </body>
