@@ -815,7 +815,7 @@ const Disco = (() => {
   const iconBeams = ICON_NAMES_LIST().map((name, k, all) => ({
     name, v: .08 + ((k * 5) % all.length) / all.length * .82, lon: k * 2 * Math.PI / all.length + (k >= 8 ? Math.PI / all.length : 0) + .4,
     hue: [330, 290, 265, 190][k % 4], tw: Math.random() * 6.28 }));
-  function ICON_NAMES_LIST(){ return ['science','geography','history','literature','music','screen','food','internet','history','music','internet','geography','food','science','literature','screen']; }
+  function ICON_NAMES_LIST(){ return ['science','star','geography','question','history','bulb','literature','paw','music','news','screen','speech','food','pill','internet','candle','scales','trident','star','question','music','paw']; }
   /* pre-rendered glow sprites, one per colour, so hundreds of spots stay cheap */
   const sprites = {};
   function sprite(key, hue, white){
@@ -868,6 +868,69 @@ const Disco = (() => {
     internet(g){ /* wifi */
       for (const r of [.35, .7, 1.05]){ g.beginPath(); g.arc(0, .55, r, -Math.PI * .78, -Math.PI * .22); g.stroke(); }
       g.beginPath(); g.arc(0, .55, .1, 0, 7); g.fill();
+    },
+    star(g){ /* pop culture */
+      g.beginPath();
+      for (let i = 0; i < 10; i++){ const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? .42 : 1; g.lineTo(Math.cos(a) * r, Math.sin(a) * r + .06); }
+      g.closePath(); g.stroke();
+    },
+    bulb(g){ /* favourite facts */
+      g.beginPath(); g.arc(0, -.22, .55, Math.PI * .78, Math.PI * .22); g.lineTo(.2, .5); g.lineTo(-.2, .5); g.closePath(); g.stroke();
+      g.beginPath(); g.moveTo(-.22, .66); g.lineTo(.22, .66); g.moveTo(-.15, .82); g.lineTo(.15, .82); g.stroke();
+      g.beginPath();
+      for (const a of [-Math.PI / 2, -Math.PI / 2 - .9, -Math.PI / 2 + .9]){ g.moveTo(Math.cos(a) * .72, -.22 + Math.sin(a) * .72); g.lineTo(Math.cos(a) * .95, -.22 + Math.sin(a) * .95); }
+      g.stroke();
+    },
+    news(g){ /* current events */
+      g.beginPath(); g.moveTo(-.95, -.7); g.lineTo(.7, -.7); g.lineTo(.7, .7); g.lineTo(-.8, .7); g.quadraticCurveTo(-.95, .7, -.95, .55); g.closePath(); g.stroke();
+      g.beginPath(); g.moveTo(.7, -.3); g.lineTo(.95, -.3); g.lineTo(.95, .55); g.quadraticCurveTo(.95, .7, .8, .7); g.stroke();
+      g.strokeRect(-.72, -.48, .55, .42);
+      g.beginPath(); g.moveTo(.0, -.45); g.lineTo(.5, -.45); g.moveTo(.0, -.2); g.lineTo(.5, -.2);
+      g.moveTo(-.72, .12); g.lineTo(.5, .12); g.moveTo(-.72, .38); g.lineTo(.5, .38); g.stroke();
+    },
+    paw(g){ /* animals */
+      g.beginPath(); g.ellipse(0, .38, .42, .34, 0, 0, 7); g.fill();
+      for (const [x, y, r] of [[-.62, -.05, .17], [-.25, -.42, .18], [.25, -.42, .18], [.62, -.05, .17]]){ g.beginPath(); g.ellipse(x, y, r, r * 1.25, x * .5, 0, 7); g.fill(); }
+    },
+    question(g){ /* the quiz itself */
+      g.beginPath(); g.arc(0, -.42, .42, Math.PI * 1.05, Math.PI * .45 + Math.PI * 2 * 0 , false);
+      g.quadraticCurveTo(.0, .05, .0, .3); g.stroke();
+      g.beginPath(); g.arc(0, .72, .1, 0, 7); g.fill();
+    },
+    speech(g){ /* who said it */
+      g.beginPath();
+      g.moveTo(-.65, -.7); g.lineTo(.65, -.7); g.quadraticCurveTo(.95, -.7, .95, -.4); g.lineTo(.95, .15); g.quadraticCurveTo(.95, .45, .65, .45);
+      g.lineTo(-.15, .45); g.lineTo(-.55, .85); g.lineTo(-.45, .45); g.lineTo(-.65, .45); g.quadraticCurveTo(-.95, .45, -.95, .15);
+      g.lineTo(-.95, -.4); g.quadraticCurveTo(-.95, -.7, -.65, -.7); g.closePath(); g.stroke();
+      for (const x of [-.4, 0, .4]){ g.beginPath(); g.arc(x, -.12, .08, 0, 7); g.fill(); }
+    },
+    pill(g){ /* just say know */
+      g.save(); g.rotate(-Math.PI / 4);
+      g.beginPath(); g.moveTo(-.55, -.33); g.lineTo(.55, -.33); g.arc(.55, 0, .33, -Math.PI / 2, Math.PI / 2); g.lineTo(-.55, .33); g.arc(-.55, 0, .33, Math.PI / 2, Math.PI * 1.5); g.closePath(); g.stroke();
+      g.beginPath(); g.moveTo(0, -.33); g.lineTo(0, .33); g.stroke();
+      g.globalAlpha = .35; g.beginPath(); g.moveTo(0, -.33); g.lineTo(.55, -.33); g.arc(.55, 0, .33, -Math.PI / 2, Math.PI / 2); g.lineTo(0, .33); g.closePath(); g.fill();
+      g.restore();
+    },
+    candle(g){ /* religion */
+      g.strokeRect(-.32, -.15, .64, 1.05);
+      g.beginPath(); g.moveTo(0, -.15); g.lineTo(0, -.32); g.stroke();
+      g.beginPath(); g.moveTo(0, -.95); g.quadraticCurveTo(.3, -.6, 0, -.4); g.quadraticCurveTo(-.3, -.6, 0, -.95); g.fill();
+    },
+    scales(g){ /* "lawyer" */
+      g.beginPath(); g.moveTo(0, -.85); g.lineTo(0, .8); g.moveTo(-.45, .8); g.lineTo(.45, .8);
+      g.moveTo(-.8, -.6); g.lineTo(.8, -.6);
+      for (const x of [-.8, .8]){ g.moveTo(x, -.6); g.lineTo(x - .3, .1); g.moveTo(x, -.6); g.lineTo(x + .3, .1); }
+      g.stroke();
+      for (const x of [-.8, .8]){ g.beginPath(); g.arc(x, .1, .32, 0, Math.PI); g.closePath(); g.stroke(); }
+      g.beginPath(); g.arc(0, -.85, .1, 0, 7); g.fill();
+    },
+    trident(g){ /* the odyssey */
+      g.beginPath(); g.moveTo(0, -.95); g.lineTo(0, .95);
+      g.moveTo(-.6, -.75); g.lineTo(-.6, -.25); g.quadraticCurveTo(-.6, .05, 0, .05); g.quadraticCurveTo(.6, .05, .6, -.25); g.lineTo(.6, -.75);
+      g.stroke();
+      g.beginPath();
+      for (const x of [-.6, 0, .6]){ g.moveTo(x - .14, -.68); g.lineTo(x, -.95); g.lineTo(x + .14, -.68); }
+      g.stroke();
     }
   };
   const ICON_NAMES = Object.keys(ICONS), iconSprites = {};
@@ -974,7 +1037,7 @@ const Disco = (() => {
     const d = Math.min(devicePixelRatio || 1, 2);
     sc.width = innerWidth * d; sc.height = innerHeight * d; sx.setTransform(d, 0, 0, d, 0, 0);
     const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const names = ['science','geography','history','literature','music','screen','food','internet'];
+    const names = ICON_NAMES;
     const hues = [330, 300, 285, 265, 250, 190];
     for (let i = 0; i < 26; i++){
       const a = -Math.PI / 2 + (Math.random() - .5) * Math.PI * 1.5;   /* mostly up and out */
@@ -987,7 +1050,7 @@ const Disco = (() => {
     }
     if (!sraf) sraf = requestAnimationFrame(showerFrame);
   }
-  return { kick(){ boost = .09; }, shower };
+  return { kick(){ boost = .09; }, shower, iconSprite, names: ICON_NAMES };
 })();
 </script>
 </body>
