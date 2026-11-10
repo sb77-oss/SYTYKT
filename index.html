@@ -967,7 +967,7 @@ const Disco = (() => {
     else { sraf = 0; slast = 0; sx.clearRect(0, 0, w, hgt); }
   }
   function shower(el){
-    if (still) return;
+    if (still || !el) return;
     const now = performance.now();
     if (now - lastShower < 600) return;                        /* pointerdown and click both call this */
     lastShower = now;
