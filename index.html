@@ -461,7 +461,7 @@ document.addEventListener('keydown', e => {
 const YEAH_VOLUME = 0.4, CHIME_VOLUME = 0.4;
 const AC = window.AudioContext || window.webkitAudioContext;
 const SFX = { yeah:'assets/yeah.mp3', round:'assets/chime-round.mp3', q:'assets/chime-question.mp3',
-  pong:'https://cdn.freesound.org/previews/686/686543_12843138-hq.mp3' };  /* pong: Freesound, Troube, CC0 (686543) */
+  pong:'assets/pong.mp3' };  /* pong: Freesound, Troube, CC0 (686543) */
 let actx = null; const sfxBuf = {};
 try {
   actx = AC ? new AC() : null;
