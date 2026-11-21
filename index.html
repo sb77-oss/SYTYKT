@@ -458,7 +458,9 @@ document.addEventListener('keydown', e => {
 
 /* ───────── the "yeah" from the live quiz's PRESS TO START ─────────
    Web Audio, decoded as the page loads, fired on finger-down: no iPhone lag. */
-const YEAH_VOLUME = 0.4, CHIME_VOLUME = 0.4;
+const YEAH_VOLUME = 0.4, CHIME_VOLUME = 0.4, PONG_VOLUME = 1.0;  /* the pong file is much quieter than the others */
+/* iPhones: play even when the ring/silent switch is on silent (iOS 17+; older phones ignore this) */
+try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch(e){}
 const AC = window.AudioContext || window.webkitAudioContext;
 const SFX = { yeah:'assets/yeah.mp3', round:'assets/chime-round.mp3', q:'assets/chime-question.mp3',
   pong:'assets/pong.mp3' };  /* pong: Freesound, Troube, CC0 (686543) */
@@ -488,6 +490,7 @@ function toggleSound(){
   muted = !muted;
   try { localStorage.setItem('sytykt-muted', muted ? '1' : '0'); } catch(e){}
   paintSound();
+  if (!muted) sfx('pong', PONG_VOLUME);   /* a pong when sound comes back on, silence when it goes off */
 }
 paintSound();
 
@@ -519,14 +522,14 @@ function chime(k){ sfx(k, CHIME_VOLUME); }
 /* every button without a sound of its own plays the pong. Got it / Missed it chime on the next question,
    so they only pong after the last question, when nothing else plays. */
 (function(){
-  const OWN = /yeah\(|startRound|startMix|chime\(/, MAYBE = /score\(/;
+  const OWN = /yeah\(|startRound|startMix|chime\(|toggleSound/, MAYBE = /score\(/;
   document.addEventListener('click', e => {
     const b = e.target.closest && e.target.closest('button');
     if (!b || b.disabled) return;
     const oc = b.getAttribute('onclick') || '';
     if (OWN.test(oc)) return;
-    if (MAYBE.test(oc)){ const t = performance.now(); setTimeout(() => { if (lastSfxAt < t) sfx('pong', CHIME_VOLUME); }, 120); return; }
-    sfx('pong', CHIME_VOLUME);
+    if (MAYBE.test(oc)){ const t = performance.now(); setTimeout(() => { if (lastSfxAt < t) sfx('pong', PONG_VOLUME); }, 120); return; }
+    sfx('pong', PONG_VOLUME);
   }, true);
 })();
 
