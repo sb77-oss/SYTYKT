@@ -122,6 +122,13 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-a
 .bar .score{font-family:var(--d);font-weight:800;font-size:15px;color:var(--c);font-variant-numeric:tabular-nums}
 .icon{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);font-size:15px}
 
+/* ── sound on/off, bottom right on every screen ── */
+.snd{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:7;color:#fff;background:rgba(8,8,11,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.snd .off-x{display:none}
+.snd.off{color:rgba(255,255,255,.55)}
+.snd.off .off-x{display:inline}.snd.off .on-w{display:none}
+#play .foot .in{padding-right:54px}
+
 /* ── rounds ── */
 .tabs{max-width:520px;margin:0 auto;display:flex;gap:6px;padding:2px 20px 12px}
 .tab{flex:1;min-width:0;min-height:44px;padding:9px 0;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);font-family:var(--d);font-weight:800;font-size:13px;letter-spacing:.06em;text-align:center;color:var(--muted)}
@@ -303,6 +310,15 @@ button.media::after{content:'';position:absolute;right:8px;bottom:8px;width:30px
   <div class="foot"><div class="in" id="foot"></div></div>
 </section>
 
+<!-- SOUND ON / OFF -->
+<button class="icon snd" id="snd" onclick="toggleSound()" aria-pressed="false" aria-label="Sound is on. Turn sound off">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke-width="1.6"/>
+    <g class="on-w"><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></g>
+    <g class="off-x"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g>
+  </svg>
+</button>
+
 <!-- LEAVE THIS ROUND? -->
 <div class="sheet" id="leave" hidden role="dialog" aria-modal="true" aria-labelledby="leaveT" onclick="if(event.target===this)closeOverlays()">
   <div class="sheet-card glass">
@@ -441,37 +457,60 @@ document.addEventListener('keydown', e => {
 
 /* ───────── the "yeah" from the live quiz's PRESS TO START ─────────
    Web Audio, decoded as the page loads, fired on finger-down: no iPhone lag. */
-const YEAH_VOLUME = 0.4;
+const YEAH_VOLUME = 0.4, CHIME_VOLUME = 0.4;
 const AC = window.AudioContext || window.webkitAudioContext;
-let actx = null, yeahBuf = null;
+const SFX = { yeah:'assets/yeah.mp3', round:'assets/chime-round.mp3', q:'assets/chime-question.mp3' };
+let actx = null; const sfxBuf = {};
 try {
   actx = AC ? new AC() : null;
-  if (actx) fetch('assets/yeah.mp3').then(r => r.arrayBuffer())
+  if (actx) for (const k in SFX) fetch(SFX[k]).then(r => r.ok ? r.arrayBuffer() : Promise.reject())
     .then(ab => new Promise((ok, no) => actx.decodeAudioData(ab, ok, no)))
-    .then(b => { yeahBuf = b; }).catch(() => {});
+    .then(b => { sfxBuf[k] = b; }).catch(() => {});
 } catch(e) { actx = null; }
 /* wake the audio engine on the very first touch anywhere, so the start button is instant */
 document.addEventListener('pointerdown', function wake(){
   try { if (actx && actx.state !== 'running') actx.resume(); } catch(e){}
   document.removeEventListener('pointerdown', wake, true);
 }, true);
-let yeahFallback = null, yeahAt = 0;
-function yeah(){
-  if (Date.now() - yeahAt < 1200) return;    /* one yeah per press, even though finger-down and click both ask */
-  yeahAt = Date.now();
+
+/* sound on or off: the speaker button at the bottom. Remembered on this phone. */
+let muted = false;
+try { muted = localStorage.getItem('sytykt-muted') === '1'; } catch(e){}
+function paintSound(){
+  const b = $('snd'); if (!b) return;
+  b.classList.toggle('off', muted);
+  b.setAttribute('aria-pressed', String(muted));
+  b.setAttribute('aria-label', muted ? 'Sound is off. Turn sound on' : 'Sound is on. Turn sound off');
+}
+function toggleSound(){
+  muted = !muted;
+  try { localStorage.setItem('sytykt-muted', muted ? '1' : '0'); } catch(e){}
+  paintSound();
+}
+paintSound();
+
+const fallbacks = {};
+function sfx(k, vol){
+  if (muted) return;
   try {
-    if (actx && yeahBuf){
+    if (actx && sfxBuf[k]){
       if (actx.state !== 'running') actx.resume();
       const src = actx.createBufferSource(), g = actx.createGain();
-      g.gain.value = YEAH_VOLUME; src.buffer = yeahBuf;
+      g.gain.value = vol; src.buffer = sfxBuf[k];
       src.connect(g); g.connect(actx.destination); src.start(0);
       return;
     }
-    yeahFallback = yeahFallback || new Audio('assets/yeah.mp3');
-    yeahFallback.volume = YEAH_VOLUME; yeahFallback.currentTime = 0;
-    const p = yeahFallback.play(); if (p && p.catch) p.catch(() => {});
+    const a = fallbacks[k] = fallbacks[k] || new Audio(SFX[k]);
+    a.volume = vol; a.currentTime = 0;
+    const p = a.play(); if (p && p.catch) p.catch(() => {});
   } catch(e){}
 }
+let yeahAt = 0;
+function yeah(){
+  if (Date.now() - yeahAt < 1200) return;    /* one yeah per press, even though finger-down and click both ask */
+  yeahAt = Date.now(); sfx('yeah', YEAH_VOLUME);
+}
+function chime(k){ sfx(k, CHIME_VOLUME); }
 
 /* ───────── rounds ───────── */
 function openRounds(){ if (view === 'home' || !SEASONS.length) return; push('home'); showRounds(); }
@@ -508,6 +547,7 @@ function enterPlay(){ if (view !== 'play'){ cameFrom = view; push('play'); } sho
 function startRound(id){
   const r = allRounds().find(x => x.id === id);
   if (!r) return;
+  chime('round');
   stopAll();
   curSeason = SEASONS.indexOf(r.season);
   run = {round:r, items:r.questions.map(q => ({round:r, q})), i:0, score:0, log:[], roundId:id};
@@ -527,7 +567,7 @@ function startMix(){
     if (items.length === 10) break;
   }
   run = {round:null, items, i:0, score:0, log:[], roundId:null};
-  enterPlay(); renderQuestion();
+  chime('round'); enterPlay(); renderQuestion();
 }
 function renderIntro(){
   const r = run.round;
@@ -538,7 +578,7 @@ function renderIntro(){
     <h2 class="display">${esc(r.name)}</h2>
     ${(r.subname || r.format) ? `<div class="sn">${esc(soft(r.subname) || r.format)}</div>` : ''}
     ${r.bonus ? `<div class="track bnote">Doesn't count. Bragging rights only.</div>` : ''}</div>`;
-  setFoot(`<button class="pill white" onclick="renderQuestion()">Begin →</button>`);
+  setFoot(`<button class="pill white" onclick="chime('q');renderQuestion()">Begin →</button>`);
   fetchAhead(run.items[0].q);
   window.scrollTo(0,0); land($('stage'));
 }
@@ -610,7 +650,7 @@ function score(got){
   if (got){ run.score++; buzz(12); }
   run.log.push({q: run.items[run.i].q, got});
   run.i++;
-  if (run.i < run.items.length) renderQuestion(); else renderEnd();
+  if (run.i < run.items.length){ chime('q'); renderQuestion(); } else renderEnd();
 }
 
 /* ───────── round end ───────── */
