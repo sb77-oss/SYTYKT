@@ -49,11 +49,12 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--b);font-size:
 html{overscroll-behavior-y:none}
 body{min-height:100vh;min-height:100dvh;overflow-x:hidden}
 #aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-#aurora i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;will-change:transform}
-#aurora i:nth-child(1){width:85vw;height:85vw;left:-30vw;top:-20vw;background:#ff3d8b;animation:b1 19s ease-in-out infinite}
-#aurora i:nth-child(2){width:80vw;height:80vw;right:-35vw;top:10vh;background:#6e50ff;animation:b2 23s ease-in-out infinite}
-#aurora i:nth-child(3){width:90vw;height:70vw;left:5vw;bottom:-35vw;background:#7a3cff;opacity:.4;animation:b3 27s ease-in-out infinite}
-#aurora i:nth-child(4){width:60vw;height:60vw;left:-25vw;bottom:10vh;background:#ff468c;opacity:.28;animation:b2 31s ease-in-out infinite reverse}
+/* soft edges baked into each blob as a gradient: a live blur(60px) on moving blobs cost dropped frames under the disco lights */
+#aurora i{position:absolute;border-radius:50%;opacity:.55;will-change:transform;background:radial-gradient(closest-side,var(--blob) 0%,var(--blob) 62%,transparent 100%)}
+#aurora i:nth-child(1){width:85vw;height:85vw;left:-30vw;top:-20vw;--blob:#ff3d8b;animation:b1 19s ease-in-out infinite}
+#aurora i:nth-child(2){width:80vw;height:80vw;right:-35vw;top:10vh;--blob:#6e50ff;animation:b2 23s ease-in-out infinite}
+#aurora i:nth-child(3){width:90vw;height:70vw;left:5vw;bottom:-35vw;--blob:#7a3cff;opacity:.4;animation:b3 27s ease-in-out infinite}
+#aurora i:nth-child(4){width:60vw;height:60vw;left:-25vw;bottom:10vh;--blob:#ff468c;opacity:.28;animation:b2 31s ease-in-out infinite reverse}
 @keyframes b1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(18vw,14vh) scale(1.15)}}
 @keyframes b2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-16vw,10vh) scale(.9)}}
 @keyframes b3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(12vw,-12vh) scale(1.1)}}
@@ -1118,6 +1119,12 @@ const Disco = (() => {
   new MutationObserver(() => visible() ? start() : stop())
     .observe(document.getElementById('welcome'), { attributes: true, attributeFilter: ['class'] });
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(start));
+  /* draw every glowing icon ahead of time, a few per idle moment, so none hitches the first time it appears */
+  const idle = window.requestIdleCallback || (f => setTimeout(f, 30));
+  const toWarm = iconBeams.map(b => [b.name, b.hue]);
+  const SH = [330, 300, 285, 265, 250, 190];
+  for (let i = 0; i < 26; i++) toWarm.push([ICON_NAMES[i % ICON_NAMES.length], SH[(i * 5) % SH.length]]);
+  (function warm(){ for (let n = 0; n < 4 && toWarm.length; n++) iconSprite(...toWarm.shift()); if (toWarm.length) idle(warm); })();
 
   /* ── icon shower: the category icons burst out of Press to start and fade ── */
   const sc = document.createElement('canvas');
