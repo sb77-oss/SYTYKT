@@ -460,7 +460,8 @@ document.addEventListener('keydown', e => {
    Web Audio, decoded as the page loads, fired on finger-down: no iPhone lag. */
 const YEAH_VOLUME = 0.4, CHIME_VOLUME = 0.4;
 const AC = window.AudioContext || window.webkitAudioContext;
-const SFX = { yeah:'assets/yeah.mp3', round:'assets/chime-round.mp3', q:'assets/chime-question.mp3' };
+const SFX = { yeah:'assets/yeah.mp3', round:'assets/chime-round.mp3', q:'assets/chime-question.mp3',
+  pong:'https://cdn.freesound.org/previews/686/686543_12843138-hq.mp3' };  /* pong: Freesound, Troube, CC0 (686543) */
 let actx = null; const sfxBuf = {};
 try {
   actx = AC ? new AC() : null;
@@ -491,8 +492,10 @@ function toggleSound(){
 paintSound();
 
 const fallbacks = {};
+let lastSfxAt = 0;
 function sfx(k, vol){
   if (muted) return;
+  lastSfxAt = performance.now();
   try {
     if (actx && sfxBuf[k]){
       if (actx.state !== 'running') actx.resume();
@@ -512,6 +515,20 @@ function yeah(){
   yeahAt = Date.now(); sfx('yeah', YEAH_VOLUME);
 }
 function chime(k){ sfx(k, CHIME_VOLUME); }
+
+/* every button without a sound of its own plays the pong. Got it / Missed it chime on the next question,
+   so they only pong after the last question, when nothing else plays. */
+(function(){
+  const OWN = /yeah\(|startRound|startMix|chime\(/, MAYBE = /score\(/;
+  document.addEventListener('click', e => {
+    const b = e.target.closest && e.target.closest('button');
+    if (!b || b.disabled) return;
+    const oc = b.getAttribute('onclick') || '';
+    if (OWN.test(oc)) return;
+    if (MAYBE.test(oc)){ const t = performance.now(); setTimeout(() => { if (lastSfxAt < t) sfx('pong', CHIME_VOLUME); }, 120); return; }
+    sfx('pong', CHIME_VOLUME);
+  }, true);
+})();
 
 /* ───────── rounds ───────── */
 function openRounds(){ if (view === 'home' || !SEASONS.length) return; push('home'); showRounds(); }
